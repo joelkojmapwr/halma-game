@@ -1,4 +1,4 @@
-package studia;
+package studia.Board;
 
 public class Board {
     public Point[][] points;
@@ -28,7 +28,7 @@ public class Board {
         // punkt 0,0 jest w lewym dolnym rogu
         // initialize 1 triangle - 
         for (int i = 0; i < height - this.size; i++) {
-            for (int j = i%2; j < i; j+=2) {
+            for (int j = i%2; j <= i; j+=2) {
                 // w parzystym wierszu pola są na parzystych pozycjach
                 // w nieparzystym wierszu pola są na nieparzystych pozycjach
                 points[this.pointArrayLength/2 + j][i] = new Point();
@@ -38,7 +38,7 @@ public class Board {
         // initialize 2 triangle
         for (int i = height - 1; i>=this.size; i--) {
             // zaczynamy od tego na środku
-            for (int j = i%2; j < (height -1 -i); j+=2) {
+            for (int j = i%2; j <= (height -1 -i); j+=2) {
                 // w parzystym wierszu pola są na parzystych pozycjach
                 // w nieparzystym wierszu pola są na nieparzystych pozycjach
                 points[this.pointArrayLength/2 + j][i] = new Point();
