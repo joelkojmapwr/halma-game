@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="studia.AppTest" time="0.047" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="studia.Board.BoardTest" time="0.027" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -53,5 +53,41 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="studia.AppTest" time="0.025"/>
+  <testcase name="pointsAmountOnBoard" classname="studia.Board.BoardTest" time="0.024">
+    <system-out><![CDATA[            &amp#27;[38;5;32mX&amp#27;[0m            
+           &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m           
+          &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m          
+         &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m         
+X X X X X X X X X X X X X
+ X X X X X X X X X X X X 
+  X X X X X X X X X X X  
+   X X X X X X X X X X   
+    X X X X X X X X X    
+   X X X X X X X X X X   
+  X X X X X X X X X X X  
+ X X X X X X X X X X X X 
+X X X X X X X X X X X X X
+         X X X X         
+          X X X          
+           X X           
+            X            
+            &amp#27;[38;5;32mX&amp#27;[0m            
+           &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m           
+          &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m          
+         &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m &amp#27;[38;5;32mX&amp#27;[0m         
+X X X X X X X X X X X X X
+ X X X X X X X X X X X X 
+  X X X X X X X X X X X  
+   X X X X X X X X X X   
+    X X X X X X X X X    
+   X X X X X X X X X X   
+  X X X X X X X X X X X  
+ X X X X X X X X X X X X 
+X X X X X X X X X X X X X
+         &amp#27;[38;5;14mX&amp#27;[0m &amp#27;[38;5;14mX&amp#27;[0m &amp#27;[38;5;14mX&amp#27;[0m &amp#27;[38;5;14mX&amp#27;[0m         
+          &amp#27;[38;5;14mX&amp#27;[0m &amp#27;[38;5;14mX&amp#27;[0m &amp#27;[38;5;14mX&amp#27;[0m          
+           &amp#27;[38;5;14mX&amp#27;[0m &amp#27;[38;5;14mX&amp#27;[0m           
+            &amp#27;[38;5;14mX&amp#27;[0m            
+]]></system-out>
+  </testcase>
 </testsuite>
