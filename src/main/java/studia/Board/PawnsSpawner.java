@@ -2,6 +2,7 @@ package studia.Board;
 
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.List;
 
 public class PawnsSpawner {
 
@@ -12,10 +13,20 @@ public class PawnsSpawner {
         this.maxPawns = maxPawns;
     }
 
-    public void spawn(Player player, Point startPoint) throws Exception{
-        // clean the list
-        this.pointQueue = new LinkedList<Point>();
-        spawnPawns(player, startPoint);
+    public void spawn(List<Player> players) {
+        
+    
+        for (Player player : players){
+            // clean the list
+            this.pointQueue = new LinkedList<Point>();
+
+            try {
+                this.spawnPawns(player, player.startCorner);
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }
     
 

@@ -20,7 +20,7 @@ public class BoardTest {
         //for (int i=4; i<10; i++){
             int trianglesize = 4;
             int playerNumber = 3;
-            BoardBuilder boardBuilder = new BoardBuilder2Player(trianglesize, playerNumber);
+            BoardBuilder boardBuilder = new BoardBuilder(trianglesize, playerNumber);
             Board board = boardBuilder.board;
             int pointsAmountOnBoard = trianglesize*(trianglesize+1)/2 * 12 + 1; // defaultly (for trianglesize = 4) 121
             // The amount of points equals (trianglesize*(trianglesize+1)/2 * 12 + 1
@@ -35,7 +35,7 @@ public class BoardTest {
                 continue;
             }
             int trianglesize = 4;
-            BoardBuilder boardBuilder = new BoardBuilder2Player(trianglesize, i);
+            BoardBuilder boardBuilder = new BoardBuilder(trianglesize, i);
             Board board = boardBuilder.board;
             //int pointsAmountOnBoard = trianglesize*(trianglesize+1)/2 * 12 + 1;
             board.printBoard();

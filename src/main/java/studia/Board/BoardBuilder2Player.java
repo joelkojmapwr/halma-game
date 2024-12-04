@@ -2,6 +2,7 @@ package studia.Board;
 
 import java.util.List;
 
+@Deprecated
 public class BoardBuilder2Player extends BoardBuilder {
 
 
@@ -13,14 +14,6 @@ public class BoardBuilder2Player extends BoardBuilder {
     public void spawnPawns() {
         // starting from the corner
         PawnsSpawner pawnsSpawner = new PawnsSpawner(10);
-        for (Player player : players){
-            Point startPoint = board.points[player.startCorner.x][player.startCorner.y];
-            try {
-                pawnsSpawner.spawn(player, startPoint);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
+        
     }
 }

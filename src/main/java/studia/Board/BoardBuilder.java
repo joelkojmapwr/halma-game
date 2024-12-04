@@ -3,7 +3,7 @@ package studia.Board;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BoardBuilder {
+public class BoardBuilder {
     public Board board;
     public List<Player> players = new ArrayList<Player>();
     /**
@@ -80,31 +80,32 @@ public abstract class BoardBuilder {
     }
 
     private void initializePlayers(int playerNumber) {
-        int startColor = 16;
+        int startColor = 1;
         for (int i = 0; i<playerNumber; i++) {
             Player newPlayer = new Player(startColor);
             this.players.add(newPlayer);
-            startColor +=3;
+            // @TODO - handle colours
+            startColor +=1;
         }
         switch (playerNumber) {
             case 2:
-                players.get(0).setStartCorner(board.cornerPoints.get(0).pos);
-                players.get(1).setStartCorner(board.cornerPoints.get(3).pos);
+                players.get(0).setStartCorner(board.cornerPoints.get(0));
+                players.get(1).setStartCorner(board.cornerPoints.get(3));
                 break;
             case 3:
                 for (int i =0; i<3; i++){
-                    players.get(i).setStartCorner(board.cornerPoints.get(i*2).pos);
+                    players.get(i).setStartCorner(board.cornerPoints.get(i*2));
                 }
                 break;
             case 4:
-                players.get(0).setStartCorner(board.cornerPoints.get(0).pos);
-                players.get(1).setStartCorner(board.cornerPoints.get(1).pos);
-                players.get(2).setStartCorner(board.cornerPoints.get(3).pos);
-                players.get(3).setStartCorner(board.cornerPoints.get(4).pos);
+                players.get(0).setStartCorner(board.cornerPoints.get(0));
+                players.get(1).setStartCorner(board.cornerPoints.get(1));
+                players.get(2).setStartCorner(board.cornerPoints.get(3));
+                players.get(3).setStartCorner(board.cornerPoints.get(4));
                 break;
             case 6:
                 for (int i =0; i<6; i++){
-                    players.get(i).setStartCorner(board.cornerPoints.get(i).pos);
+                    players.get(i).setStartCorner(board.cornerPoints.get(i));
                 }
                 break;
             default:
@@ -112,7 +113,10 @@ public abstract class BoardBuilder {
         }
     }
 
-    public abstract void spawnPawns();
+    public void spawnPawns(){
+        PawnsSpawner pawnsSpawner = new PawnsSpawner(10);
+        pawnsSpawner.spawn(players);
+    }
 
     // isWon(Player)
 

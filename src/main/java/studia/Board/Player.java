@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Player {
-    public Pair startCorner;
-    public Pair finishCorner;
+    public Point startCorner;
+    public Point finishCorner;
     public int playerNumber;
     public int countPawns = 0;
     public int color;
@@ -16,7 +16,8 @@ public class Player {
         this.color = color;
     }
 
-    public Player(Pair startCorner, int color){
+    @Deprecated
+    public Player(Point startCorner, int color){
         countPawns = 0;
         this.color = color;
         this.startCorner = startCorner;
@@ -29,7 +30,7 @@ public class Player {
         return pawn;
     }
 
-    public void setStartCorner(Pair startCorner) {
+    public void setStartCorner(Point startCorner) {
         this.startCorner = startCorner;
     }
 
