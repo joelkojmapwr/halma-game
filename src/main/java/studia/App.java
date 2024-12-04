@@ -16,11 +16,7 @@ import studia.Board.Point;
  */
 public class App {
     public static void main(String[] args) {
-        List<Player> players = new ArrayList<Player>();
-            Player player1 = new Player(new Pair(12, 0), 32);
-            players.add(player1);
-            Player player2 = new Player(new Pair(12, 16), 14);
-            players.add(player2);
+        int players = 3;
         BoardBuilder boardBuilder = new BoardBuilder2Player(4, players);
         Board board = boardBuilder.board;
         board.printBoard();

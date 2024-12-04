@@ -11,6 +11,11 @@ public class Player {
     public int color;
     public List<Pawn> pawns = new ArrayList<Pawn>();
 
+    public Player(int color) {
+        countPawns = 0;
+        this.color = color;
+    }
+
     public Player(Pair startCorner, int color){
         countPawns = 0;
         this.color = color;
@@ -24,5 +29,8 @@ public class Player {
         return pawn;
     }
 
+    public void setStartCorner(Pair startCorner) {
+        this.startCorner = startCorner;
+    }
 
 }

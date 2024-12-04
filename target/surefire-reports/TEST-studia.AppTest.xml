@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="studia.AppTest" time="0.047" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="studia.AppTest" time="0.044" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk-21-oracle-x64/lib"/>
-    <property name="sun.java.command" value="/home/joel/Documents/studia/tech_prog/halma-game/target/surefire/surefirebooter-20241204200430668_3.jar /home/joel/Documents/studia/tech_prog/halma-game/target/surefire 2024-12-04T20-04-30_591-jvmRun1 surefire-20241204200430668_1tmp surefire_0-20241204200430668_2tmp"/>
+    <property name="sun.java.command" value="/home/joel/Documents/studia/tech_prog/halma-game/target/surefire/surefirebooter-20241204202832020_3.jar /home/joel/Documents/studia/tech_prog/halma-game/target/surefire 2024-12-04T20-28-31_933-jvmRun1 surefire-20241204202832020_1tmp surefire_0-20241204202832020_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/joel/Documents/studia/tech_prog/halma-game/target/test-classes:/home/joel/Documents/studia/tech_prog/halma-game/target/classes:/home/joel/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.0/junit-jupiter-api-5.11.0.jar:/home/joel/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/joel/.m2/repository/org/junit/platform/junit-platform-commons/1.11.0/junit-platform-commons-1.11.0.jar:/home/joel/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/joel/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.11.0/junit-jupiter-params-5.11.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/joel/Documents/studia/tech_prog/halma-game/target/surefire/surefirebooter-20241204200430668_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/joel/Documents/studia/tech_prog/halma-game/target/surefire/surefirebooter-20241204202832020_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.2+13-LTS-58"/>
     <property name="user.name" value="joel"/>
@@ -53,5 +53,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="studia.AppTest" time="0.025"/>
+  <testcase name="shouldAnswerWithTrue" classname="studia.AppTest" time="0.02"/>
 </testsuite>

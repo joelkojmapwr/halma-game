@@ -10,7 +10,7 @@ public abstract class BoardBuilder {
      * 
      * @param triangleSize - length of the triangle side (default 4)
      */
-    public BoardBuilder(int triangleSize, List<Player> players) {
+    public BoardBuilder(int triangleSize, int playerNumber) {
         // wiersze są ułożone na przemian, więc zastosujemy tablicę szerokości 2*szerokość -1 
         // domyślnie 25
         int length = 2*(3*triangleSize +1) - 1;
@@ -22,10 +22,11 @@ public abstract class BoardBuilder {
         board.setTriangleSize(triangleSize);
         board.initPoints();
         
-        this.players = players;
+        
 
         this.initializePoints();
         this.initCornerPoints();
+        this.initializePlayers(playerNumber);
         board.generateNeighbours1();
         spawnPawns();
     }
@@ -40,10 +41,10 @@ public abstract class BoardBuilder {
                 // w nieparzystym wierszu pola są na nieparzystych pozycjach
                 newX = board.length/2 + j;
                 newY = i;
-                board.setPoint(new Point(newX, newY), newX, newY);
+                board.setPoint(new Point(new Pair(newX, newY)), newX, newY);
                 newX = board.length/2 - j;
                 newY = i;
-                board.setPoint(new Point(newX, newY), newX, newY);
+                board.setPoint(new Point(new Pair(newX, newY)), newX, newY);
             }
         }
         // initialize 2 triangle
@@ -54,10 +55,10 @@ public abstract class BoardBuilder {
                 // w nieparzystym wierszu pola są na nieparzystych pozycjach
                 newX = board.length/2 + j;
                 newY = i;
-                board.setPoint(new Point(newX, newY), newX, newY);
+                board.setPoint(new Point(new Pair(newX, newY)), newX, newY);
                 newX = board.length/2 - j;
                 newY = i;
-                board.setPoint(new Point(newX, newY), newX, newY);
+                board.setPoint(new Point(new Pair(newX, newY)), newX, newY);
             }
         }
     }
@@ -76,6 +77,39 @@ public abstract class BoardBuilder {
         board.addCornerPoint(bottomPoint);
         board.addCornerPoint(lowerLeftPoint);
         board.addCornerPoint(upperLeftPoint);
+    }
+
+    private void initializePlayers(int playerNumber) {
+        int startColor = 16;
+        for (int i = 0; i<playerNumber; i++) {
+            Player newPlayer = new Player(startColor);
+            this.players.add(newPlayer);
+            startColor +=3;
+        }
+        switch (playerNumber) {
+            case 2:
+                players.get(0).setStartCorner(board.cornerPoints.get(0).pos);
+                players.get(1).setStartCorner(board.cornerPoints.get(3).pos);
+                break;
+            case 3:
+                for (int i =0; i<3; i++){
+                    players.get(i).setStartCorner(board.cornerPoints.get(i*2).pos);
+                }
+                break;
+            case 4:
+                players.get(0).setStartCorner(board.cornerPoints.get(0).pos);
+                players.get(1).setStartCorner(board.cornerPoints.get(1).pos);
+                players.get(2).setStartCorner(board.cornerPoints.get(3).pos);
+                players.get(3).setStartCorner(board.cornerPoints.get(4).pos);
+                break;
+            case 6:
+                for (int i =0; i<6; i++){
+                    players.get(i).setStartCorner(board.cornerPoints.get(i).pos);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     public abstract void spawnPawns();

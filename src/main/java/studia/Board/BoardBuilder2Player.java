@@ -6,8 +6,8 @@ public class BoardBuilder2Player extends BoardBuilder {
 
 
 
-    public BoardBuilder2Player(int triangleSize, List<Player> players) {
-        super(triangleSize, players);
+    public BoardBuilder2Player(int triangleSize, int playerNumber) {
+        super(triangleSize, playerNumber);
     }
 
     public void spawnPawns() {
@@ -21,7 +21,6 @@ public class BoardBuilder2Player extends BoardBuilder {
             catch(Exception e){
                 e.printStackTrace();
             }
-            board.printBoard();
         }
     }
 }

@@ -8,11 +8,10 @@ public class Point {
     public List<Point> neighbours1;
     public List<Point> neighbours2;
     public Boolean isInGame;
-    int x, y;
+    public Pair pos;
 
-    public Point(int x, int y){
-        this.x = x;
-        this.y = y;
+    public Point(Pair pos){
+        this.pos = pos;
         this.isInGame = true;
         this.neighbours1 = new ArrayList<Point>();
         this.neighbours2 = new ArrayList<Point>();
@@ -20,7 +19,7 @@ public class Point {
     }
 
     public String toString(){
-        return "Point: " + x + " " + y;
+        return "Point: " + pos.x + " " + pos.y;
     }
 
     public void printNeighbours(){
