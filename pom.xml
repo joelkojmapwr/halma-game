@@ -66,6 +66,67 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.4.2</version>
+          
+          
+            <configuration>
+    <finalName>
+      ${project.artifactId}
+    </finalName>
+  </configuration>
+  <executions>
+		
+		
+    <execution>
+      <id>server</id>
+      <phase>package</phase>
+      <goals>
+        <goal>jar</goal>
+      </goals>
+      <configuration>
+        <classifier>server</classifier>
+        <archive>
+          <manifest>
+            <mainClass>
+              studia.Server.ServerExec
+            </mainClass>
+          </manifest>
+        </archive>
+      </configuration>
+    </execution>
+    
+    
+    <execution>
+      <id>client</id>
+      <phase>package</phase>
+      <goals>
+        <goal>jar</goal>
+      </goals>
+      <configuration>
+        <classifier>client</classifier>
+        <archive>
+          <manifest>
+            <mainClass>
+              studia.Client.ClientExec
+            </mainClass>
+          </manifest>
+        </archive>
+      </configuration>
+    </execution>
+    
+  </executions>
+  
+          
+          <!--<configuration>
+            
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>lib/</classpathPrefix>
+                <mainClass>studia.ServerExec</mainClass>
+              </manifest>
+            </archive>
+          </configuration>-->
+          
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -84,22 +145,9 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
         </plugin>
+            
+            
       </plugins>
     </pluginManagement>
-
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>3.3.0</version>
-            <configuration>
-                <archive>
-                    <manifest>
-                        <mainClass>studia.App</mainClass>
-                    </manifest>
-                </archive>
-            </configuration>
-        </plugin>
-    </plugins>
   </build>
 </project>
