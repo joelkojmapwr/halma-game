@@ -9,6 +9,7 @@ public class Board {
     public int height;
     public int triangleSize;
     public int countPoints=0;
+    private String pointString = "XXX";
 
     // cornerPoints starting from top (12 o'clock position) and going clockwise
     public List<Point> cornerPoints = new ArrayList<Point>();
@@ -46,11 +47,16 @@ public class Board {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < length; j++) {
                 if (points[j][i] == null) {
-                    System.out.print(" ");
+                    if ((j+i)%2 == 0) {
+                        System.out.print("   "); // print 3 spaces
+                    } else {
+                        System.out.print(" ");
+                    }
                 } else if (points[j][i].pawn == null) {
-                    System.out.print("X");
+                    //char c = (char) (j+65);
+                    System.out.print(pointString);
                 } else {
-                    points[j][i].pawn.print();
+                    points[j][i].pawn.print(pointString);
                 }
             }
             System.out.println();
@@ -109,6 +115,32 @@ public class Board {
                         }
                     }
                 }
+            }
+        }
+    }
+    /*
+     * @TODO add custom Exceptions
+     */
+    public void move(Pair oldPointPos, Pair newPointPos) {
+        if (points[oldPointPos.x][oldPointPos.y] == null) {
+            System.out.println("Old point does not exist in the game area");
+            return;
+        }
+        if (points[newPointPos.x][newPointPos.y] == null) {
+            System.out.println("New point does not exist in the game area");
+            return;
+        }
+        if (points[oldPointPos.x][oldPointPos.y].pawn == null) {
+            System.out.println("No pawn in this point");
+            return;
+        }
+        else {
+            if (points[newPointPos.x][newPointPos.y].pawn == null) {
+                points[newPointPos.x][newPointPos.y].pawn = points[oldPointPos.x][oldPointPos.y].pawn;
+                points[oldPointPos.x][oldPointPos.y].pawn = null;
+            }
+            else {
+                System.out.println("There is already a pawn in this point, could not move");
             }
         }
     }

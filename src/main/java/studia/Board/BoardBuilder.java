@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BoardBuilder {
-    public Board board;
-    public List<Player> players = new ArrayList<Player>();
+    private Board board;
+    private List<Player> players = new ArrayList<Player>();
+    private int playerNumber;
+    private int pawnsPerPlayer;
     /**
      * 
      * @param triangleSize - length of the triangle side (default 4)
      */
-    public BoardBuilder(int triangleSize, int playerNumber) {
+    public BoardBuilder(int triangleSize, int playerNumber, int pawnsPerPlayer) {
+
+        this.playerNumber = playerNumber;
+        this.pawnsPerPlayer = pawnsPerPlayer;
         // wiersze są ułożone na przemian, więc zastosujemy tablicę szerokości 2*szerokość -1 
         // domyślnie 25
         int length = 2*(3*triangleSize +1) - 1;
@@ -22,16 +27,21 @@ public class BoardBuilder {
         board.setTriangleSize(triangleSize);
         board.initPoints();
         
-        
+    }
 
-        this.initializePoints();
+    public Board getBoard() {
+        return board;
+    }
+
+    public void build(){
+        this.initPoints();
         this.initCornerPoints();
-        this.initializePlayers(playerNumber);
+        this.initPlayers(playerNumber);
         board.generateNeighbours1();
         spawnPawns();
     }
 
-    private void initializePoints() {
+    private void initPoints() {
         // punkt 0,0 jest w lewym dolnym rogu
         // initialize 1 triangle - 
         int newX, newY;
@@ -79,7 +89,7 @@ public class BoardBuilder {
         board.addCornerPoint(upperLeftPoint);
     }
 
-    private void initializePlayers(int playerNumber) {
+    private void initPlayers(int playerNumber) {
         int startColor = 1;
         for (int i = 0; i<playerNumber; i++) {
             Player newPlayer = new Player(startColor);
@@ -114,7 +124,7 @@ public class BoardBuilder {
     }
 
     public void spawnPawns(){
-        PawnsSpawner pawnsSpawner = new PawnsSpawner(10);
+        PawnsSpawner pawnsSpawner = new PawnsSpawner(pawnsPerPlayer);
         pawnsSpawner.spawn(players);
     }
 

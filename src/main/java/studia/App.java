@@ -17,8 +17,9 @@ import studia.Board.Point;
 public class App {
     public static void main(String[] args) {
         int players = 3;
-        BoardBuilder boardBuilder = new BoardBuilder(4, players);
-        Board board = boardBuilder.board;
+        BoardBuilder boardBuilder = new BoardBuilder(4, players, 10);
+        boardBuilder.build();
+        Board board = boardBuilder.getBoard();
         board.printBoard();
         for (Point p : board.cornerPoints) {
             p.printNeighbours();
@@ -28,6 +29,6 @@ public class App {
         //board.points[12][12].printNeighbours();
         System.out.println(board.countPoints);
 
-
+        
     }
 }

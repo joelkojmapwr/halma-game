@@ -11,8 +11,8 @@ public class Pawn {
         this.color = color;
     }
 
-    public void print(){
-        String output = "\033[38;5;" + color + "mX\033[0m";
+    public void print(String pawnString){
+        String output = "\033[38;5;" + color + "m" + pawnString + "\033[0m";
         System.out.print(output);
     }
 }

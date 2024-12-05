@@ -1,9 +1,7 @@
 package studia.Board;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.ArrayList;
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,8 +18,9 @@ public class BoardTest {
         //for (int i=4; i<10; i++){
             int trianglesize = 4;
             int playerNumber = 3;
-            BoardBuilder boardBuilder = new BoardBuilder(trianglesize, playerNumber);
-            Board board = boardBuilder.board;
+            BoardBuilder boardBuilder = new BoardBuilder(trianglesize, playerNumber, 10);
+            boardBuilder.build();
+            Board board = boardBuilder.getBoard();
             int pointsAmountOnBoard = trianglesize*(trianglesize+1)/2 * 12 + 1; // defaultly (for trianglesize = 4) 121
             // The amount of points equals (trianglesize*(trianglesize+1)/2 * 12 + 1
             assertEquals(pointsAmountOnBoard, board.countPoints);
@@ -35,10 +34,29 @@ public class BoardTest {
                 continue;
             }
             int trianglesize = 4;
-            BoardBuilder boardBuilder = new BoardBuilder(trianglesize, i);
-            Board board = boardBuilder.board;
+            BoardBuilder boardBuilder = new BoardBuilder(trianglesize, i, 10);
+            boardBuilder.build();
+            Board board = boardBuilder.getBoard();
             //int pointsAmountOnBoard = trianglesize*(trianglesize+1)/2 * 12 + 1;
             board.printBoard();
         }
+    }
+
+    @Test
+    public void testMovingPawns(){
+        Board board = defaultBoard();
+        //board.printBoard();
+        board.move(new Pair(13, 3), new Pair(14, 4));
+        assertTrue(board.points[14][4].pawn != null);
+        board.printBoard();
+    }
+
+    public Board defaultBoard() {
+        int trianglesize = 4;
+        int playerNumber = 6;
+        BoardBuilder boardBuilder = new BoardBuilder(trianglesize, playerNumber, 10);
+        boardBuilder.build();
+        Board board = boardBuilder.getBoard();
+        return board;
     }
 }
