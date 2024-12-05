@@ -45,7 +45,12 @@ public class Board {
 
     public void printBoard() {
         for (int i = 0; i < height; i++) {
-            for (int j = 0; j < length; j++) {
+            int startIndex = 0;
+            if (points[0][i] == null && i%2 == 1) { 
+                System.out.print("  ");
+                startIndex = 1;
+            }
+            for (int j = startIndex; j < length; j++) {
                 if (points[j][i] == null) {
                     if ((j+i)%2 == 0) {
                         System.out.print("   "); // print 3 spaces

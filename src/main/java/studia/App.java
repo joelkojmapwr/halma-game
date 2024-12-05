@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import studia.Board.Board;
-import studia.Board.BoardBuilder2Player;
 import studia.Board.Pair;
 import studia.Board.Player;
 import studia.Board.Point;
