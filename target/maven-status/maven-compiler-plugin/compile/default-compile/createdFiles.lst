@@ -3,7 +3,6 @@ studia/Board/PawnsSpawner.class
 studia/Board/Directions.class
 studia/App.class
 studia/Board/Board.class
-studia/Board/Pair.class
 studia/Board/Pawn.class
 studia/Board/Player.class
 studia/Board/BoardBuilder.class

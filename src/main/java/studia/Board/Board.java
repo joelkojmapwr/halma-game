@@ -1,6 +1,10 @@
 package studia.Board;
 
 import java.util.List;
+
+import studia.Utils.Pair;
+import studia.Utils.TrailingZeros;
+
 import java.util.ArrayList;
 
 public class Board {
@@ -51,6 +55,8 @@ public class Board {
                 startIndex = 1;
             }
             for (int j = startIndex; j < length; j++) {
+                int currentIndex = i*length + j;
+                pointString = TrailingZeros.addTrailingZeros(currentIndex, 3);
                 if (points[j][i] == null) {
                     if ((j+i)%2 == 0) {
                         System.out.print("   "); // print 3 spaces
@@ -123,6 +129,25 @@ public class Board {
             }
         }
     }
+
+    /**
+     * Depends on generateNeighbours1 because generates neighbours2 based on neighbours1
+     */
+    public void generateNeighbours2() {
+        for (int i=0; i< height; i++) {
+            for (int j=0; j<length; j++){
+                if (points[j][i] != null) {
+                    for (Point neighbour1 : points[j][i].neighbours1) {
+                        Point neighbour2 = points[j][i].getNeighbour2FromNeighbour1(neighbour1);
+                        if (neighbour2 != null) {
+                            points[j][i].neighbours2.add(neighbour2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     /*
      * @TODO add custom Exceptions
      */

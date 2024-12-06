@@ -3,6 +3,8 @@ package studia.Board;
 import java.util.ArrayList;
 import java.util.List;
 
+import studia.Utils.Pair;
+
 public class BoardBuilder {
     private Board board;
     private List<Player> players = new ArrayList<Player>();
@@ -38,6 +40,7 @@ public class BoardBuilder {
         this.initCornerPoints();
         this.initPlayers(playerNumber);
         board.generateNeighbours1();
+        board.generateNeighbours2();
         spawnPawns();
     }
 

@@ -2,8 +2,10 @@
 /home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Board/Board.java
 /home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Board/BoardBuilder.java
 /home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Board/Directions.java
-/home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Board/Pair.java
+/home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Board/MoveHandler.java
 /home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Board/Pawn.java
 /home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Board/PawnsSpawner.java
 /home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Board/Player.java
 /home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Board/Point.java
+/home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Utils/Pair.java
+/home/joel/Documents/studia/tech_prog/halma-game/src/main/java/studia/Utils/TrailingZeros.java
