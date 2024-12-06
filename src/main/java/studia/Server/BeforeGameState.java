@@ -1,4 +1,4 @@
-package studia.Server;
+/*package studia.Server;
 
 public class BeforeGameState extends ServerState {
     BeforeGameState(Server server) {
@@ -19,3 +19,4 @@ public class BeforeGameState extends ServerState {
     @Override
     public void onEnd() {}
 }
+*/

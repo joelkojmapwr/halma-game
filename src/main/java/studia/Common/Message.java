@@ -2,29 +2,27 @@ package studia.Common;
 
 import java.io.*;
 
+import studia.Client.Client;
+import studia.Common.Game;
+import studia.Common.Player;
+
 public abstract class Message {
-	public final static int MSG_CONN = 0; //arg: int, int
-	public final static int MSG_YCON = 1; //arg: int, int
-	public final static int MSG_BEG = 2; //arg: 0
-	public final static int MSG_MOVE = 3; //arg: ?
-	public final static int MSG_END  = 4; //arg: ?
+	public final static int MSG_CONN = 0; //CONNECTED arg: int pos, int total
+	public final static int MSG_YCON = 1; //YOUCONNECTED arg: int pos , int total
+	public final static int MSG_BEG  = 2; //BEGIN arg: int curplr
+	public final static int MSG_MOVE = 3; //arg: int plr, int data (shall be replaced with from, to)
+	public final static int MSG_YMOV = 4; //YOURMOVE
+	public final static int MSG_BMOV = 5; //BADMOVE
+	public final static int MSG_END  = 6; //END arg: int winner
+	public final static int MSG_HUP  = 7; //END arg: int disconnectedplr
 	
-	public static int nargs[] = new int[] {2, 2, 0, 2, 0};
+	public final static int nargs[] = new int[] {2, 2, 1, 2, 0, 0, 1, 1};
 	
-	public static Message interpret(DataInputStream is) throws IOException {
-		int code = is.readInt();
-		int[] args = null;
-		if(nargs[code] > 0) {
-			args = new int[nargs[code]];
-			for(int i=0;i<args.length;i++)
-				args[i] = is.readInt();
-		}
-		switch(code) {
-			case Message.MSG_CONN: return new ConnMessage(args);
-			case Message.MSG_YCON: return new YconMessage(args);
-		}
-		return null;
-	}
+	protected Player sender;
 	
 	public abstract void execute();
+	
+	public void setSender(Player sender) {
+		this.sender = sender;
+	}
 }

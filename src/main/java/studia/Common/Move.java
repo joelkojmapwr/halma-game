@@ -1,7 +1,7 @@
 package studia.Common;
 
 public class Move {
-	private int m;
+	public int m;
 	public Move(int m) {
 		this.m = m;
 	}

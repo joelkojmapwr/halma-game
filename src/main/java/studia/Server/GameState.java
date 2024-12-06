@@ -1,12 +1,16 @@
-package studia.Server;
+/*package studia.Server;
+
+
+import studia.Common.Game;
 
 public class GameState extends ServerState {
-	private int currentPlayer = 0;
+	private Game game;
 	
 	GameState(Server server) {
 		super(server);
 		try {
-			server.startGame();
+			game = server.startGame();
+			server.waitForMessages();
 		}	catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -25,3 +29,4 @@ public class GameState extends ServerState {
 		
 	}
 }
+*/

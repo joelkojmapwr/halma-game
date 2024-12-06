@@ -1,4 +1,4 @@
-package studia.Server;
+/*package studia.Server;
 
 import java.io.*;
 import java.net.*;
@@ -29,9 +29,14 @@ public class Client extends Thread {
 	
 	public void run() {
 		try {
-			//server.onMessage((Player) this, inStream);
+			while(true) {
+				Message m = Message.interpret(inStream);
+				m.setSender((Player) this);
+				server.onMessage(m);
+			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 }
+*/

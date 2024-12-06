@@ -1,4 +1,4 @@
-package studia.Server;
+/*package studia.Server;
 
 public abstract class ServerState {
     protected Server server;
@@ -11,3 +11,4 @@ public abstract class ServerState {
     public abstract void onMessage();
     public abstract void onEnd();
 }
+*/
