@@ -3,9 +3,6 @@ package studia.Common;
 import studia.Server.ServerPlayer;
 import studia.Client.Client;
 
-
-import java.util.Scanner;
-
 public class YmovMessage extends Message {
 	private Client client;
 	
@@ -16,9 +13,8 @@ public class YmovMessage extends Message {
 	
 	public void execute() {
 		System.out.println("Your turn");
-		Scanner in = new Scanner(System.in);
-		int from = in.nextInt();
-		int to = in.nextInt();
-		client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), from, to);
+		Move m = new Move();
+		m.fromKeyboard();
+		client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), m.from, m.to);
 	}
 }

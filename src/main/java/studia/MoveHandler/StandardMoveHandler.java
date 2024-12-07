@@ -32,6 +32,8 @@ public class StandardMoveHandler implements MoveHandler {
             //System.out.println("Invalid index");
             return false;
         }
+        
+        if(oldPoint == null || newPoint == null) return false; //Map returns null when no mapping
 
         if (isValidMove(oldPoint, newPoint, player) == true) {
             board.move(oldPoint, newPoint);
