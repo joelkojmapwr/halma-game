@@ -1,0 +1,48 @@
+<diagram program="umletino" version="15.1"><zoom_level>8</zoom_level><element><id>UMLClass</id><coordinates><x>152</x><y>416</y><w>168</w><h>184</h></coordinates><panel_attributes>Player
+--
+startCorner: Point
+finishCorner: Point
+id: Int
+countPawns: Int
+color: Int
+pawns: List&lt;Pawn&gt;
+--
+&lt;&lt;constructor&gt;&gt;
+Player(color: Int) :
+
+&lt;&lt;functions&gt;&gt;
+spawnNewPawn() : Pawn</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>24</x><y>144</y><w>184</w><h>224</h></coordinates><panel_attributes>Board
+--
+points: Point[][]
+length: int
+height: int
+triangleSize: int
+countPoints: int
+cornerPoints: List&lt;Point&gt;
+--
+&lt;&lt;functions&gt;&gt;
+setTriangleSize(triangleSize: Int)
+setLength(length: Int)
+setHeight(height: Int)
+setPoint(point: Point, x: Int, y: Int)
+initPoints()
+addCornerPoint(point: Point)
+printBoard()
+generateNeighbours1()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>320</x><y>128</y><w>232</w><h>232</h></coordinates><panel_attributes>BoardBuilder
+--
+board: Board
+players: List&lt;Player&gt;
+--
+&lt;&lt;constructor&gt;&gt;
+Boarduilder(triangleSize: Int, playerNumber: Int)
+
+&lt;&lt;functions&gt;&gt;
+build()
+getBoard(): Board
+initPoints()
+initCornerPoints()
+initPlayers(playerNumber: Int)
+spawnPawns()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>152</y><w>136</w><h>32</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes><additional_attributes>10;10;150;10</additional_attributes></element></diagram>
