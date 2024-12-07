@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="studia.Board.BoardTest" time="0.048" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="studia.Board.BoardTest" time="0.063" tests="5" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk-21-oracle-x64/lib"/>
-    <property name="sun.java.command" value="/home/joel/Documents/studia/tech_prog/halma-game/target/surefire/surefirebooter-20241206020004457_3.jar /home/joel/Documents/studia/tech_prog/halma-game/target/surefire 2024-12-06T02-00-04_380-jvmRun1 surefire-20241206020004457_1tmp surefire_0-20241206020004457_2tmp"/>
+    <property name="sun.java.command" value="/home/joel/Documents/studia/tech_prog/halma-game/target/surefire/surefirebooter-20241207134831972_3.jar /home/joel/Documents/studia/tech_prog/halma-game/target/surefire 2024-12-07T13-48-31_864-jvmRun1 surefire-20241207134831972_1tmp surefire_0-20241207134831972_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/joel/Documents/studia/tech_prog/halma-game/target/test-classes:/home/joel/Documents/studia/tech_prog/halma-game/target/classes:/home/joel/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.11.0/junit-jupiter-api-5.11.0.jar:/home/joel/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/joel/.m2/repository/org/junit/platform/junit-platform-commons/1.11.0/junit-platform-commons-1.11.0.jar:/home/joel/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/joel/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.11.0/junit-jupiter-params-5.11.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/joel/Documents/studia/tech_prog/halma-game/target/surefire/surefirebooter-20241206020004457_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/joel/Documents/studia/tech_prog/halma-game/target/surefire/surefirebooter-20241207134831972_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.2+13-LTS-58"/>
     <property name="user.name" value="joel"/>
@@ -53,95 +53,97 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testMovingPawns" classname="studia.Board.BoardTest" time="0.021">
-    <system-out><![CDATA[                        &amp#27;[38;5;1m012&amp#27;[0m                        
-                      &amp#27;[38;5;1m036&amp#27;[0m &amp#27;[38;5;1m038&amp#27;[0m                     
-                    &amp#27;[38;5;1m060&amp#27;[0m &amp#27;[38;5;1m062&amp#27;[0m &amp#27;[38;5;1m064&amp#27;[0m                    
-                  &amp#27;[38;5;1m084&amp#27;[0m &amp#27;[38;5;1m086&amp#27;[0m 088 &amp#27;[38;5;1m090&amp#27;[0m                 
-&amp#27;[38;5;6m100&amp#27;[0m &amp#27;[38;5;6m102&amp#27;[0m &amp#27;[38;5;6m104&amp#27;[0m &amp#27;[38;5;6m106&amp#27;[0m 108 110 112 &amp#27;[38;5;1m114&amp#27;[0m 116 &amp#27;[38;5;2m118&amp#27;[0m &amp#27;[38;5;2m120&amp#27;[0m &amp#27;[38;5;2m122&amp#27;[0m &amp#27;[38;5;2m124&amp#27;[0m
-  &amp#27;[38;5;6m126&amp#27;[0m &amp#27;[38;5;6m128&amp#27;[0m &amp#27;[38;5;6m130&amp#27;[0m 132 134 136 138 140 142 &amp#27;[38;5;2m144&amp#27;[0m &amp#27;[38;5;2m146&amp#27;[0m &amp#27;[38;5;2m148&amp#27;[0m 
-    &amp#27;[38;5;6m152&amp#27;[0m &amp#27;[38;5;6m154&amp#27;[0m 156 158 160 162 164 166 168 &amp#27;[38;5;2m170&amp#27;[0m &amp#27;[38;5;2m172&amp#27;[0m    
-      &amp#27;[38;5;6m178&amp#27;[0m 180 182 184 186 188 190 192 194 &amp#27;[38;5;2m196&amp#27;[0m     
-        204 206 208 210 212 214 216 218 220        
-      &amp#27;[38;5;5m228&amp#27;[0m 230 232 234 236 238 240 242 244 &amp#27;[38;5;3m246&amp#27;[0m     
-    &amp#27;[38;5;5m252&amp#27;[0m &amp#27;[38;5;5m254&amp#27;[0m 256 258 260 262 264 266 268 &amp#27;[38;5;3m270&amp#27;[0m &amp#27;[38;5;3m272&amp#27;[0m    
-  &amp#27;[38;5;5m276&amp#27;[0m &amp#27;[38;5;5m278&amp#27;[0m &amp#27;[38;5;5m280&amp#27;[0m 282 284 286 288 290 292 &amp#27;[38;5;3m294&amp#27;[0m &amp#27;[38;5;3m296&amp#27;[0m &amp#27;[38;5;3m298&amp#27;[0m 
-&amp#27;[38;5;5m300&amp#27;[0m &amp#27;[38;5;5m302&amp#27;[0m &amp#27;[38;5;5m304&amp#27;[0m &amp#27;[38;5;5m306&amp#27;[0m 308 310 312 314 316 &amp#27;[38;5;3m318&amp#27;[0m &amp#27;[38;5;3m320&amp#27;[0m &amp#27;[38;5;3m322&amp#27;[0m &amp#27;[38;5;3m324&amp#27;[0m
-                  &amp#27;[38;5;4m334&amp#27;[0m &amp#27;[38;5;4m336&amp#27;[0m &amp#27;[38;5;4m338&amp#27;[0m &amp#27;[38;5;4m340&amp#27;[0m                 
-                    &amp#27;[38;5;4m360&amp#27;[0m &amp#27;[38;5;4m362&amp#27;[0m &amp#27;[38;5;4m364&amp#27;[0m                    
-                      &amp#27;[38;5;4m386&amp#27;[0m &amp#27;[38;5;4m388&amp#27;[0m                     
-                        &amp#27;[38;5;4m412&amp#27;[0m                        
+  <testcase name="testMovingPawns" classname="studia.Board.BoardTest" time="0.023">
+    <system-out><![CDATA[                        &amp#27;[38;5;1m000&amp#27;[0m                        
+                      &amp#27;[38;5;1m001&amp#27;[0m &amp#27;[38;5;1m002&amp#27;[0m                     
+                    &amp#27;[38;5;1m003&amp#27;[0m &amp#27;[38;5;1m004&amp#27;[0m &amp#27;[38;5;1m005&amp#27;[0m                    
+                  &amp#27;[38;5;1m006&amp#27;[0m &amp#27;[38;5;1m007&amp#27;[0m 008 &amp#27;[38;5;1m009&amp#27;[0m                 
+&amp#27;[38;5;6m010&amp#27;[0m &amp#27;[38;5;6m011&amp#27;[0m &amp#27;[38;5;6m012&amp#27;[0m &amp#27;[38;5;6m013&amp#27;[0m 014 015 016 &amp#27;[38;5;1m017&amp#27;[0m 018 &amp#27;[38;5;2m019&amp#27;[0m &amp#27;[38;5;2m020&amp#27;[0m &amp#27;[38;5;2m021&amp#27;[0m &amp#27;[38;5;2m022&amp#27;[0m
+  &amp#27;[38;5;6m023&amp#27;[0m &amp#27;[38;5;6m024&amp#27;[0m &amp#27;[38;5;6m025&amp#27;[0m 026 027 028 029 030 031 &amp#27;[38;5;2m032&amp#27;[0m &amp#27;[38;5;2m033&amp#27;[0m &amp#27;[38;5;2m034&amp#27;[0m 
+    &amp#27;[38;5;6m035&amp#27;[0m &amp#27;[38;5;6m036&amp#27;[0m 037 038 039 040 041 042 043 &amp#27;[38;5;2m044&amp#27;[0m &amp#27;[38;5;2m045&amp#27;[0m    
+      &amp#27;[38;5;6m046&amp#27;[0m 047 048 049 050 051 052 053 054 &amp#27;[38;5;2m055&amp#27;[0m     
+        056 057 058 059 060 061 062 063 064        
+      &amp#27;[38;5;5m065&amp#27;[0m 066 067 068 069 070 071 072 073 &amp#27;[38;5;3m074&amp#27;[0m     
+    &amp#27;[38;5;5m075&amp#27;[0m &amp#27;[38;5;5m076&amp#27;[0m 077 078 079 080 081 082 083 &amp#27;[38;5;3m084&amp#27;[0m &amp#27;[38;5;3m085&amp#27;[0m    
+  &amp#27;[38;5;5m086&amp#27;[0m &amp#27;[38;5;5m087&amp#27;[0m &amp#27;[38;5;5m088&amp#27;[0m 089 090 091 092 093 094 &amp#27;[38;5;3m095&amp#27;[0m &amp#27;[38;5;3m096&amp#27;[0m &amp#27;[38;5;3m097&amp#27;[0m 
+&amp#27;[38;5;5m098&amp#27;[0m &amp#27;[38;5;5m099&amp#27;[0m &amp#27;[38;5;5m100&amp#27;[0m &amp#27;[38;5;5m101&amp#27;[0m 102 103 104 105 106 &amp#27;[38;5;3m107&amp#27;[0m &amp#27;[38;5;3m108&amp#27;[0m &amp#27;[38;5;3m109&amp#27;[0m &amp#27;[38;5;3m110&amp#27;[0m
+                  &amp#27;[38;5;4m111&amp#27;[0m &amp#27;[38;5;4m112&amp#27;[0m &amp#27;[38;5;4m113&amp#27;[0m &amp#27;[38;5;4m114&amp#27;[0m                 
+                    &amp#27;[38;5;4m115&amp#27;[0m &amp#27;[38;5;4m116&amp#27;[0m &amp#27;[38;5;4m117&amp#27;[0m                    
+                      &amp#27;[38;5;4m118&amp#27;[0m &amp#27;[38;5;4m119&amp#27;[0m                     
+                        &amp#27;[38;5;4m120&amp#27;[0m                        
 ]]></system-out>
   </testcase>
-  <testcase name="testBuildingBoardForEveryPlayerNumber" classname="studia.Board.BoardTest" time="0.016">
-    <system-out><![CDATA[                        &amp#27;[38;5;1m012&amp#27;[0m                        
-                      &amp#27;[38;5;1m036&amp#27;[0m &amp#27;[38;5;1m038&amp#27;[0m                     
-                    &amp#27;[38;5;1m060&amp#27;[0m &amp#27;[38;5;1m062&amp#27;[0m &amp#27;[38;5;1m064&amp#27;[0m                    
-                  &amp#27;[38;5;1m084&amp#27;[0m &amp#27;[38;5;1m086&amp#27;[0m &amp#27;[38;5;1m088&amp#27;[0m &amp#27;[38;5;1m090&amp#27;[0m                 
-100 102 104 106 108 110 112 114 116 118 120 122 124
-  126 128 130 132 134 136 138 140 142 144 146 148 
-    152 154 156 158 160 162 164 166 168 170 172    
-      178 180 182 184 186 188 190 192 194 196     
-        204 206 208 210 212 214 216 218 220        
-      228 230 232 234 236 238 240 242 244 246     
-    252 254 256 258 260 262 264 266 268 270 272    
-  276 278 280 282 284 286 288 290 292 294 296 298 
-300 302 304 306 308 310 312 314 316 318 320 322 324
-                  &amp#27;[38;5;2m334&amp#27;[0m &amp#27;[38;5;2m336&amp#27;[0m &amp#27;[38;5;2m338&amp#27;[0m &amp#27;[38;5;2m340&amp#27;[0m                 
-                    &amp#27;[38;5;2m360&amp#27;[0m &amp#27;[38;5;2m362&amp#27;[0m &amp#27;[38;5;2m364&amp#27;[0m                    
-                      &amp#27;[38;5;2m386&amp#27;[0m &amp#27;[38;5;2m388&amp#27;[0m                     
-                        &amp#27;[38;5;2m412&amp#27;[0m                        
-                        &amp#27;[38;5;1m012&amp#27;[0m                        
-                      &amp#27;[38;5;1m036&amp#27;[0m &amp#27;[38;5;1m038&amp#27;[0m                     
-                    &amp#27;[38;5;1m060&amp#27;[0m &amp#27;[38;5;1m062&amp#27;[0m &amp#27;[38;5;1m064&amp#27;[0m                    
-                  &amp#27;[38;5;1m084&amp#27;[0m &amp#27;[38;5;1m086&amp#27;[0m &amp#27;[38;5;1m088&amp#27;[0m &amp#27;[38;5;1m090&amp#27;[0m                 
-100 102 104 106 108 110 112 114 116 118 120 122 124
-  126 128 130 132 134 136 138 140 142 144 146 148 
-    152 154 156 158 160 162 164 166 168 170 172    
-      178 180 182 184 186 188 190 192 194 196     
-        204 206 208 210 212 214 216 218 220        
-      &amp#27;[38;5;3m228&amp#27;[0m 230 232 234 236 238 240 242 244 &amp#27;[38;5;2m246&amp#27;[0m     
-    &amp#27;[38;5;3m252&amp#27;[0m &amp#27;[38;5;3m254&amp#27;[0m 256 258 260 262 264 266 268 &amp#27;[38;5;2m270&amp#27;[0m &amp#27;[38;5;2m272&amp#27;[0m    
-  &amp#27;[38;5;3m276&amp#27;[0m &amp#27;[38;5;3m278&amp#27;[0m &amp#27;[38;5;3m280&amp#27;[0m 282 284 286 288 290 292 &amp#27;[38;5;2m294&amp#27;[0m &amp#27;[38;5;2m296&amp#27;[0m &amp#27;[38;5;2m298&amp#27;[0m 
-&amp#27;[38;5;3m300&amp#27;[0m &amp#27;[38;5;3m302&amp#27;[0m &amp#27;[38;5;3m304&amp#27;[0m &amp#27;[38;5;3m306&amp#27;[0m 308 310 312 314 316 &amp#27;[38;5;2m318&amp#27;[0m &amp#27;[38;5;2m320&amp#27;[0m &amp#27;[38;5;2m322&amp#27;[0m &amp#27;[38;5;2m324&amp#27;[0m
-                  334 336 338 340                 
-                    360 362 364                    
-                      386 388                     
-                        412                        
-                        &amp#27;[38;5;1m012&amp#27;[0m                        
-                      &amp#27;[38;5;1m036&amp#27;[0m &amp#27;[38;5;1m038&amp#27;[0m                     
-                    &amp#27;[38;5;1m060&amp#27;[0m &amp#27;[38;5;1m062&amp#27;[0m &amp#27;[38;5;1m064&amp#27;[0m                    
-                  &amp#27;[38;5;1m084&amp#27;[0m &amp#27;[38;5;1m086&amp#27;[0m &amp#27;[38;5;1m088&amp#27;[0m &amp#27;[38;5;1m090&amp#27;[0m                 
-100 102 104 106 108 110 112 114 116 &amp#27;[38;5;2m118&amp#27;[0m &amp#27;[38;5;2m120&amp#27;[0m &amp#27;[38;5;2m122&amp#27;[0m &amp#27;[38;5;2m124&amp#27;[0m
-  126 128 130 132 134 136 138 140 142 &amp#27;[38;5;2m144&amp#27;[0m &amp#27;[38;5;2m146&amp#27;[0m &amp#27;[38;5;2m148&amp#27;[0m 
-    152 154 156 158 160 162 164 166 168 &amp#27;[38;5;2m170&amp#27;[0m &amp#27;[38;5;2m172&amp#27;[0m    
-      178 180 182 184 186 188 190 192 194 &amp#27;[38;5;2m196&amp#27;[0m     
-        204 206 208 210 212 214 216 218 220        
-      &amp#27;[38;5;4m228&amp#27;[0m 230 232 234 236 238 240 242 244 246     
-    &amp#27;[38;5;4m252&amp#27;[0m &amp#27;[38;5;4m254&amp#27;[0m 256 258 260 262 264 266 268 270 272    
-  &amp#27;[38;5;4m276&amp#27;[0m &amp#27;[38;5;4m278&amp#27;[0m &amp#27;[38;5;4m280&amp#27;[0m 282 284 286 288 290 292 294 296 298 
-&amp#27;[38;5;4m300&amp#27;[0m &amp#27;[38;5;4m302&amp#27;[0m &amp#27;[38;5;4m304&amp#27;[0m &amp#27;[38;5;4m306&amp#27;[0m 308 310 312 314 316 318 320 322 324
-                  &amp#27;[38;5;3m334&amp#27;[0m &amp#27;[38;5;3m336&amp#27;[0m &amp#27;[38;5;3m338&amp#27;[0m &amp#27;[38;5;3m340&amp#27;[0m                 
-                    &amp#27;[38;5;3m360&amp#27;[0m &amp#27;[38;5;3m362&amp#27;[0m &amp#27;[38;5;3m364&amp#27;[0m                    
-                      &amp#27;[38;5;3m386&amp#27;[0m &amp#27;[38;5;3m388&amp#27;[0m                     
-                        &amp#27;[38;5;3m412&amp#27;[0m                        
-                        &amp#27;[38;5;1m012&amp#27;[0m                        
-                      &amp#27;[38;5;1m036&amp#27;[0m &amp#27;[38;5;1m038&amp#27;[0m                     
-                    &amp#27;[38;5;1m060&amp#27;[0m &amp#27;[38;5;1m062&amp#27;[0m &amp#27;[38;5;1m064&amp#27;[0m                    
-                  &amp#27;[38;5;1m084&amp#27;[0m &amp#27;[38;5;1m086&amp#27;[0m &amp#27;[38;5;1m088&amp#27;[0m &amp#27;[38;5;1m090&amp#27;[0m                 
-&amp#27;[38;5;6m100&amp#27;[0m &amp#27;[38;5;6m102&amp#27;[0m &amp#27;[38;5;6m104&amp#27;[0m &amp#27;[38;5;6m106&amp#27;[0m 108 110 112 114 116 &amp#27;[38;5;2m118&amp#27;[0m &amp#27;[38;5;2m120&amp#27;[0m &amp#27;[38;5;2m122&amp#27;[0m &amp#27;[38;5;2m124&amp#27;[0m
-  &amp#27;[38;5;6m126&amp#27;[0m &amp#27;[38;5;6m128&amp#27;[0m &amp#27;[38;5;6m130&amp#27;[0m 132 134 136 138 140 142 &amp#27;[38;5;2m144&amp#27;[0m &amp#27;[38;5;2m146&amp#27;[0m &amp#27;[38;5;2m148&amp#27;[0m 
-    &amp#27;[38;5;6m152&amp#27;[0m &amp#27;[38;5;6m154&amp#27;[0m 156 158 160 162 164 166 168 &amp#27;[38;5;2m170&amp#27;[0m &amp#27;[38;5;2m172&amp#27;[0m    
-      &amp#27;[38;5;6m178&amp#27;[0m 180 182 184 186 188 190 192 194 &amp#27;[38;5;2m196&amp#27;[0m     
-        204 206 208 210 212 214 216 218 220        
-      &amp#27;[38;5;5m228&amp#27;[0m 230 232 234 236 238 240 242 244 &amp#27;[38;5;3m246&amp#27;[0m     
-    &amp#27;[38;5;5m252&amp#27;[0m &amp#27;[38;5;5m254&amp#27;[0m 256 258 260 262 264 266 268 &amp#27;[38;5;3m270&amp#27;[0m &amp#27;[38;5;3m272&amp#27;[0m    
-  &amp#27;[38;5;5m276&amp#27;[0m &amp#27;[38;5;5m278&amp#27;[0m &amp#27;[38;5;5m280&amp#27;[0m 282 284 286 288 290 292 &amp#27;[38;5;3m294&amp#27;[0m &amp#27;[38;5;3m296&amp#27;[0m &amp#27;[38;5;3m298&amp#27;[0m 
-&amp#27;[38;5;5m300&amp#27;[0m &amp#27;[38;5;5m302&amp#27;[0m &amp#27;[38;5;5m304&amp#27;[0m &amp#27;[38;5;5m306&amp#27;[0m 308 310 312 314 316 &amp#27;[38;5;3m318&amp#27;[0m &amp#27;[38;5;3m320&amp#27;[0m &amp#27;[38;5;3m322&amp#27;[0m &amp#27;[38;5;3m324&amp#27;[0m
-                  &amp#27;[38;5;4m334&amp#27;[0m &amp#27;[38;5;4m336&amp#27;[0m &amp#27;[38;5;4m338&amp#27;[0m &amp#27;[38;5;4m340&amp#27;[0m                 
-                    &amp#27;[38;5;4m360&amp#27;[0m &amp#27;[38;5;4m362&amp#27;[0m &amp#27;[38;5;4m364&amp#27;[0m                    
-                      &amp#27;[38;5;4m386&amp#27;[0m &amp#27;[38;5;4m388&amp#27;[0m                     
-                        &amp#27;[38;5;4m412&amp#27;[0m                        
+  <testcase name="winChecker" classname="studia.Board.BoardTest" time="0.006"/>
+  <testcase name="testStartAndFinishCorners" classname="studia.Board.BoardTest" time="0.004"/>
+  <testcase name="testBuildingBoardForEveryPlayerNumber" classname="studia.Board.BoardTest" time="0.011">
+    <system-out><![CDATA[                        &amp#27;[38;5;1m000&amp#27;[0m                        
+                      &amp#27;[38;5;1m001&amp#27;[0m &amp#27;[38;5;1m002&amp#27;[0m                     
+                    &amp#27;[38;5;1m003&amp#27;[0m &amp#27;[38;5;1m004&amp#27;[0m &amp#27;[38;5;1m005&amp#27;[0m                    
+                  &amp#27;[38;5;1m006&amp#27;[0m &amp#27;[38;5;1m007&amp#27;[0m &amp#27;[38;5;1m008&amp#27;[0m &amp#27;[38;5;1m009&amp#27;[0m                 
+010 011 012 013 014 015 016 017 018 019 020 021 022
+  023 024 025 026 027 028 029 030 031 032 033 034 
+    035 036 037 038 039 040 041 042 043 044 045    
+      046 047 048 049 050 051 052 053 054 055     
+        056 057 058 059 060 061 062 063 064        
+      065 066 067 068 069 070 071 072 073 074     
+    075 076 077 078 079 080 081 082 083 084 085    
+  086 087 088 089 090 091 092 093 094 095 096 097 
+098 099 100 101 102 103 104 105 106 107 108 109 110
+                  &amp#27;[38;5;2m111&amp#27;[0m &amp#27;[38;5;2m112&amp#27;[0m &amp#27;[38;5;2m113&amp#27;[0m &amp#27;[38;5;2m114&amp#27;[0m                 
+                    &amp#27;[38;5;2m115&amp#27;[0m &amp#27;[38;5;2m116&amp#27;[0m &amp#27;[38;5;2m117&amp#27;[0m                    
+                      &amp#27;[38;5;2m118&amp#27;[0m &amp#27;[38;5;2m119&amp#27;[0m                     
+                        &amp#27;[38;5;2m120&amp#27;[0m                        
+                        &amp#27;[38;5;1m000&amp#27;[0m                        
+                      &amp#27;[38;5;1m001&amp#27;[0m &amp#27;[38;5;1m002&amp#27;[0m                     
+                    &amp#27;[38;5;1m003&amp#27;[0m &amp#27;[38;5;1m004&amp#27;[0m &amp#27;[38;5;1m005&amp#27;[0m                    
+                  &amp#27;[38;5;1m006&amp#27;[0m &amp#27;[38;5;1m007&amp#27;[0m &amp#27;[38;5;1m008&amp#27;[0m &amp#27;[38;5;1m009&amp#27;[0m                 
+010 011 012 013 014 015 016 017 018 019 020 021 022
+  023 024 025 026 027 028 029 030 031 032 033 034 
+    035 036 037 038 039 040 041 042 043 044 045    
+      046 047 048 049 050 051 052 053 054 055     
+        056 057 058 059 060 061 062 063 064        
+      &amp#27;[38;5;3m065&amp#27;[0m 066 067 068 069 070 071 072 073 &amp#27;[38;5;2m074&amp#27;[0m     
+    &amp#27;[38;5;3m075&amp#27;[0m &amp#27;[38;5;3m076&amp#27;[0m 077 078 079 080 081 082 083 &amp#27;[38;5;2m084&amp#27;[0m &amp#27;[38;5;2m085&amp#27;[0m    
+  &amp#27;[38;5;3m086&amp#27;[0m &amp#27;[38;5;3m087&amp#27;[0m &amp#27;[38;5;3m088&amp#27;[0m 089 090 091 092 093 094 &amp#27;[38;5;2m095&amp#27;[0m &amp#27;[38;5;2m096&amp#27;[0m &amp#27;[38;5;2m097&amp#27;[0m 
+&amp#27;[38;5;3m098&amp#27;[0m &amp#27;[38;5;3m099&amp#27;[0m &amp#27;[38;5;3m100&amp#27;[0m &amp#27;[38;5;3m101&amp#27;[0m 102 103 104 105 106 &amp#27;[38;5;2m107&amp#27;[0m &amp#27;[38;5;2m108&amp#27;[0m &amp#27;[38;5;2m109&amp#27;[0m &amp#27;[38;5;2m110&amp#27;[0m
+                  111 112 113 114                 
+                    115 116 117                    
+                      118 119                     
+                        120                        
+                        &amp#27;[38;5;1m000&amp#27;[0m                        
+                      &amp#27;[38;5;1m001&amp#27;[0m &amp#27;[38;5;1m002&amp#27;[0m                     
+                    &amp#27;[38;5;1m003&amp#27;[0m &amp#27;[38;5;1m004&amp#27;[0m &amp#27;[38;5;1m005&amp#27;[0m                    
+                  &amp#27;[38;5;1m006&amp#27;[0m &amp#27;[38;5;1m007&amp#27;[0m &amp#27;[38;5;1m008&amp#27;[0m &amp#27;[38;5;1m009&amp#27;[0m                 
+010 011 012 013 014 015 016 017 018 &amp#27;[38;5;2m019&amp#27;[0m &amp#27;[38;5;2m020&amp#27;[0m &amp#27;[38;5;2m021&amp#27;[0m &amp#27;[38;5;2m022&amp#27;[0m
+  023 024 025 026 027 028 029 030 031 &amp#27;[38;5;2m032&amp#27;[0m &amp#27;[38;5;2m033&amp#27;[0m &amp#27;[38;5;2m034&amp#27;[0m 
+    035 036 037 038 039 040 041 042 043 &amp#27;[38;5;2m044&amp#27;[0m &amp#27;[38;5;2m045&amp#27;[0m    
+      046 047 048 049 050 051 052 053 054 &amp#27;[38;5;2m055&amp#27;[0m     
+        056 057 058 059 060 061 062 063 064        
+      &amp#27;[38;5;4m065&amp#27;[0m 066 067 068 069 070 071 072 073 074     
+    &amp#27;[38;5;4m075&amp#27;[0m &amp#27;[38;5;4m076&amp#27;[0m 077 078 079 080 081 082 083 084 085    
+  &amp#27;[38;5;4m086&amp#27;[0m &amp#27;[38;5;4m087&amp#27;[0m &amp#27;[38;5;4m088&amp#27;[0m 089 090 091 092 093 094 095 096 097 
+&amp#27;[38;5;4m098&amp#27;[0m &amp#27;[38;5;4m099&amp#27;[0m &amp#27;[38;5;4m100&amp#27;[0m &amp#27;[38;5;4m101&amp#27;[0m 102 103 104 105 106 107 108 109 110
+                  &amp#27;[38;5;3m111&amp#27;[0m &amp#27;[38;5;3m112&amp#27;[0m &amp#27;[38;5;3m113&amp#27;[0m &amp#27;[38;5;3m114&amp#27;[0m                 
+                    &amp#27;[38;5;3m115&amp#27;[0m &amp#27;[38;5;3m116&amp#27;[0m &amp#27;[38;5;3m117&amp#27;[0m                    
+                      &amp#27;[38;5;3m118&amp#27;[0m &amp#27;[38;5;3m119&amp#27;[0m                     
+                        &amp#27;[38;5;3m120&amp#27;[0m                        
+                        &amp#27;[38;5;1m000&amp#27;[0m                        
+                      &amp#27;[38;5;1m001&amp#27;[0m &amp#27;[38;5;1m002&amp#27;[0m                     
+                    &amp#27;[38;5;1m003&amp#27;[0m &amp#27;[38;5;1m004&amp#27;[0m &amp#27;[38;5;1m005&amp#27;[0m                    
+                  &amp#27;[38;5;1m006&amp#27;[0m &amp#27;[38;5;1m007&amp#27;[0m &amp#27;[38;5;1m008&amp#27;[0m &amp#27;[38;5;1m009&amp#27;[0m                 
+&amp#27;[38;5;6m010&amp#27;[0m &amp#27;[38;5;6m011&amp#27;[0m &amp#27;[38;5;6m012&amp#27;[0m &amp#27;[38;5;6m013&amp#27;[0m 014 015 016 017 018 &amp#27;[38;5;2m019&amp#27;[0m &amp#27;[38;5;2m020&amp#27;[0m &amp#27;[38;5;2m021&amp#27;[0m &amp#27;[38;5;2m022&amp#27;[0m
+  &amp#27;[38;5;6m023&amp#27;[0m &amp#27;[38;5;6m024&amp#27;[0m &amp#27;[38;5;6m025&amp#27;[0m 026 027 028 029 030 031 &amp#27;[38;5;2m032&amp#27;[0m &amp#27;[38;5;2m033&amp#27;[0m &amp#27;[38;5;2m034&amp#27;[0m 
+    &amp#27;[38;5;6m035&amp#27;[0m &amp#27;[38;5;6m036&amp#27;[0m 037 038 039 040 041 042 043 &amp#27;[38;5;2m044&amp#27;[0m &amp#27;[38;5;2m045&amp#27;[0m    
+      &amp#27;[38;5;6m046&amp#27;[0m 047 048 049 050 051 052 053 054 &amp#27;[38;5;2m055&amp#27;[0m     
+        056 057 058 059 060 061 062 063 064        
+      &amp#27;[38;5;5m065&amp#27;[0m 066 067 068 069 070 071 072 073 &amp#27;[38;5;3m074&amp#27;[0m     
+    &amp#27;[38;5;5m075&amp#27;[0m &amp#27;[38;5;5m076&amp#27;[0m 077 078 079 080 081 082 083 &amp#27;[38;5;3m084&amp#27;[0m &amp#27;[38;5;3m085&amp#27;[0m    
+  &amp#27;[38;5;5m086&amp#27;[0m &amp#27;[38;5;5m087&amp#27;[0m &amp#27;[38;5;5m088&amp#27;[0m 089 090 091 092 093 094 &amp#27;[38;5;3m095&amp#27;[0m &amp#27;[38;5;3m096&amp#27;[0m &amp#27;[38;5;3m097&amp#27;[0m 
+&amp#27;[38;5;5m098&amp#27;[0m &amp#27;[38;5;5m099&amp#27;[0m &amp#27;[38;5;5m100&amp#27;[0m &amp#27;[38;5;5m101&amp#27;[0m 102 103 104 105 106 &amp#27;[38;5;3m107&amp#27;[0m &amp#27;[38;5;3m108&amp#27;[0m &amp#27;[38;5;3m109&amp#27;[0m &amp#27;[38;5;3m110&amp#27;[0m
+                  &amp#27;[38;5;4m111&amp#27;[0m &amp#27;[38;5;4m112&amp#27;[0m &amp#27;[38;5;4m113&amp#27;[0m &amp#27;[38;5;4m114&amp#27;[0m                 
+                    &amp#27;[38;5;4m115&amp#27;[0m &amp#27;[38;5;4m116&amp#27;[0m &amp#27;[38;5;4m117&amp#27;[0m                    
+                      &amp#27;[38;5;4m118&amp#27;[0m &amp#27;[38;5;4m119&amp#27;[0m                     
+                        &amp#27;[38;5;4m120&amp#27;[0m                        
 ]]></system-out>
   </testcase>
   <testcase name="pointsAmountOnBoard" classname="studia.Board.BoardTest" time="0.004"/>

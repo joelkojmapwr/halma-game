@@ -1,20 +1,21 @@
 package studia.Board;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import studia.Utils.Pair;
+import studia.MoveHandler.MoveHandler;
+import studia.MoveHandler.PseudoMoveHandler;
+import studia.winChecker.StandardWinChecker;
+import studia.winChecker.WinChecker;
 
 /**
  * Unit test for simple App.
  */
 public class BoardTest {
 
-    /**
-     * Rigorous Test :-)
-     */
     @Test
     public void pointsAmountOnBoard() {
         //for (int i=4; i<10; i++){
@@ -26,6 +27,7 @@ public class BoardTest {
             int pointsAmountOnBoard = trianglesize*(trianglesize+1)/2 * 12 + 1; // defaultly (for trianglesize = 4) 121
             // The amount of points equals (trianglesize*(trianglesize+1)/2 * 12 + 1
             assertEquals(pointsAmountOnBoard, board.countPoints);
+            assertEquals(pointsAmountOnBoard, board.validPointsNumber);
         //}
     }
 
@@ -46,16 +48,45 @@ public class BoardTest {
 
     @Test
     public void testMovingPawns(){
-        Board board = defaultBoard();
+        Board board = defaultBoard(6);
         //board.printBoard();
-        board.move(new Pair(13, 3), new Pair(14, 4));
+        board.move(board.points[13][3], board.points[14][4]);
         assertTrue(board.points[14][4].pawn != null);
         board.printBoard();
     }
 
-    public Board defaultBoard() {
+    @Test
+    public void testStartAndFinishCorners(){
+        Board board = defaultBoard(6);
+        //board.printBoard();
+        for (Player player : board.players) {
+            assertEquals(player.startCorner.pos.x + player.finishCorner.pos.x, board.length-1);
+            assertEquals(player.startCorner.pos.y + player.finishCorner.pos.y, board.height-1);
+        }
+    }
+
+    @Test
+    public void winChecker() {
+        Board board = defaultBoard(2);
+        MoveHandler moveHandler = new PseudoMoveHandler(board);
+        WinChecker winChecker = new StandardWinChecker(board, 10);
+        assertFalse(winChecker.checkWin(board.players.get(0)));
+
+        // simulate that his finish corner is whhere he starts so now the winchecker should return that this player won
+        board.players.get(0).finishCorner = board.players.get(0).startCorner;
+        assertTrue(winChecker.checkWin(board.players.get(0)));
+        // now we moved one pawn from the finish corner so the player should not win
+        moveHandler.newMove(6, 14);
+        assertFalse(winChecker.checkWin(board.players.get(0)));
+
+        // check if it recognizes that pawn doesn't  belong to player that should win
+        moveHandler.newMove(111, 6);
+        assertFalse(winChecker.checkWin(board.players.get(0)));
+    }
+
+
+    public Board defaultBoard(int playerNumber) {
         int trianglesize = 4;
-        int playerNumber = 6;
         BoardBuilder boardBuilder = new BoardBuilder(trianglesize, playerNumber, 10);
         boardBuilder.build();
         Board board = boardBuilder.getBoard();

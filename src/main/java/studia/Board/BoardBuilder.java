@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import studia.Utils.Pair;
+import studia.Utils.Point;
 
 public class BoardBuilder {
     private Board board;
@@ -37,6 +38,7 @@ public class BoardBuilder {
 
     public void build(){
         this.initPoints();
+        this.initValidPointsMap();
         this.initCornerPoints();
         this.initPlayers(playerNumber);
         board.generateNeighbours1();
@@ -103,32 +105,55 @@ public class BoardBuilder {
         switch (playerNumber) {
             case 2:
                 players.get(0).setStartCorner(board.cornerPoints.get(0));
+                players.get(0).setFinishCorner(board.cornerPoints.get(3));
                 players.get(1).setStartCorner(board.cornerPoints.get(3));
+                players.get(1).setFinishCorner(board.cornerPoints.get(0));
                 break;
             case 3:
                 for (int i =0; i<3; i++){
                     players.get(i).setStartCorner(board.cornerPoints.get(i*2));
+                    players.get(i).setFinishCorner(board.cornerPoints.get((i*2+3)%6));
                 }
                 break;
             case 4:
                 players.get(0).setStartCorner(board.cornerPoints.get(0));
+                players.get(0).setFinishCorner(board.cornerPoints.get(3));
                 players.get(1).setStartCorner(board.cornerPoints.get(1));
+                players.get(1).setFinishCorner(board.cornerPoints.get(4));
                 players.get(2).setStartCorner(board.cornerPoints.get(3));
+                players.get(2).setFinishCorner(board.cornerPoints.get(0));
                 players.get(3).setStartCorner(board.cornerPoints.get(4));
+                players.get(3).setFinishCorner(board.cornerPoints.get(1));
                 break;
             case 6:
                 for (int i =0; i<6; i++){
                     players.get(i).setStartCorner(board.cornerPoints.get(i));
+                    players.get(i).setFinishCorner(board.cornerPoints.get((i+3)%6));
                 }
                 break;
             default:
                 break;
         }
+        board.setPlayers(players);
     }
 
     public void spawnPawns(){
         PawnsSpawner pawnsSpawner = new PawnsSpawner(pawnsPerPlayer);
         pawnsSpawner.spawn(players);
+    }
+
+    public void initValidPointsMap() {
+        int countPoints = 0;
+        for (int i=0; i<board.height; i++) {
+            for (int j=0; j<board.length; j++) {
+                Point point = board.points[j][i];
+                if (point != null) {
+                    board.validPointsMap.put(countPoints, point);
+                    countPoints++;
+                }
+            }
+        }
+        board.validPointsNumber = countPoints;
     }
 
     // isWon(Player)

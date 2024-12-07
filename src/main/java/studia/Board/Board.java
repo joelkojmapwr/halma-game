@@ -3,17 +3,22 @@ package studia.Board;
 import java.util.List;
 
 import studia.Utils.Pair;
+import studia.Utils.Point;
 import studia.Utils.TrailingZeros;
 
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
 
 public class Board {
     public Point[][] points;
+    public Map<Integer, Point> validPointsMap = new HashMap<Integer, Point>();
+    public List<Player> players = new ArrayList<Player>();
+    public int validPointsNumber = 0;
     public int length;
     public int height;
     public int triangleSize;
     public int countPoints=0;
-    private String pointString = "XXX";
 
     // cornerPoints starting from top (12 o'clock position) and going clockwise
     public List<Point> cornerPoints = new ArrayList<Point>();
@@ -48,6 +53,7 @@ public class Board {
     }
 
     public void printBoard() {
+        int countPrintedPoints = 0;
         for (int i = 0; i < height; i++) {
             int startIndex = 0;
             if (points[0][i] == null && i%2 == 1) { 
@@ -55,8 +61,8 @@ public class Board {
                 startIndex = 1;
             }
             for (int j = startIndex; j < length; j++) {
-                int currentIndex = i*length + j;
-                pointString = TrailingZeros.addTrailingZeros(currentIndex, 3);
+                //int currentIndex = i*length + j;
+                String pointString = TrailingZeros.addTrailingZeros(countPrintedPoints, 3);
                 if (points[j][i] == null) {
                     if ((j+i)%2 == 0) {
                         System.out.print("   "); // print 3 spaces
@@ -66,8 +72,10 @@ public class Board {
                 } else if (points[j][i].pawn == null) {
                     //char c = (char) (j+65);
                     System.out.print(pointString);
+                    countPrintedPoints++;
                 } else {
                     points[j][i].pawn.print(pointString);
+                    countPrintedPoints++;
                 }
             }
             System.out.println();
@@ -148,26 +156,23 @@ public class Board {
         }
     }
 
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
     /*
      * @TODO add custom Exceptions
      */
-    public void move(Pair oldPointPos, Pair newPointPos) {
-        if (points[oldPointPos.x][oldPointPos.y] == null) {
-            System.out.println("Old point does not exist in the game area");
-            return;
-        }
-        if (points[newPointPos.x][newPointPos.y] == null) {
-            System.out.println("New point does not exist in the game area");
-            return;
-        }
-        if (points[oldPointPos.x][oldPointPos.y].pawn == null) {
+    public void move(Point oldPoint, Point newPoint) {
+        if (oldPoint.pawn == null) {
             System.out.println("No pawn in this point");
             return;
         }
         else {
-            if (points[newPointPos.x][newPointPos.y].pawn == null) {
-                points[newPointPos.x][newPointPos.y].pawn = points[oldPointPos.x][oldPointPos.y].pawn;
-                points[oldPointPos.x][oldPointPos.y].pawn = null;
+            if (newPoint.pawn == null) {
+                // execute move
+                newPoint.pawn = oldPoint.pawn;
+                oldPoint.pawn = null;
             }
             else {
                 System.out.println("There is already a pawn in this point, could not move");

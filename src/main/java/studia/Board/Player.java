@@ -1,6 +1,9 @@
 package studia.Board;
 
 import java.util.List;
+
+import studia.Utils.Point;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -32,6 +35,10 @@ public class Player {
 
     public void setStartCorner(Point startCorner) {
         this.startCorner = startCorner;
+    }
+
+    public void setFinishCorner(Point finishCorner) {
+        this.finishCorner = finishCorner;
     }
 
 }

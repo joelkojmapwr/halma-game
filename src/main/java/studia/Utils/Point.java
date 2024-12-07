@@ -1,8 +1,8 @@
-package studia.Board;
+package studia.Utils;
 
 import java.util.List;
 
-import studia.Utils.Pair;
+import studia.Board.Pawn;
 
 import java.util.ArrayList;
 

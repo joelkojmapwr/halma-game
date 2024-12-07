@@ -1,15 +1,18 @@
-package studia.Board;
+package studia.MoveHandler;
 
+import studia.Board.Board;
 import studia.Utils.Pair;
+import studia.Utils.Point;
+
 import java.util.List;
 import java.util.ArrayList;
 
-public class MoveHandler {
+public class StandardMoveHandler {
     public Board board;
 
     private List<Point> visitedPoints = new ArrayList<Point>();
 
-    public MoveHandler(Board board){
+    public StandardMoveHandler(Board board){
         this.board = board;
     }
 
@@ -20,19 +23,10 @@ public class MoveHandler {
      */
     public void newMove(int oldPos, int newPos){
 
-        if (oldPos > board.length*board.height || newPos > board.length*board.height){
-            System.out.println("Invalid Move");
-            return;
-        }
-
-        int x = oldPos % board.length;
-        int y = oldPos / board.length;
-        Point oldPoint = board.points[x][y];
-        x = newPos % board.length;
-        y = newPos / board.length;
-        Point newPoint = board.points[x][y];
+        Point oldPoint = board.validPointsMap.get(oldPos);
+        Point newPoint = board.validPointsMap.get(newPos);
         if (isValidMove(oldPoint, newPoint)){
-            board.move(oldPoint.pos, newPoint.pos);
+            board.move(oldPoint, newPoint);
         }
         else {
             System.out.println("Invalid Move");

@@ -1,6 +1,9 @@
 package studia.Board;
 
 import java.util.Queue;
+
+import studia.Utils.Point;
+
 import java.util.LinkedList;
 import java.util.List;
 

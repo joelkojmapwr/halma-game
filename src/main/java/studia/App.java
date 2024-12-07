@@ -1,7 +1,6 @@
 package studia;
 
 import studia.Board.BoardBuilder;
-import studia.Board.MoveHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +8,18 @@ import java.util.Scanner;
 
 import studia.Board.Board;
 import studia.Board.Player;
-import studia.Board.Point;
+import studia.MoveHandler.StandardMoveHandler;
 import studia.Utils.Pair;
+import studia.Utils.Point;
+import studia.winChecker.StandardWinChecker;
+import studia.winChecker.WinChecker;
 
 /**
  * Hello world!
  */
 public class App {
     public static void main(String[] args) {
-        int players = 6;
+        int players = 2;
         BoardBuilder boardBuilder = new BoardBuilder(4, players, 10);
         boardBuilder.build();
         Board board = boardBuilder.getBoard();
@@ -32,13 +34,20 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
 
-        MoveHandler moveHandler = new MoveHandler(board);
+        StandardMoveHandler moveHandler = new StandardMoveHandler(board);
+
+        WinChecker winChecker = new StandardWinChecker(board, 10);
 
         while(true){
             board.printBoard();
             int oldPoint = scanner.nextInt();
             int newPoint = scanner.nextInt();
-            moveHandler.newMove(oldPoint, newPoint);
+            //moveHandler.newMove(oldPoint, newPoint);
+            System.out.println(winChecker.checkWin(board.players.get(0)));
+
+            board.players.get(0).finishCorner = board.players.get(0).startCorner;
+            winChecker.checkWin(board.players.get(0));
+
             /*
             int x = input % board.length;
             int y = input / board.length;
