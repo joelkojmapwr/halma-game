@@ -18,7 +18,6 @@ public class BoardTest {
 
     @Test
     public void pointsAmountOnBoard() {
-        //for (int i=4; i<10; i++){
             int trianglesize = 4;
             int playerNumber = 3;
             BoardBuilder boardBuilder = new BoardBuilder(trianglesize, playerNumber, 10);
@@ -28,7 +27,6 @@ public class BoardTest {
             // The amount of points equals (trianglesize*(trianglesize+1)/2 * 12 + 1
             assertEquals(pointsAmountOnBoard, board.countPoints);
             assertEquals(pointsAmountOnBoard, board.validPointsNumber);
-        //}
     }
 
     @Test

@@ -47,17 +47,6 @@ public class App {
 
             board.players.get(0).finishCorner = board.players.get(0).startCorner;
             winChecker.checkWin(board.players.get(0));
-
-            /*
-            int x = input % board.length;
-            int y = input / board.length;
-            Pair oldPoint = new Pair(x, y);
-            input = scanner.nextInt();
-            x = input % board.length;
-            y = input / board.length;
-            Pair newPoint = new Pair(x, y);
-            board.move(oldPoint, newPoint);
-            */
         }
     }
 }
