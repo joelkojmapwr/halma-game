@@ -1,9 +1,6 @@
-package studia.Board;
+package studia.Utils;
 
 import java.util.List;
-
-import studia.Utils.Point;
-
 import java.util.ArrayList;
 
 public class Player {

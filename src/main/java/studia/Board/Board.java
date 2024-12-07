@@ -3,6 +3,7 @@ package studia.Board;
 import java.util.List;
 
 import studia.Utils.Pair;
+import studia.Utils.Player;
 import studia.Utils.Point;
 import studia.Utils.TrailingZeros;
 

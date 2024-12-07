@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import studia.Board.Pawn;
-import studia.Board.Player;
+import studia.Utils.Pawn;
+import studia.Utils.Player;
 import studia.Utils.Point;
 import studia.Board.Board;
 

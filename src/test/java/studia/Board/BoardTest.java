@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import studia.MoveHandler.MoveHandler;
 import studia.MoveHandler.PseudoMoveHandler;
+import studia.Utils.Player;
 import studia.winChecker.StandardWinChecker;
 import studia.winChecker.WinChecker;
 

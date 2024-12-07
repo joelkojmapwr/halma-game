@@ -1,24 +1,24 @@
-package studia.Board;
+package studia.PawnsSpawner;
 
 import java.util.Queue;
 
+import studia.Utils.Player;
 import studia.Utils.Point;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class PawnsSpawner {
+public class StandardPawnsSpawner implements PawnsSpawner {
 
     public Queue<Point> pointQueue = new LinkedList<Point>();
     private int maxPawns;
 
-    public PawnsSpawner(int maxPawns){
+    public StandardPawnsSpawner(int maxPawns){
         this.maxPawns = maxPawns;
     }
 
     public void spawn(List<Player> players) {
         
-    
         for (Player player : players){
             // clean the list
             this.pointQueue = new LinkedList<Point>();

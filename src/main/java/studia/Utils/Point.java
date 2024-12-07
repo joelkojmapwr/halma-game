@@ -1,14 +1,13 @@
 package studia.Utils;
 
 import java.util.List;
-
-import studia.Board.Pawn;
-
 import java.util.ArrayList;
 
 public class Point {
     public Pawn pawn;
+    // neighbours 1 are the points that are directly connected to the current point
     public List<Point> neighbours1;
+    // neighbours 2 are the points that have distance 2 from the current point (jump could be possible to this point)
     public List<Point> neighbours2;
     public Boolean isInGame;
     public Pair pos;

@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import studia.Board.Board;
-import studia.Board.Player;
 import studia.MoveHandler.StandardMoveHandler;
 import studia.Utils.Pair;
+import studia.Utils.Player;
 import studia.Utils.Point;
 import studia.winChecker.StandardWinChecker;
 import studia.winChecker.WinChecker;

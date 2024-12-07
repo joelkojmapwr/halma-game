@@ -1,6 +1,6 @@
 package studia.winChecker;
 
-import studia.Board.Player;
+import studia.Utils.Player;
 
 public interface WinChecker {
     Boolean checkWin(Player player);

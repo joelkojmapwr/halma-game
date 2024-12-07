@@ -1,4 +1,4 @@
-package studia.Board;
+package studia.Utils;
 
 public class Pawn {
     // Colour

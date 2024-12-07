@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import studia.Utils.Pair;
+import studia.Utils.Player;
 import studia.Utils.Point;
+import studia.PawnsSpawner.StandardPawnsSpawner;
 
 public class BoardBuilder {
     private Board board;
@@ -138,7 +140,7 @@ public class BoardBuilder {
     }
 
     public void spawnPawns(){
-        PawnsSpawner pawnsSpawner = new PawnsSpawner(pawnsPerPlayer);
+        StandardPawnsSpawner pawnsSpawner = new StandardPawnsSpawner(pawnsPerPlayer);
         pawnsSpawner.spawn(players);
     }
 
