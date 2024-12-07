@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PawnsSpawner {
 
-    public void spawn(List<Player> players);
+    public void spawn(Player[] players);
 
 }

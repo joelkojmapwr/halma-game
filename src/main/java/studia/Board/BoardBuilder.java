@@ -10,16 +10,16 @@ import studia.PawnsSpawner.StandardPawnsSpawner;
 
 public class BoardBuilder {
     private Board board;
-    private List<Player> players = new ArrayList<Player>();
+    private Player[] players;
     private int playerNumber;
     private int pawnsPerPlayer;
     /**
      * 
      * @param triangleSize - length of the triangle side (default 4)
      */
-    public BoardBuilder(int triangleSize, int playerNumber, int pawnsPerPlayer) {
-
-        this.playerNumber = playerNumber;
+    public BoardBuilder(int triangleSize, Player[] players, int pawnsPerPlayer) {
+        this.players = players;
+        this.playerNumber = players.length;
         this.pawnsPerPlayer = pawnsPerPlayer;
         // wiersze są ułożone na przemian, więc zastosujemy tablicę szerokości 2*szerokość -1 
         // domyślnie 25
@@ -96,40 +96,40 @@ public class BoardBuilder {
     }
 
     private void initPlayers(int playerNumber) {
-        int startColor = 1;
+        /*int startColor = 1;
         for (int i = 0; i<playerNumber; i++) {
             Player newPlayer = new Player(startColor);
             this.players.add(newPlayer);
             // @TODO - handle colours
             startColor +=1;
-        }
+        }*/
         switch (playerNumber) {
             case 2:
-                players.get(0).setStartCorner(board.cornerPoints.get(0));
-                players.get(0).setFinishCorner(board.cornerPoints.get(3));
-                players.get(1).setStartCorner(board.cornerPoints.get(3));
-                players.get(1).setFinishCorner(board.cornerPoints.get(0));
+                players[0].setStartCorner(board.cornerPoints.get(0));
+                players[0].setFinishCorner(board.cornerPoints.get(3));
+                players[1].setStartCorner(board.cornerPoints.get(3));
+                players[1].setFinishCorner(board.cornerPoints.get(0));
                 break;
             case 3:
                 for (int i =0; i<3; i++){
-                    players.get(i).setStartCorner(board.cornerPoints.get(i*2));
-                    players.get(i).setFinishCorner(board.cornerPoints.get((i*2+3)%6));
+                    players[i].setStartCorner(board.cornerPoints.get(i*2));
+                    players[i].setFinishCorner(board.cornerPoints.get((i*2+3)%6));
                 }
                 break;
             case 4:
-                players.get(0).setStartCorner(board.cornerPoints.get(0));
-                players.get(0).setFinishCorner(board.cornerPoints.get(3));
-                players.get(1).setStartCorner(board.cornerPoints.get(1));
-                players.get(1).setFinishCorner(board.cornerPoints.get(4));
-                players.get(2).setStartCorner(board.cornerPoints.get(3));
-                players.get(2).setFinishCorner(board.cornerPoints.get(0));
-                players.get(3).setStartCorner(board.cornerPoints.get(4));
-                players.get(3).setFinishCorner(board.cornerPoints.get(1));
+                players[0].setStartCorner(board.cornerPoints.get(0));
+                players[0].setFinishCorner(board.cornerPoints.get(3));
+                players[1].setStartCorner(board.cornerPoints.get(1));
+                players[1].setFinishCorner(board.cornerPoints.get(4));
+                players[2].setStartCorner(board.cornerPoints.get(3));
+                players[2].setFinishCorner(board.cornerPoints.get(0));
+                players[3].setStartCorner(board.cornerPoints.get(4));
+                players[3].setFinishCorner(board.cornerPoints.get(1));
                 break;
             case 6:
                 for (int i =0; i<6; i++){
-                    players.get(i).setStartCorner(board.cornerPoints.get(i));
-                    players.get(i).setFinishCorner(board.cornerPoints.get((i+3)%6));
+                    players[i].setStartCorner(board.cornerPoints.get(i));
+                    players[i].setFinishCorner(board.cornerPoints.get((i+3)%6));
                 }
                 break;
             default:

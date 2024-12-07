@@ -1,6 +1,6 @@
 package studia.Server;
 
-import studia.Common.Player;
+import studia.Utils.Player;
 import java.io.*;
 import java.net.*;
 import studia.Common.Message;

@@ -6,7 +6,7 @@ import java.net.*;
 import studia.Common.Message;
 import studia.Common.MessageInterpreter;
 import studia.Common.Game;
-import studia.Common.Player;
+import studia.Utils.Player;
 
 public class Client {
 	private Socket socket;
@@ -55,6 +55,8 @@ public class Client {
 	
 	public void startGame(int curplr) {
 		Player[] plrs = new Player[nplayers];
+		for(int i=0;i<nplayers;i++)
+			plrs[i] = new Player(i);
 		game = new Game(plrs, curplr);
 		interpreter.setGame(game);
 	}

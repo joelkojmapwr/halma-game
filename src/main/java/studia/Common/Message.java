@@ -4,7 +4,7 @@ import java.io.*;
 
 import studia.Client.Client;
 import studia.Common.Game;
-import studia.Common.Player;
+import studia.Utils.Player;
 
 public abstract class Message {
 	public final static int MSG_CONN = 0; //CONNECTED arg: int pos, int total

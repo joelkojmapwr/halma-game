@@ -1,5 +1,7 @@
 package studia.Common;
 
+import studia.Utils.Color;
+
 public class HupMessage extends Message {
 	private int who;
 	
@@ -8,6 +10,6 @@ public class HupMessage extends Message {
 	}
 	
 	public void execute() {
-		System.out.printf("Player %d disconnected, game terminated\n", who);
+		System.out.printf("Player %d (%s) disconnected, game terminated\n", who, Color.colorName(who));
 	}
 }

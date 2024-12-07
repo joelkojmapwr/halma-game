@@ -1,6 +1,7 @@
 package studia.Common;
 
 import studia.Client.Client;
+import studia.Utils.Color;
 
 public class YconMessage extends Message {
 	private int pos, total, npl;
@@ -14,6 +15,6 @@ public class YconMessage extends Message {
 	}
 	
 	public void execute() {
-		System.out.printf("Connected (%d/%d)\n", pos, total);
+		System.out.printf("Connected (%d/%d). Your color is %s.\n", pos, total, Color.colorName(pos-1));
 	}
 }

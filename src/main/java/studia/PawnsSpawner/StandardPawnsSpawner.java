@@ -17,7 +17,7 @@ public class StandardPawnsSpawner implements PawnsSpawner {
         this.maxPawns = maxPawns;
     }
 
-    public void spawn(List<Player> players) {
+    public void spawn(Player[] players) {
         
         for (Player player : players){
             // clean the list

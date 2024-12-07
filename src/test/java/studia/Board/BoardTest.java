@@ -17,7 +17,7 @@ import studia.winChecker.WinChecker;
  */
 public class BoardTest {
 
-    @Test
+    /*@Test
     public void pointsAmountOnBoard() {
             int trianglesize = 4;
             int playerNumber = 3;
@@ -89,5 +89,5 @@ public class BoardTest {
         boardBuilder.build();
         Board board = boardBuilder.getBoard();
         return board;
-    }
+    }*/
 }

@@ -1,5 +1,7 @@
 package studia.Common;
 
+import studia.Utils.Color;
+
 public class EndMessage extends Message {
 	private int winner;
 	
@@ -8,6 +10,6 @@ public class EndMessage extends Message {
 	}
 	
 	public void execute() {
-		System.out.printf("Player %d won!\n", winner);
+		System.out.printf("Player %d (%s) won!\n", winner, Color.colorName(winner));
 	}
 }

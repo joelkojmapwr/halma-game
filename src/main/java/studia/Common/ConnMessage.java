@@ -1,5 +1,7 @@
 package studia.Common;
 
+import studia.Utils.Color;
+
 public class ConnMessage extends Message {
 	private int pos, total;
 	
@@ -9,6 +11,6 @@ public class ConnMessage extends Message {
 	}
 	
 	public void execute() {
-		System.out.printf("Player %d connected (%d/%d)\n", pos, pos+1, total);
+		System.out.printf("Player %d (%s) connected (%d/%d)\n", pos, Color.colorName(pos), pos+1, total);
 	}
 }

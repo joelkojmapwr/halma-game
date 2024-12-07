@@ -6,8 +6,9 @@ import java.util.Date;
 
 import studia.Common.MessageInterpreter;
 import studia.Common.Message;
-import studia.Common.Player;
+import studia.Utils.Player;
 import studia.Common.Game;
+import java.util.Random;
 
 public class Server {
 	private int PORT;
@@ -18,7 +19,6 @@ public class Server {
 	
 	private Game game;
 	
-	//private ServerState state;
 	
 	private MessageInterpreter interpreter;
 	
@@ -41,13 +41,8 @@ public class Server {
 		
 		serverSocket = new ServerSocket(PORT);
 		
-		//changeState(new BeforeGameState(this));
 		waitForConnection();
 	}
-	
-	/*public void changeState(ServerState state) {
-		this.state = state;
-	}*/
 	
 	public int getPlayersNum() {
 		return nplayers;
@@ -72,7 +67,6 @@ public class Server {
 				startGame();
 				waitForMessages();
 			}
-			//state.onAccept();
 		} catch (IOException ex) {
 			System.err.println(ex);
 		} catch(InterruptedException ex) {
@@ -81,7 +75,8 @@ public class Server {
 	}
 	
 	public Game startGame() {
-		int randomplayer = 0;
+		Random rand = new Random();
+		int randomplayer = rand.nextInt(connected.length);
 		game = new Game(connected, randomplayer);
 		interpreter.setGame(game);
 		sendToAll(Message.MSG_BEG, randomplayer);

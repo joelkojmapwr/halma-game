@@ -5,7 +5,7 @@ import java.io.*;
 import studia.Client.Client;
 import studia.Server.Server;
 import studia.Common.Game;
-import studia.Common.Player;
+import studia.Utils.Player;
 
 public class MessageInterpreter {
 	private Game game;

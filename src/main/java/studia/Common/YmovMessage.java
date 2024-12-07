@@ -15,7 +15,6 @@ public class YmovMessage extends Message {
 	
 	
 	public void execute() {
-		//do zmiany
 		System.out.println("Your turn");
 		Scanner in = new Scanner(System.in);
 		int from = in.nextInt();

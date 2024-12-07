@@ -14,7 +14,7 @@ import studia.Utils.TrailingZeros;
 public class Board {
     public Point[][] points;
     public Map<Integer, Point> validPointsMap = new HashMap<Integer, Point>();
-    public List<Player> players = new ArrayList<Player>();
+    public Player[] players;
     public int validPointsNumber = 0;
     public int length;
     public int height;
@@ -154,11 +154,12 @@ public class Board {
         }
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(Player[] players) {
         this.players = players;
     }
 
     public void move(Point oldPoint, Point newPoint) {
+        if(oldPoint == newPoint) return;
         newPoint.pawn = oldPoint.pawn;
         oldPoint.pawn = null;
     }

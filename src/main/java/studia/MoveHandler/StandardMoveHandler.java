@@ -29,7 +29,7 @@ public class StandardMoveHandler implements MoveHandler {
             newPoint = board.validPointsMap.get(newPos);
         }
         catch (Exception e) {
-            System.out.println("Invalid index");
+            //System.out.println("Invalid index");
             return false;
         }
 
@@ -53,6 +53,10 @@ public class StandardMoveHandler implements MoveHandler {
             // not your pawn
             return false;
         }
+        if(oldPoint == newPoint) {
+					// stand
+					return true;
+				}
         if (newPoint.pawn != null) {
             // there is a pawn on the new field, so you can can not move there
             return false;

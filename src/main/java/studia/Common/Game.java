@@ -1,18 +1,38 @@
 package studia.Common;
 
 import studia.Common.Move;
+import studia.Utils.Player;
 
-import java.util.Random;
+import studia.MoveHandler.MoveHandler;
+import studia.MoveHandler.StandardMoveHandler;
+import studia.winChecker.WinChecker;
+import studia.winChecker.StandardWinChecker;
+import studia.Board.BoardBuilder;
+import studia.Board.Board;
+
+import studia.Utils.Color;
 
 public class Game {
-	Player[] players;
-	int curplr;
-	
-	int moves = 0;
+	private Player[] players;
+	private int curplr, winner = -1;
+        
+	private Board board;
+	private MoveHandler moveHandler;
+	private WinChecker winChecker;
+        
 	
 	public Game(Player[] players, int current) {
 		this.players = players;
 		curplr = current;
+		
+		BoardBuilder boardBuilder = new BoardBuilder(4, players, 10);
+		boardBuilder.build();
+		
+		board = boardBuilder.getBoard();
+		moveHandler = new StandardMoveHandler(board);
+		winChecker = new StandardWinChecker(10);
+		
+		board.printBoard();
 	}
 	
 	public int playerToColor(Player plr) {
@@ -24,10 +44,14 @@ public class Game {
 	
 	public boolean playerMove(int p, Move m) {
 		if(p != curplr) return false;
-		if(m.from < 0 || m.to < 0) return false;
-		System.out.printf("Player %d move %s\n", p, m.toString());
+		if(!moveHandler.newMove(m.from, m.to, players[p])) return false;
+		
+		board.printBoard();
+		System.out.printf("Player %d (%s): %s\n", p, Color.colorName(p), m.toString());
+		
 		curplr = (curplr + 1) % players.length;
-		moves++;
+		if(winChecker.checkWin(players[p])) winner = p;
+		
 		return true;
 	}
 	
@@ -42,8 +66,6 @@ public class Game {
 	}
 	
 	public int getWinner() { //zwraca index zwyciezcy lub -1
-		Random rand = new Random();
-		if(moves < 3) return -1;
-		return rand.nextInt(players.length);
+		return winner;
 	}
 }

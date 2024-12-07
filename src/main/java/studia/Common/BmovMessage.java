@@ -15,10 +15,10 @@ public class BmovMessage extends Message {
 	
 	
 	public void execute() {
-		//do zmiany
 		System.out.println("Invalid move, try again");
 		Scanner in = new Scanner(System.in);
-		int num = in.nextInt();
-		client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), num);
+		int from = in.nextInt();
+		int to = in.nextInt();
+		client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), from, to);
 	}
 }

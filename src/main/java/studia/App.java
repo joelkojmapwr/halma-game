@@ -13,7 +13,7 @@ import studia.winChecker.WinChecker;
 
 public class App {
     public static void main(String[] args) {
-        int players = 2;
+        /*int players = 2;
         BoardBuilder boardBuilder = new BoardBuilder(4, players, 10);
         boardBuilder.build();
         Board board = boardBuilder.getBoard();
@@ -33,9 +33,9 @@ public class App {
             board.printBoard();
             int oldPoint = scanner.nextInt();
             int newPoint = scanner.nextInt();
-            moveHandler.newMove(oldPoint, newPoint, board.players.get(0));
+            moveHandler.newMove(oldPoint, newPoint, board.players[0]);
             
-            winChecker.checkWin(board.players.get(0));
-        }
+            winChecker.checkWin(board.players[0]);
+        }*/
     }
 }
