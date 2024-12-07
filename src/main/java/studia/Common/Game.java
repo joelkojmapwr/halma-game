@@ -24,7 +24,7 @@ public class Game {
 	
 	public boolean playerMove(int p, Move m) {
 		if(p != curplr) return false;
-		if(m.m < 0) return false;
+		if(m.from < 0 || m.to < 0) return false;
 		System.out.printf("Player %d move %s\n", p, m.toString());
 		curplr = (curplr + 1) % players.length;
 		moves++;

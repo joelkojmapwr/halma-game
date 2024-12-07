@@ -4,13 +4,14 @@ import studia.Server.Server;
 import studia.Server.ServerPlayer;
 
 public class MoveMessage extends Message {
-	private int plr, mov;
+	private int plr, from, to;
 	private Game game;
 	private Server server;
 	
 	public MoveMessage(int[] args, Game game, Server server) {
 		this.plr = args[0];
-		this.mov = args[1];
+		this.from = args[1];
+		this.to = args[2];
 		this.game = game;
 		this.server = server;
 	}
@@ -18,13 +19,13 @@ public class MoveMessage extends Message {
 	
 	public void execute() {
 		boolean result;
-		Move m = new Move(mov);
+		Move m = new Move(from, to);
 		if(server == null) { //clientside
 			result = game.playerMove(plr, m);
 		} else {
 			result = game.playerMove(sender, m);
 			if(result) {
-				server.sendToAll(Message.MSG_MOVE, plr, mov);
+				server.sendToAll(Message.MSG_MOVE, plr, from ,to);
 				int winner = game.getWinner();
 				if(winner >= 0) {
 					server.sendToAll(Message.MSG_END, winner);

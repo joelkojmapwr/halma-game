@@ -18,7 +18,8 @@ public class YmovMessage extends Message {
 		//do zmiany
 		System.out.println("Your turn");
 		Scanner in = new Scanner(System.in);
-		int num = in.nextInt();
-		client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), num);
+		int from = in.nextInt();
+		int to = in.nextInt();
+		client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), from, to);
 	}
 }

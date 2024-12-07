@@ -1,13 +1,15 @@
 package studia.Common;
 
 public class Move {
-	public int m;
-	public Move(int m) {
-		this.m = m;
+	public int from, to;
+	public Move(int from, int to) {
+		this.from = from;
+		this.to = to;
 	}
 	
 	public String toString() {
-		return "Move: " + String.valueOf(m);
+		if(from == to) return "stand";
+		return String.valueOf(from) + " -> " + String.valueOf(to);
 	}
 	
 }

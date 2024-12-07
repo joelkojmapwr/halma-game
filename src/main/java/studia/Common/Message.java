@@ -10,13 +10,13 @@ public abstract class Message {
 	public final static int MSG_CONN = 0; //CONNECTED arg: int pos, int total
 	public final static int MSG_YCON = 1; //YOUCONNECTED arg: int pos , int total
 	public final static int MSG_BEG  = 2; //BEGIN arg: int curplr
-	public final static int MSG_MOVE = 3; //arg: int plr, int data (shall be replaced with from, to)
+	public final static int MSG_MOVE = 3; //arg: int plr, int from, int to
 	public final static int MSG_YMOV = 4; //YOURMOVE
 	public final static int MSG_BMOV = 5; //BADMOVE
 	public final static int MSG_END  = 6; //END arg: int winner
-	public final static int MSG_HUP  = 7; //END arg: int disconnectedplr
+	public final static int MSG_HUP  = 7; //HANGUP arg: int disconnectedplr
 	
-	public final static int nargs[] = new int[] {2, 2, 1, 2, 0, 0, 1, 1};
+	public final static int nargs[] = new int[] {2, 2, 1, 3, 0, 0, 1, 1};
 	
 	protected Player sender;
 	
