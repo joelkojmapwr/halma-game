@@ -1,15 +1,15 @@
 package studia.MoveHandler;
 
 import studia.Board.Board;
-import studia.Utils.Pair;
+import studia.Utils.Player;
 import studia.Utils.Point;
 
 import java.util.List;
 import java.util.ArrayList;
 
-public class StandardMoveHandler {
-    public Board board;
+public class StandardMoveHandler implements MoveHandler {
 
+    private Board board;
     private List<Point> visitedPoints = new ArrayList<Point>();
 
     public StandardMoveHandler(Board board){
@@ -17,24 +17,46 @@ public class StandardMoveHandler {
     }
 
     /**
-     * @TODO Add exceptions for invalid moves
      * @param oldPos
      * @param newPos
      */
-    public void newMove(int oldPos, int newPos){
+    public Boolean newMove(int oldPos, int newPos, Player player){
+        Point oldPoint;
+        Point newPoint;
+        
+        try {
+            oldPoint = board.validPointsMap.get(oldPos);
+            newPoint = board.validPointsMap.get(newPos);
+        }
+        catch (Exception e) {
+            System.out.println("Invalid index");
+            return false;
+        }
 
-        Point oldPoint = board.validPointsMap.get(oldPos);
-        Point newPoint = board.validPointsMap.get(newPos);
-        if (isValidMove(oldPoint, newPoint)){
+        if (isValidMove(oldPoint, newPoint, player) == true) {
             board.move(oldPoint, newPoint);
+            return true;
         }
-        else {
-            System.out.println("Invalid Move");
-        }
+        return false;
     }
-
-    public Boolean isValidMove(Point oldPoint, Point newPoint) {
-
+    /**
+     * @param oldPoint
+     * @param newPoint
+     * @return
+     */
+    private Boolean isValidMove(Point oldPoint, Point newPoint, Player player){
+        if (oldPoint.pawn == null) {
+            // empty field invalid move
+            return false;
+        }
+        if (oldPoint.pawn.color != player.getColor()) {
+            // not your pawn
+            return false;
+        }
+        if (newPoint.pawn != null) {
+            // there is a pawn on the new field, so you can can not move there
+            return false;
+        }
         if (isMoveToNeighbour1(oldPoint, newPoint) == true) {
             return true;
         }
@@ -44,11 +66,11 @@ public class StandardMoveHandler {
         return false;
     }
 
-    public Boolean isMoveToNeighbour1(Point oldPoint, Point newPoint) {
+    private Boolean isMoveToNeighbour1(Point oldPoint, Point newPoint) {
         return oldPoint.neighbours1.contains(newPoint);
     }
 
-    public Boolean isMoveJump(Point oldPoint, Point newPoint) {
+    private Boolean isMoveJump(Point oldPoint, Point newPoint) {
         visitedPoints.clear();
         for (Point neighbour1 : oldPoint.neighbours1) {
             if (neighbour1.pawn != null) {
@@ -66,7 +88,7 @@ public class StandardMoveHandler {
         return false;
     }
 
-    public Boolean searchJumps(Point currentPoint, Point destination) {
+    private Boolean searchJumps(Point currentPoint, Point destination) {
         visitedPoints.add(currentPoint);
         if (currentPoint.pawn != null) {
             // this place is not free so jump is not possible into this place

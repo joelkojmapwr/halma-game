@@ -1,15 +1,15 @@
 package studia.Board;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
 
-import studia.Utils.Pair;
 import studia.Utils.Player;
 import studia.Utils.Point;
 import studia.Utils.TrailingZeros;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
+
 
 public class Board {
     public Point[][] points;
@@ -19,7 +19,6 @@ public class Board {
     public int length;
     public int height;
     public int triangleSize;
-    public int countPoints=0;
 
     // cornerPoints starting from top (12 o'clock position) and going clockwise
     public List<Point> cornerPoints = new ArrayList<Point>();
@@ -42,7 +41,6 @@ public class Board {
             return;
         }
         this.points[x][y] = point;
-        countPoints++;
     }
 
     public void initPoints(){
@@ -103,7 +101,6 @@ public class Board {
                             points[j][i].neighbours1.add(points[j+2][i]);
                         }
                     }
-                    // @TODO: dodać sąsiadów górnych i dolnych (prawych i lewych)
                     if (i >= 1) {
                         // górny sąsiad
                         if (j < length -1){
@@ -161,23 +158,8 @@ public class Board {
         this.players = players;
     }
 
-    /*
-     * @TODO add custom Exceptions
-     */
     public void move(Point oldPoint, Point newPoint) {
-        if (oldPoint.pawn == null) {
-            System.out.println("No pawn in this point");
-            return;
-        }
-        else {
-            if (newPoint.pawn == null) {
-                // execute move
-                newPoint.pawn = oldPoint.pawn;
-                oldPoint.pawn = null;
-            }
-            else {
-                System.out.println("There is already a pawn in this point, could not move");
-            }
-        }
+        newPoint.pawn = oldPoint.pawn;
+        oldPoint.pawn = null;
     }
 }

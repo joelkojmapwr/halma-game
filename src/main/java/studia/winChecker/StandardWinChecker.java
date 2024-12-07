@@ -5,21 +5,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import studia.Utils.Pawn;
 import studia.Utils.Player;
 import studia.Utils.Point;
-import studia.Board.Board;
 
 public class StandardWinChecker implements WinChecker {
 
-    private Board board;
     private int pawnsPerPlayer;
     private Queue<Point> pointQueue;
     private int countPawnsHome = 0;
     private List<Point> visitedPoints = new ArrayList<Point>();
 
-    public StandardWinChecker(Board board, int pawnsPerPlayer) {
-        this.board = board;
+    public StandardWinChecker(int pawnsPerPlayer) {
         this.pawnsPerPlayer = pawnsPerPlayer;
     }
 
@@ -30,10 +26,10 @@ public class StandardWinChecker implements WinChecker {
         return searchNeighbours(player, player.finishCorner);
     }
 
-    public Boolean searchNeighbours(Player player, Point currentPoint) {
+    private Boolean searchNeighbours(Player player, Point currentPoint) {
         visitedPoints.add(currentPoint);
         if (currentPoint.pawn != null) {
-            if (currentPoint.pawn.color == player.color) {
+            if (currentPoint.pawn.color == player.getColor()) {
                 countPawnsHome++;
                 if (countPawnsHome == pawnsPerPlayer) {
                     return true;

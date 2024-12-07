@@ -26,7 +26,6 @@ public class BoardTest {
             Board board = boardBuilder.getBoard();
             int pointsAmountOnBoard = trianglesize*(trianglesize+1)/2 * 12 + 1; // defaultly (for trianglesize = 4) 121
             // The amount of points equals (trianglesize*(trianglesize+1)/2 * 12 + 1
-            assertEquals(pointsAmountOnBoard, board.countPoints);
             assertEquals(pointsAmountOnBoard, board.validPointsNumber);
     }
 
@@ -68,18 +67,18 @@ public class BoardTest {
     public void winChecker() {
         Board board = defaultBoard(2);
         MoveHandler moveHandler = new PseudoMoveHandler(board);
-        WinChecker winChecker = new StandardWinChecker(board, 10);
+        WinChecker winChecker = new StandardWinChecker(10);
         assertFalse(winChecker.checkWin(board.players.get(0)));
 
         // simulate that his finish corner is whhere he starts so now the winchecker should return that this player won
         board.players.get(0).finishCorner = board.players.get(0).startCorner;
         assertTrue(winChecker.checkWin(board.players.get(0)));
         // now we moved one pawn from the finish corner so the player should not win
-        moveHandler.newMove(6, 14);
+        moveHandler.newMove(6, 14, board.players.get(0));
         assertFalse(winChecker.checkWin(board.players.get(0)));
 
         // check if it recognizes that pawn doesn't  belong to player that should win
-        moveHandler.newMove(111, 6);
+        moveHandler.newMove(111, 6, board.players.get(1));
         assertFalse(winChecker.checkWin(board.players.get(0)));
     }
 

@@ -31,7 +31,6 @@ public class BoardBuilder {
         board.setHeight(height);
         board.setTriangleSize(triangleSize);
         board.initPoints();
-        
     }
 
     public Board getBoard() {
@@ -139,12 +138,12 @@ public class BoardBuilder {
         board.setPlayers(players);
     }
 
-    public void spawnPawns(){
+    private void spawnPawns(){
         StandardPawnsSpawner pawnsSpawner = new StandardPawnsSpawner(pawnsPerPlayer);
         pawnsSpawner.spawn(players);
     }
 
-    public void initValidPointsMap() {
+    private void initValidPointsMap() {
         int countPoints = 0;
         for (int i=0; i<board.height; i++) {
             for (int j=0; j<board.length; j++) {
@@ -157,10 +156,4 @@ public class BoardBuilder {
         }
         board.validPointsNumber = countPoints;
     }
-
-    // isWon(Player)
-
-    // possible moves
-
-    // calculate distance between pawns
 }

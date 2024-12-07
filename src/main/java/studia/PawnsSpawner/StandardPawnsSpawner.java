@@ -10,7 +10,7 @@ import java.util.List;
 
 public class StandardPawnsSpawner implements PawnsSpawner {
 
-    public Queue<Point> pointQueue = new LinkedList<Point>();
+    private Queue<Point> pointQueue = new LinkedList<Point>();
     private int maxPawns;
 
     public StandardPawnsSpawner(int maxPawns){

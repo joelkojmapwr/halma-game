@@ -9,12 +9,10 @@ public class Point {
     public List<Point> neighbours1;
     // neighbours 2 are the points that have distance 2 from the current point (jump could be possible to this point)
     public List<Point> neighbours2;
-    public Boolean isInGame;
     public Pair pos;
 
     public Point(Pair pos){
         this.pos = pos;
-        this.isInGame = true;
         this.neighbours1 = new ArrayList<Point>();
         this.neighbours2 = new ArrayList<Point>();
         this.pawn = null;
@@ -22,20 +20,6 @@ public class Point {
 
     public String toString(){
         return "Point: " + pos.x + " " + pos.y;
-    }
-
-    public void printNeighbours1(){
-        System.out.println("Neighbours 1 of " + this.toString());
-        for(Point p : neighbours1){
-            System.out.println(p.toString());
-        }
-    }
-
-    public void printNeighbours2(){
-        System.out.println("Neighbours 2 of " + this.toString());
-        for(Point p : neighbours2){
-            System.out.println(p.toString());
-        }
     }
 
     public Point getNeighbour2FromNeighbour1(Point neighbour1){
@@ -50,5 +34,24 @@ public class Point {
             }
         }
         return null;
+    }
+
+    /**
+     * only used for debugging
+     */
+    public void printNeighbours1(){
+        System.out.println("Neighbours 1 of " + this.toString());
+        for(Point p : neighbours1){
+            System.out.println(p.toString());
+        }
+    }
+    /**
+     * only used for debugging
+     */
+    public void printNeighbours2(){
+        System.out.println("Neighbours 2 of " + this.toString());
+        for(Point p : neighbours2){
+            System.out.println(p.toString());
+        }
     }
 }

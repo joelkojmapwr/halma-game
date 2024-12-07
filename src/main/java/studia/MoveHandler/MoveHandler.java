@@ -1,5 +1,7 @@
 package studia.MoveHandler;
 
+import studia.Utils.Player;
+
 public interface MoveHandler {
-    public void newMove(int oldPos, int newPos);
+    public Boolean newMove(int oldPos, int newPos, Player player);
 } 
