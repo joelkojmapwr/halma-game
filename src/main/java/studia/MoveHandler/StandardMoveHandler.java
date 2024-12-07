@@ -3,6 +3,7 @@ package studia.MoveHandler;
 import studia.Board.Board;
 import studia.Utils.Player;
 import studia.Utils.Point;
+import studia.Utils.Pair;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -59,6 +60,9 @@ public class StandardMoveHandler implements MoveHandler {
 					// stand
 					return true;
 				}
+        if (isMoveLeavingHome(oldPoint, newPoint, player) == true) {
+            return false;
+        }
         if (newPoint.pawn != null) {
             // there is a pawn on the new field, so you can can not move there
             return false;
@@ -128,4 +132,13 @@ public class StandardMoveHandler implements MoveHandler {
 
         return false;
     }
+
+    private Boolean isMoveLeavingHome(Point oldPoint, Point newPoint, Player player) {
+        if (player.finishPoints.contains(oldPoint) == true && player.finishPoints.contains(newPoint) == false) {
+            System.out.println("You can not leave home");
+            return true;
+        }
+        return false;
+    }
+
 }

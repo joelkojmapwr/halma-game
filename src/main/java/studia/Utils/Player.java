@@ -8,6 +8,7 @@ public class Player {
     public Point finishCorner;
     public int playerNumber;
     public int countPawns = 0;
+    public List<Point> finishPoints = new ArrayList<Point>();
     
     private int color;
     private List<Pawn> pawns = new ArrayList<Pawn>();

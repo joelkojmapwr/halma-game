@@ -42,9 +42,11 @@ public class BoardBuilder {
         this.initValidPointsMap();
         this.initCornerPoints();
         this.initPlayers(playerNumber);
+        
         board.generateNeighbours1();
         board.generateNeighbours2();
         spawnPawns();
+        this.initFinishPoints();
     }
 
     private void initPoints() {
@@ -136,6 +138,20 @@ public class BoardBuilder {
                 break;
         }
         board.setPlayers(players);
+    }
+
+    private void initFinishPoints() {
+        for (Player player : players) {
+            player.finishPoints.add(player.finishCorner);
+            for (Point neighbour2 : player.finishCorner.neighbours2) {
+                player.finishPoints.add(neighbour2);
+                for (Point neighbour1 : neighbour2.neighbours1) {
+                    if (player.finishPoints.contains(neighbour1) == false) {
+                        player.finishPoints.add(neighbour1);
+                    } 
+                }
+            }
+        }
     }
 
     private void spawnPawns(){
