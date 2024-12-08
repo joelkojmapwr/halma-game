@@ -1,0 +1,345 @@
+@startuml
+package studia.MoveHandler {
+  interface MoveHandler {
+    + newMove(int, int, Player) : Boolean {abstract}
+  }
+  class PseudoMoveHandler {
+    - board : Board
+    + PseudoMoveHandler(board : Board)
+    + newMove(oldPos : int, newPos : int, player : Player) : Boolean
+  }
+  class StandardMoveHandler {
+    - board : Board
+    - visitedPoints : List<Point>
+    + StandardMoveHandler(board : Board)
+    - isMoveJump(oldPoint : Point, newPoint : Point) : Boolean
+    - isMoveLeavingHome(oldPoint : Point, newPoint : Point, player : Player) : Boolean
+    - isMoveToNeighbour1(oldPoint : Point, newPoint : Point) : Boolean
+    - isValidMove(oldPoint : Point, newPoint : Point, player : Player) : Boolean
+    + newMove(oldPos : int, newPos : int, player : Player) : Boolean
+    - searchJumps(currentPoint : Point, destination : Point) : Boolean
+  }
+}
+package studia.Server {
+  class Server {
+    - PORT : int
+    - connected : Player[]
+    - game : Game
+    - interpreter : MessageInterpreter
+    - nconnected : int
+    - nplayers : int
+    - serverSocket : ServerSocket
+    + Server(port : int, players : int)
+    + closeConnections()
+    + getConnected() : int
+    + getInterpreter() : MessageInterpreter
+    + getPlayersNum() : int
+    + onClientDisconnect(client : ServerPlayer)
+    + onMessage(msg : Message)
+    + sendToAll(msg : int[])
+    + startGame() : Game
+    + waitForConnection()
+    + waitForMessages()
+  }
+  class ServerExec {
+    + ServerExec()
+    + main(args : String[]) {static}
+  }
+  class ServerPlayer {
+    - Receiver : Thread
+    + disconnected : boolean
+    - inStream : DataInputStream
+    - outStream : DataOutputStream
+    - receiver_run : boolean
+    - server : Server
+    - socket : Socket
+    - thisref : ServerPlayer
+    + ServerPlayer(server : Server, color : int)
+    + closeSocket()
+    + joinReceiver()
+    + setSocket(s : Socket)
+    + startReceiver()
+    + writeMessage(args : int[])
+  }
+}
+package studia.PawnsSpawner {
+  interface PawnsSpawner {
+    + spawn(Player[]) {abstract}
+  }
+  class StandardPawnsSpawner {
+    - maxPawns : int
+    - pointQueue : Queue<Point>
+    + StandardPawnsSpawner(maxPawns : int)
+    + spawn(players : Player[])
+    - spawnPawns(player : Player, startPoint : Point)
+  }
+}
+package studia.Common {
+  class BegMessage {
+    - cli : Client
+    - cplr : int
+    + BegMessage(args : int[], client : Client)
+    + execute()
+  }
+  class BmovMessage {
+    - client : Client
+    + BmovMessage(args : int[], client : Client)
+    + execute()
+  }
+  class ConnMessage {
+    - pos : int
+    - total : int
+    + ConnMessage(args : int[])
+    + execute()
+  }
+  class EndMessage {
+    - winner : int
+    + EndMessage(args : int[])
+    + execute()
+  }
+  class Game {
+    - board : Board
+    - curplr : int
+    - moveHandler : MoveHandler
+    - players : Player[]
+    - winChecker : WinChecker
+    - winner : int
+    + Game(players : Player[], current : int)
+    + getCurrentPlayer() : Player
+    + getWinner() : int
+    + playerMove(p : int, m : Move) : boolean
+    + playerMove(plr : Player, m : Move) : boolean
+    + playerToColor(plr : Player) : int
+  }
+  class HupMessage {
+    - who : int
+    + HupMessage(args : int[])
+    + execute()
+  }
+  abstract class Message {
+    + MSG_BEG : int {static}
+    + MSG_BMOV : int {static}
+    + MSG_CONN : int {static}
+    + MSG_END : int {static}
+    + MSG_HUP : int {static}
+    + MSG_MOVE : int {static}
+    + MSG_YCON : int {static}
+    + MSG_YMOV : int {static}
+    + nargs : int[] {static}
+    # sender : Player
+    + Message()
+    + execute() {abstract}
+    + setSender(sender : Player)
+  }
+  class MessageInterpreter {
+    - client : Client
+    - game : Game
+    - server : Server
+    + MessageInterpreter(client : Client)
+    + MessageInterpreter(server : Server)
+    + interpret(is : DataInputStream) : Message
+    + setGame(game : Game)
+  }
+  class Move {
+    + from : int
+    + to : int
+    + Move()
+    + Move(from : int, to : int)
+    + fromKeyboard()
+    + toString() : String
+  }
+  class MoveMessage {
+    - from : int
+    - game : Game
+    - plr : int
+    - server : Server
+    - to : int
+    + MoveMessage(args : int[], game : Game, server : Server)
+    + execute()
+  }
+  class YconMessage {
+    - c : Client
+    - npl : int
+    - pos : int
+    - total : int
+    + YconMessage(args : int[], cli : Client)
+    + execute()
+  }
+  class YmovMessage {
+    - client : Client
+    + YmovMessage(args : int[], client : Client)
+    + execute()
+  }
+}
+package studia.Board {
+  class Board {
+    + cornerPoints : List<Point>
+    + height : int
+    + length : int
+    + players : Player[]
+    + points : Point[][]
+    + triangleSize : int
+    + validPointsMap : Map<Integer, Point>
+    + validPointsNumber : int
+    + Board()
+    + addCornerPoint(point : Point)
+    + generateNeighbours1()
+    + generateNeighbours2()
+    + initPoints()
+    + move(oldPoint : Point, newPoint : Point)
+    + printBoard()
+    + setHeight(height : int)
+    + setLength(length : int)
+    + setPlayers(players : Player[])
+    + setPoint(point : Point, x : int, y : int)
+    + setTriangleSize(triangleSize : int)
+  }
+  class BoardBuilder {
+    - board : Board
+    - pawnsPerPlayer : int
+    - playerNumber : int
+    - players : Player[]
+    + BoardBuilder(triangleSize : int, players : Player[], pawnsPerPlayer : int)
+    + build()
+    + getBoard() : Board
+    - initCornerPoints()
+    - initFinishPoints()
+    - initPlayers(playerNumber : int)
+    - initPoints()
+    - initValidPointsMap()
+    - spawnPawns()
+  }
+}
+package studia.winChecker {
+  class StandardWinChecker {
+    - countPawnsHome : int
+    - pawnsPerPlayer : int
+    - pointQueue : Queue<Point>
+    - visitedPoints : List<Point>
+    + StandardWinChecker(pawnsPerPlayer : int)
+    + checkWin(player : Player) : Boolean
+    - searchNeighbours(player : Player, currentPoint : Point) : Boolean
+  }
+  interface WinChecker {
+    + checkWin(Player) : Boolean {abstract}
+  }
+}
+package studia.Client {
+  class Client {
+    - game : Game
+    - inStream : DataInputStream
+    ~ interpreter : MessageInterpreter
+    - nplayers : int
+    - outStream : DataOutputStream
+    - socket : Socket
+    - yournumber : int
+    + Client(port : int)
+    + getYourNumber() : int
+    + listen()
+    + setPlayersNumber(n : int)
+    + setYourNumber(n : int)
+    + startGame(curplr : int)
+    + writeMessage(args : int[])
+  }
+  class ClientExec {
+    + ClientExec()
+    + main(args : String[]) {static}
+  }
+}
+package studia.Utils {
+  class Color {
+    + names : String[] {static}
+    + Color()
+    + colorName(i : int) : String {static}
+  }
+  class Pair {
+    + x : int
+    + y : int
+    + Pair(x : int, y : int)
+    + distance(a : Pair, b : Pair) : Pair {static}
+    + equals(obj : Object) : boolean
+  }
+  class Pawn {
+    + color : int
+    + Pawn(color : int)
+    + print(pawnString : String)
+  }
+  class Player {
+    - color : int
+    + countPawns : int
+    + finishCorner : Point
+    + finishPoints : List<Point>
+    - pawns : List<Pawn>
+    + playerNumber : int
+    + startCorner : Point
+    + Player(color : int)
+    + getColor() : int
+    + setFinishCorner(finishCorner : Point)
+    + setStartCorner(startCorner : Point)
+    + spawnNewPawn() : Pawn
+  }
+  class Point {
+    + neighbours1 : List<Point>
+    + neighbours2 : List<Point>
+    + pawn : Pawn
+    + pos : Pair
+    + Point(pos : Pair)
+    + getNeighbour2FromNeighbour1(neighbour1 : Point) : Point
+    + printNeighbours1()
+    + printNeighbours2()
+    + toString() : String
+  }
+  class TrailingZeros {
+    + TrailingZeros()
+    + addTrailingZeros(number : int, length : int) : String {static}
+  }
+}
+package studia {
+  class App {
+    + App()
+    + main(args : String[]) {static}
+  }
+}
+Player -->  "-startCorner" Point
+Point -->  "-pawn" Pawn
+Game -->  "-moveHandler" MoveHandler
+StandardMoveHandler -->  "-board" Board
+Client -->  "-game" Game
+Game -->  "-winChecker" WinChecker
+Board -->  "-cornerPoints" Point
+StandardWinChecker -->  "-pointQueue" Point
+StandardMoveHandler -->  "-visitedPoints" Point
+YconMessage -->  "-c" Client
+Message -->  "-sender" Player
+BmovMessage -->  "-client" Client
+MessageInterpreter -->  "-game" Game
+StandardPawnsSpawner -->  "-pointQueue" Point
+PseudoMoveHandler -->  "-board" Board
+Game -->  "-board" Board
+ServerPlayer -->  "-thisref" ServerPlayer
+YmovMessage -->  "-client" Client
+MoveMessage -->  "-server" Server
+Point -->  "-pos" Pair
+Player -->  "-pawns" Pawn
+Point -->  "-neighbours1" Point
+Server -->  "-game" Game
+BoardBuilder -->  "-board" Board
+ServerPlayer -->  "-server" Server
+BegMessage -->  "-cli" Client
+MoveMessage -->  "-game" Game
+Client -->  "-interpreter" MessageInterpreter
+Server -->  "-interpreter" MessageInterpreter
+BegMessage --|> Message 
+BmovMessage --|> Message 
+ConnMessage --|> Message 
+EndMessage --|> Message 
+HupMessage --|> Message 
+MoveMessage --|> Message 
+YconMessage --|> Message 
+YmovMessage --|> Message 
+PseudoMoveHandler ..|> MoveHandler 
+StandardMoveHandler ..|> MoveHandler 
+StandardPawnsSpawner ..|> PawnsSpawner 
+ServerPlayer --|> Player 
+StandardWinChecker ..|> WinChecker 
+@enduml

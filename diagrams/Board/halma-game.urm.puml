@@ -1,0 +1,42 @@
+@startuml
+package studia.Board {
+  class Board {
+    + cornerPoints : List<Point>
+    + height : int
+    + length : int
+    + players : Player[]
+    + points : Point[][]
+    + triangleSize : int
+    + validPointsMap : Map<Integer, Point>
+    + validPointsNumber : int
+    + Board()
+    + addCornerPoint(point : Point)
+    + generateNeighbours1()
+    + generateNeighbours2()
+    + initPoints()
+    + move(oldPoint : Point, newPoint : Point)
+    + printBoard()
+    + setHeight(height : int)
+    + setLength(length : int)
+    + setPlayers(players : Player[])
+    + setPoint(point : Point, x : int, y : int)
+    + setTriangleSize(triangleSize : int)
+  }
+  class BoardBuilder {
+    - board : Board
+    - pawnsPerPlayer : int
+    - playerNumber : int
+    - players : Player[]
+    + BoardBuilder(triangleSize : int, players : Player[], pawnsPerPlayer : int)
+    + build()
+    + getBoard() : Board
+    - initCornerPoints()
+    - initFinishPoints()
+    - initPlayers(playerNumber : int)
+    - initPoints()
+    - initValidPointsMap()
+    - spawnPawns()
+  }
+}
+BoardBuilder -->  "-board" Board
+@enduml

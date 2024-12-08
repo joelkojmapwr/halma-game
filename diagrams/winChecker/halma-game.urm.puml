@@ -1,0 +1,17 @@
+@startuml
+package studia.winChecker {
+  class StandardWinChecker {
+    - countPawnsHome : int
+    - pawnsPerPlayer : int
+    - pointQueue : Queue<Point>
+    - visitedPoints : List<Point>
+    + StandardWinChecker(pawnsPerPlayer : int)
+    + checkWin(player : Player) : Boolean
+    - searchNeighbours(player : Player, currentPoint : Point) : Boolean
+  }
+  interface WinChecker {
+    + checkWin(Player) : Boolean {abstract}
+  }
+}
+StandardWinChecker ..|> WinChecker 
+@enduml
