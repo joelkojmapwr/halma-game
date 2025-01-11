@@ -47,7 +47,7 @@ public class StandardMoveHandler implements MoveHandler {
      * @param newPoint
      * @return
      */
-    private Boolean isValidMove(Point oldPoint, Point newPoint, Player player){
+    public Boolean isValidMove(Point oldPoint, Point newPoint, Player player){
         if (oldPoint.pawn == null) {
             // empty field invalid move
             return false;

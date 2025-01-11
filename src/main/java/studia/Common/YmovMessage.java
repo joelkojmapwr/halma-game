@@ -13,8 +13,8 @@ public class YmovMessage extends Message {
 	
 	public void execute() {
 		System.out.println("Your turn");
-		Move m = new Move();
-		m.fromKeyboard();
-		client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), m.from, m.to);
+		//Move m = new Move();
+		//m.fromKeyboard();
+		//client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), m.from, m.to);
 	}
 }

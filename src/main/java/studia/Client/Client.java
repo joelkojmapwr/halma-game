@@ -9,14 +9,13 @@ import studia.Common.Game;
 import studia.Utils.Player;
 
 public class Client {
-	private Socket socket;
-	private DataInputStream inStream;
-	private DataOutputStream outStream;
+	protected Socket socket;
+	protected DataInputStream inStream;
+	protected DataOutputStream outStream;
+	protected int nplayers = 0, yournumber = -1;
+	protected Game game;
 	
-	private Game game;
-	private int nplayers = 0, yournumber = -1;
-	
-	MessageInterpreter interpreter;
+	protected MessageInterpreter interpreter;
 	
 	public Client(String host, int port) throws IOException {
 		socket = new Socket(host, port);

@@ -19,7 +19,7 @@ public class ClientExec {
 		}
 		
 		try {
-			Client c = new Client(args[0], PORT);
+			FXClient c = new FXClient(args[0], PORT);
 			c.listen();
 		} catch(EOFException e) {
 			System.out.println("Server disconnected");

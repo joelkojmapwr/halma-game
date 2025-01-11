@@ -9,10 +9,10 @@ import studia.Utils.Point;
 import studia.PawnsSpawner.StandardPawnsSpawner;
 
 public class BoardBuilder {
-    private Board board;
-    private Player[] players;
-    private int playerNumber;
-    private int pawnsPerPlayer;
+    protected Board board;
+    protected Player[] players;
+    protected int playerNumber;
+    protected int pawnsPerPlayer;
     /**
      * 
      * @param triangleSize - length of the triangle side (default 4)
@@ -49,7 +49,7 @@ public class BoardBuilder {
         this.initFinishPoints();
     }
 
-    private void initPoints() {
+    protected void initPoints() {
         // punkt 0,0 jest w lewym dolnym rogu
         // initialize 1 triangle - 
         int newX, newY;
@@ -81,7 +81,7 @@ public class BoardBuilder {
         }
     }
 
-    private void initCornerPoints(){
+    protected void initCornerPoints(){
         Point topPoint = board.points[board.length/2][0];
         Point bottomPoint = board.points[board.length/2][board.height - 1];
         Point upperLeftPoint = board.points[0][board.triangleSize];
@@ -97,7 +97,7 @@ public class BoardBuilder {
         board.addCornerPoint(upperLeftPoint);
     }
 
-    private void initPlayers(int playerNumber) {
+    protected void initPlayers(int playerNumber) {
         /*int startColor = 1;
         for (int i = 0; i<playerNumber; i++) {
             Player newPlayer = new Player(startColor);
@@ -140,7 +140,7 @@ public class BoardBuilder {
         board.setPlayers(players);
     }
 
-    private void initFinishPoints() {
+    protected void initFinishPoints() {
         for (Player player : players) {
             player.finishPoints.add(player.finishCorner);
             for (Point neighbour2 : player.finishCorner.neighbours2) {
@@ -154,12 +154,12 @@ public class BoardBuilder {
         }
     }
 
-    private void spawnPawns(){
+    protected void spawnPawns(){
         StandardPawnsSpawner pawnsSpawner = new StandardPawnsSpawner(pawnsPerPlayer);
         pawnsSpawner.spawn(players);
     }
 
-    private void initValidPointsMap() {
+    protected void initValidPointsMap() {
         int countPoints = 0;
         for (int i=0; i<board.height; i++) {
             for (int j=0; j<board.length; j++) {

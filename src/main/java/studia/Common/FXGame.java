@@ -1,0 +1,54 @@
+package studia.Common;
+
+import studia.Board.FXXBoardBuilder;
+import studia.MoveHandler.StandardMoveHandler;
+import studia.Utils.Color;
+import studia.Utils.FXPoint;
+import studia.Utils.Player;
+import studia.winChecker.StandardWinChecker;
+import studia.Board.Board;
+
+public class FXGame extends Game {
+    
+
+	public FXGame(Player[] players, int current) {
+		super();
+		this.players = players;
+		curplr = current;
+		
+		FXXBoardBuilder boardBuilder = new FXXBoardBuilder(4, players, 10);
+		boardBuilder.build();
+		
+		board = boardBuilder.getBoard();
+		moveHandler = new StandardMoveHandler(board);
+		winChecker = new StandardWinChecker(10);
+	}
+
+    @Override
+    public boolean playerMove(int p, Move m) {
+		if(p != curplr) return false;
+		if(!moveHandler.newMove(m.from, m.to, players[p])) return false;
+        System.out.printf("Player %d (%s): %s\n", p, Color.colorName(p), m.toString());
+
+		updatePointCircles(m);
+		
+		
+		
+		curplr = (curplr + 1) % players.length;
+		if(winChecker.checkWin(players[p])) winner = p;
+		
+		return true;
+	}
+
+	protected void updatePointCircles(Move m) {
+		FXPoint oldPoint = (FXPoint) board.validPointsMap.get(m.from);
+		FXPoint newPoint = (FXPoint) board.validPointsMap.get(m.to);
+		oldPoint.updateCircle();
+		newPoint.updateCircle();
+	}
+
+    public Board getBoard() {
+        return board;
+    }
+
+}
