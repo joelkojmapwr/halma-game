@@ -1,11 +1,13 @@
 package studia.Common;
 
 import studia.Board.FXXBoardBuilder;
+import studia.Client.ClientApp;
 import studia.MoveHandler.StandardMoveHandler;
 import studia.Utils.Color;
 import studia.Utils.FXPoint;
 import studia.Utils.Player;
 import studia.winChecker.StandardWinChecker;
+import javafx.application.Platform;
 import studia.Board.Board;
 
 public class FXGame extends Game {
@@ -29,16 +31,17 @@ public class FXGame extends Game {
 		if(p != curplr) return false;
 		if(!moveHandler.newMove(m.from, m.to, players[p])) return false;
         System.out.printf("Player %d (%s): %s\n", p, Color.colorName(p), m.toString());
+		// update UI
+		Platform.runLater(() -> updatePointCircles(m));
+		ClientApp.client.currentPlayer = (p + 1) % players.length;
+		Platform.runLater(() -> ClientApp.updateUI());
 
-		updatePointCircles(m);
-		
-		
-		
 		curplr = (curplr + 1) % players.length;
 		if(winChecker.checkWin(players[p])) winner = p;
 		
 		return true;
 	}
+
 
 	protected void updatePointCircles(Move m) {
 		FXPoint oldPoint = (FXPoint) board.validPointsMap.get(m.from);

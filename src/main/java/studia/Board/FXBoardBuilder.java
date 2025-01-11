@@ -76,8 +76,4 @@ public class FXBoardBuilder {
         }
         return pointsGroup;
     }
-
-    public Pane updatePane() {
-        return buildBoard();
-    }
 }

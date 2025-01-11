@@ -6,19 +6,22 @@ import java.util.Map;
 
 
 import javafx.scene.shape.Circle;
+import javafx.application.Platform;
+
 import studia.Board.Board;
 import studia.Utils.FXPoint;
 import studia.Utils.Point;
-import studia.Client.Client;
+import studia.Client.ClientApp;
+import studia.Client.FXClient;
 import studia.Common.Message;
 
 public class FXMoveHandler {
 
     protected Board board;
     public List<FXPoint> selectedPoints = new ArrayList<FXPoint>();
-    protected Client client;
+    protected FXClient client;
 
-    public FXMoveHandler(Board board, Client client) {
+    public FXMoveHandler(Board board, FXClient client) {
         this.board = board;
         this.client = client;
         selectedPoints = new ArrayList<FXPoint>();
@@ -37,9 +40,9 @@ public class FXMoveHandler {
                 FXPoint point = (FXPoint) board.points[i][j];
                 Circle circle = point.getCircle();
                 circle.setOnMouseClicked(e -> {
-                    if (selectedPoints.size() == 2) {
-                        System.out.println("Two points already selected, you can't select more");
-                        selectedPoints.clear();
+
+                    if (client.getYourNumber() != client.currentPlayer) {
+                        Platform.runLater( () -> ClientApp.messageLabel.setText("It's not your turn!"));
                         return;
                     }
                     if (point.isClicked == false){

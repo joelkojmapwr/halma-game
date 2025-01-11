@@ -8,6 +8,7 @@ import java.io.IOException;
 public class FXClient extends Client {
 
 	protected FXGame game;
+	public static int currentPlayer;
 
     public FXClient(String host, int port) throws IOException {
         super(host, port);
@@ -15,6 +16,7 @@ public class FXClient extends Client {
 
     @Override
     public void startGame(int curplr) {
+		this.currentPlayer = curplr;
 		Player[] plrs = new Player[nplayers];
 		for(int i=0;i<nplayers;i++)
 			plrs[i] = new Player(i);

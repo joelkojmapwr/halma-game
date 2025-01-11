@@ -3,13 +3,12 @@ package studia.Board;
 import studia.Utils.FXPoint;
 import studia.Utils.Pair;
 import studia.Utils.Player;
-import studia.Utils.Point;
 
 public class FXXBoardBuilder extends BoardBuilder {
 
     public FXXBoardBuilder(int triangleSize, Player[] players, int pawnsPerPlayer) {
         super(triangleSize, players, pawnsPerPlayer);
-        
+
     }
 
     @Override

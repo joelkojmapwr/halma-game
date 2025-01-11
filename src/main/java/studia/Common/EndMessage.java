@@ -1,5 +1,7 @@
 package studia.Common;
 
+import javafx.application.Platform;
+import studia.Client.ClientApp;
 import studia.Utils.Color;
 
 public class EndMessage extends Message {
@@ -10,6 +12,8 @@ public class EndMessage extends Message {
 	}
 	
 	public void execute() {
-		System.out.printf("Player %d (%s) won!\n", winner, Color.colorName(winner));
+		//System.out.printf("Player %d (%s) won!\n", winner, Color.colorName(winner));
+		Platform.runLater(() -> ClientApp.messageLabel.setText("Player " + Color.colorName(winner) + " won!"));
+		
 	}
 }
