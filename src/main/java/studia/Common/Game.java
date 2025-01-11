@@ -14,7 +14,7 @@ import studia.Utils.Color;
 
 public class Game {
 	protected Player[] players;
-	protected int curplr, winner = -1;
+	public int curplr, winner = -1;
         
 	protected Board board;
 	protected MoveHandler moveHandler;

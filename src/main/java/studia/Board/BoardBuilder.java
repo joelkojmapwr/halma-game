@@ -1,7 +1,5 @@
 package studia.Board;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import studia.Utils.Pair;
 import studia.Utils.Player;

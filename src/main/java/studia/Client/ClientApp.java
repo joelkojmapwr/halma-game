@@ -2,6 +2,8 @@ package studia.Client;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import studia.Board.Board;
@@ -30,9 +32,16 @@ public class ClientApp extends Application {
 		System.out.println(point.getCircle().getRadius());
 
 		fxBoardBuilder = new FXBoardBuilder(board, sceneWidth, sceneHeight);
-		Pane root = fxBoardBuilder.buildBoard();
+		BorderPane root = new BorderPane();
+		Pane workspacePane = fxBoardBuilder.buildBoard();
+		Pane bottomPane = new Pane();
+		Label playerLabel = new Label("You are player " + client.yournumber + " with color " + studia.Utils.Color.colorName(client.yournumber));
+		Label msg = new Label("Player " + game.curplr + " turn");
 		FXMoveHandler moveHandler = new FXMoveHandler(board, client);
-
+		// need to add also label where msg from server will be displayed
+		bottomPane.getChildren().addAll(playerLabel);
+		root.setCenter(workspacePane);
+		root.setBottom(bottomPane);
 		Scene scene = new Scene(root, sceneWidth, sceneHeight);
 		scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 		
