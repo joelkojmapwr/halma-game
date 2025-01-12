@@ -11,6 +11,9 @@ import studia.PawnsSpawner.StandardPawnsSpawner;
 import studia.PawnsSpawner.PawnsSpawner;
 import studia.PawnsSpawner.PawnsSpawnerFactory;
 
+/**
+ * BoardBuilder is a class that is responsible for creating a board for the game.
+ */
 public class BoardBuilder {
     protected Board board;
     private Player[] players;
@@ -24,6 +27,8 @@ public class BoardBuilder {
     /**
      * 
      * @param triangleSize - length of the triangle side (default 4)
+     * @param players - array of players
+     * @param pawnsPerPlayer - number of pawns per player
      */
     public BoardBuilder(int triangleSize, Player[] players, int pawnsPerPlayer) {
         this.players = players;
@@ -40,6 +45,10 @@ public class BoardBuilder {
         initBoard();
     }
     
+    /**
+     * Sets the variant of the game
+     * @param variant
+     */
     public void setVariant(int variant) {
 			this.variant = variant;
 		}
@@ -47,22 +56,32 @@ public class BoardBuilder {
 		public void setSeed(int seed) {
 			this.seed = seed;
 		}
-		
+		/**
+         * Sets the corners for the Yin Yan variant
+         * @param corners
+         */
 		public void setYinCorners(int corners) {
 			yin_corners = corners;
 		}
-    
+    /**
+     * Initializes the board
+     */
     protected void initBoard() {
 			board.setLength(length);
 			board.setHeight(height);
 			board.setTriangleSize(triangleSize);
 			board.initPoints();
 		}
-
+    /**
+     * Returns the board
+     * @return
+     */
     public Board getBoard() {
         return board;
     }
-
+    /**
+     * Builds the board -> calls many other methods to init points, pawns, neighbours, corners
+     */
     public void build(){
         this.initPoints();
         this.initValidPointsMap();
@@ -74,9 +93,11 @@ public class BoardBuilder {
         spawnPawns();
         this.initFinishPoints();
     }
-
+    /**
+     * Initializes valid game points on the board
+     */
     protected void initPoints() {
-        // punkt 0,0 jest w lewym dolnym rogu
+        // (0,0) Point is located int the top left corner
         // initialize 1 triangle - 
         int newX, newY;
         for (int i = 0; i < board.height - board.triangleSize; i++) {
@@ -106,7 +127,9 @@ public class BoardBuilder {
             }
         }
     }
-
+    /**
+     * Initializes corner points on the board
+     */
     private void initCornerPoints(){
         Point topPoint = board.points[board.length/2][0];
         Point bottomPoint = board.points[board.length/2][board.height - 1];
@@ -122,15 +145,11 @@ public class BoardBuilder {
         board.addCornerPoint(lowerLeftPoint);
         board.addCornerPoint(upperLeftPoint);
     }
-
+    /**
+     * Initializes players on the board depending on the number of players and the variant
+     * @param playerNumber
+     */
     private void initPlayers(int playerNumber) {
-        /*int startColor = 1;
-        for (int i = 0; i<playerNumber; i++) {
-            Player newPlayer = new Player(startColor);
-            this.players.add(newPlayer);
-            // @TODO - handle colours
-            startColor +=1;
-        }*/
         if(variant == Variant.YINYAN) {
 					int p0c = yin_corners & 0xff, p1c = (yin_corners >> 8) & 0xff;
 					players[0].setStartCorner(board.cornerPoints.get(p0c));
@@ -172,7 +191,9 @@ public class BoardBuilder {
 					}
         board.setPlayers(players);
     }
-
+    /**
+     * Initializes finish points for each player, where the player should head to 
+     */
     private void initFinishPoints() {
         for (Player player : players) {
             player.finishPoints.add(player.finishCorner);
@@ -186,13 +207,17 @@ public class BoardBuilder {
             }
         }
     }
-
+    /**
+     * Spawns pawns on the board depending on players and the variant
+     */
     private void spawnPawns(){
 				PawnsSpawnerFactory sf = new PawnsSpawnerFactory(board, pawnsPerPlayer, seed);
         PawnsSpawner pawnsSpawner = sf.create(variant);
         pawnsSpawner.spawn(players);
     }
-
+    /**
+     * Initializes valid points map
+     */
     private void initValidPointsMap() {
         int countPoints = 0;
         for (int i=0; i<board.height; i++) {

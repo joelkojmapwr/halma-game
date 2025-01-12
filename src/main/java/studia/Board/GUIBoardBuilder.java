@@ -21,9 +21,7 @@ public class GUIBoardBuilder {
     }
     /**
      * the ratio paneWidth/paneHeight should be 1/1
-     * @param paneWidth
-     * @param paneHeight
-     * @return
+     * @return Pane with the board
      */
     public Pane buildBoard() {
         Pane root = new Pane();
@@ -50,7 +48,10 @@ public class GUIBoardBuilder {
 
         return root;
     }
-
+    /**
+     * Creates a Group with all the points(Circles) on the board
+     * @return
+     */
     public Group getPointsGroup() {
 
         Group pointsGroup = new Group();

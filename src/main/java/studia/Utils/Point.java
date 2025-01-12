@@ -21,7 +21,11 @@ public class Point {
     public String toString(){
         return "Point: " + pos.x + " " + pos.y;
     }
-
+    /**
+     * 
+     * @param neighbour1
+     * @return the neighbour Point where I will be if I would jumped over Neighbour1
+     */
     public Point getNeighbour2FromNeighbour1(Point neighbour1){
         for (Point neighbour2 : neighbour1.neighbours1) {
             // neighbour 2 generated this way should not be the same as the current point

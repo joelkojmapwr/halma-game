@@ -12,6 +12,9 @@ public class FXBoardBuilder extends BoardBuilder {
         initBoard();
     }
 
+    /**
+     * Initializes Points but with {@link FXPoints}
+     */
     @Override
     protected void initPoints() {
         // punkt 0,0 jest w lewym dolnym rogu

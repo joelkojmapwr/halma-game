@@ -6,6 +6,9 @@ import studia.Utils.FXPoint;
 
 
 public class FXBoard extends Board {
+	/**
+	 * Updates the board by updating the circles
+	 */
     @Override
     public void printBoard() {
 			for(Point[] row: points)
