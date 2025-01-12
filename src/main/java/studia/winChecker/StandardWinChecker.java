@@ -18,14 +18,22 @@ public class StandardWinChecker implements WinChecker {
     public StandardWinChecker(int pawnsPerPlayer) {
         this.pawnsPerPlayer = pawnsPerPlayer;
     }
-
+    /**
+     * @param player - player that is checked for win
+     * @return true if player has all pawns in the finish corner
+     */
     public Boolean checkWin(Player player) {
         pointQueue = new LinkedList<Point>();
         visitedPoints = new ArrayList<Point>();
         countPawnsHome = 0;
         return searchNeighbours(player, player.finishCorner);
     }
-
+    /**
+     * Helper function that searches for neighbours of the corner point (if all pawns are in the corner)
+     * @param player
+     * @param currentPoint
+     * @return
+     */
     private Boolean searchNeighbours(Player player, Point currentPoint) {
         visitedPoints.add(currentPoint);
         if (currentPoint.pawn != null) {

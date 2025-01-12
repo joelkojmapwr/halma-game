@@ -2,7 +2,9 @@ package studia.Utils;
 
 import java.util.List;
 import java.util.ArrayList;
-
+/**
+ * Represents a player in the game
+ */
 public class Player {
     public Point startCorner;
     public Point finishCorner;
@@ -17,7 +19,10 @@ public class Player {
         countPawns = 0;
         this.color = color;
     }
-
+    /**
+     * Spawns a new pawn for the player
+     * @return
+     */
     public Pawn spawnNewPawn(){
         Pawn pawn = new Pawn(color);
         this.pawns.add(pawn);
