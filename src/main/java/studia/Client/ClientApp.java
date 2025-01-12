@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import studia.Board.Board;
-import studia.Board.FXBoardBuilder;
+import studia.Board.GUIBoardBuilder;
 import studia.MoveHandler.FXMoveHandler;
 import studia.Utils.FXPoint;
 import studia.Common.FXGame;
@@ -25,7 +25,7 @@ public class ClientApp extends Application {
 	private int sceneHeight = 800;
 	public static FXClient client;
     public FXGame game;
-	public FXBoardBuilder fxBoardBuilder;
+	public GUIBoardBuilder fxBoardBuilder;
 	public static Label currentPlayerLabel;
 	public static Label messageLabel;
 	public static Label yourTurnLabel;
@@ -40,7 +40,7 @@ public class ClientApp extends Application {
 
 		Board board = game.getBoard();
 
-		fxBoardBuilder = new FXBoardBuilder(board, sceneWidth, sceneHeight);
+		fxBoardBuilder = new GUIBoardBuilder(board, sceneWidth, sceneHeight);
 		BorderPane root = new BorderPane();
 		Pane workspacePane = fxBoardBuilder.buildBoard();
 		

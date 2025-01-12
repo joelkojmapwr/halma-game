@@ -1,6 +1,6 @@
 package studia.Common;
 
-import studia.Board.FXXBoardBuilder;
+import studia.Board.FXBoardBuilder;
 import studia.Client.ClientApp;
 import studia.MoveHandler.StandardMoveHandler;
 import studia.Utils.Color;
@@ -18,7 +18,7 @@ public class FXGame extends Game {
 		this.players = players;
 		curplr = current;
 		
-		FXXBoardBuilder boardBuilder = new FXXBoardBuilder(4, players, 10);
+		FXBoardBuilder boardBuilder = new FXBoardBuilder(4, players, 10);
 		boardBuilder.build();
 		
 		board = boardBuilder.getBoard();
