@@ -130,6 +130,11 @@ public class GameScene {
 						Platform.runLater( () -> ClientApp.messageLabel.setText("It's not your turn!"));
 						return;
 				}*/
+					if(e.getButton() == javafx.scene.input.MouseButton.SECONDARY) {
+						move = decodeMove(point, point);
+						clearSelected();
+						return;
+					}
 					if (point.isClicked == false){
 						selectedPoints.add(point);
 						circle.setStrokeWidth(5);
