@@ -13,7 +13,7 @@ public class FXBoardBuilder extends BoardBuilder {
     }
 
     /**
-     * Initializes Points but with {@link FXPoints}
+     * Initializes Points but with {@link studia.Utils.FXPoint}
      */
     @Override
     protected void initPoints() {

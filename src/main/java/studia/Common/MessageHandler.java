@@ -2,7 +2,7 @@ package studia.Common;
 import studia.Board.Board;
 import studia.Common.Move;
 /**Methods from these interface are called by messages
- * @see studia.Common.StdoutMessageInterpreter
+ * @see studia.Common.StdoutMessageHandler
  */
 public interface MessageHandler {
 	public void handleYcon(int pos, int total, int variant);

@@ -18,7 +18,7 @@ import studia.Board.Board;
 
 
 /**
- * Klasa klienta
+ * Client class
  */
 public class Client extends Thread {
 	private Socket socket;
