@@ -184,6 +184,7 @@ public class GameScene {
 	public Move getMove() {
 		clearMove();
 		clearSelected();
+		board.printBoard();
 		try {
 			while(move == null) Thread.sleep(1);
 		} catch(Exception e) {}
