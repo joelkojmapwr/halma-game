@@ -27,6 +27,7 @@ public class Client extends Thread {
 	
 	private Game game;
 	private int nplayers = 0, yournumber = -1;
+	private boolean uiversion = false;
 	public boolean broken = false;
 	
 	
@@ -43,6 +44,13 @@ public class Client extends Thread {
 		inStream = new DataInputStream(socket.getInputStream());
 		outStream = new DataOutputStream(socket.getOutputStream());
 		interpreter = new MessageInterpreter(this);
+	}
+	
+	/**
+	* Change client to UI version
+	*/
+	public void setUI() {
+		uiversion = true;
 	}
 	
 	/**
@@ -126,7 +134,10 @@ public class Client extends Thread {
 		for(int i=0;i<nplayers;i++)
 			plrs[i] = new Player(i);
 		
-		BoardBuilder boardBuilder = new FXBoardBuilder(4, plrs, 10);
+		BoardBuilder boardBuilder;
+		if(uiversion) boardBuilder = new FXBoardBuilder(4, plrs, 10);
+		else boardBuilder = new BoardBuilder(4, plrs, 10);
+		
 		boardBuilder.setVariant(variant);
 		if(variant == Variant.CHAOS) boardBuilder.setSeed(seed);
 		else if(variant == Variant.YINYAN) boardBuilder.setYinCorners(seed);

@@ -55,6 +55,7 @@ public class ClientFX extends Application implements MessageHandler {
     public void tryConnect(String host, int port) throws EOFException, IOException {
 				client = new Client(host, port);
 				client.setHandler(this);
+				client.setUI();
 				client.start();
 		}
 		
