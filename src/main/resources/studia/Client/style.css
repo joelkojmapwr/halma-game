@@ -1,0 +1,11 @@
+.halmaStar * {
+    -fx-fill: #f7edb5;
+}
+
+.label {
+    -fx-alignment: center;       /* Align text within the label */
+    -fx-text-alignment: center;  /* Align multiline text */
+    -fx-pref-width: 800px;         /* Set the preferred width to the whole window width */
+    -fx-pref-height: 36px;          /* Set the preferred height */
+    -fx-background-color: lightyellow; /* Set the background color */
+}

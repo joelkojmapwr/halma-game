@@ -7,6 +7,8 @@ import studia.Utils.Pair;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class StandardMoveHandler implements MoveHandler {
 
@@ -135,10 +137,28 @@ public class StandardMoveHandler implements MoveHandler {
 
     private Boolean isMoveLeavingHome(Point oldPoint, Point newPoint, Player player) {
         if (player.finishPoints.contains(oldPoint) == true && player.finishPoints.contains(newPoint) == false) {
-            System.out.println("You can not leave home");
+            //System.out.println("You can not leave home");
             return true;
         }
         return false;
     }
+    
+    private List<Point> _getAvailableMoves(Player plr, Point from, Point cur, Set<Point> visited, List<Point> ret) {
+			visited.add(cur);
+			for(Point n: cur.neighbours1) {
+				if(visited.contains(n)) continue;
+				if(isValidMove(from, n, plr))
+					ret.add(n);
+				ret = _getAvailableMoves(plr, from, n, visited, ret);
+			}
+			return ret;
+		}
+		
+		public List<Point> getAvailableMoves(Player plr, Point from) {
+			List<Point> l = new ArrayList<Point>();
+			Set<Point> v = new HashSet<Point>();
+			return _getAvailableMoves(plr, from, from, v, l);
+		}
+		
 
 }

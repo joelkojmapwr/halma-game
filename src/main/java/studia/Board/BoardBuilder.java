@@ -6,13 +6,21 @@ import java.util.List;
 import studia.Utils.Pair;
 import studia.Utils.Player;
 import studia.Utils.Point;
+import studia.Utils.Variant;
 import studia.PawnsSpawner.StandardPawnsSpawner;
+import studia.PawnsSpawner.PawnsSpawner;
+import studia.PawnsSpawner.PawnsSpawnerFactory;
 
 public class BoardBuilder {
-    private Board board;
+    protected Board board;
     private Player[] players;
     private int playerNumber;
     private int pawnsPerPlayer;
+    
+    protected int length, height, triangleSize;
+    private int variant = 0;
+    private int seed = -1;
+    private int yin_corners;
     /**
      * 
      * @param triangleSize - length of the triangle side (default 4)
@@ -23,15 +31,33 @@ public class BoardBuilder {
         this.pawnsPerPlayer = pawnsPerPlayer;
         // wiersze są ułożone na przemian, więc zastosujemy tablicę szerokości 2*szerokość -1 
         // domyślnie 25
-        int length = 2*(3*triangleSize +1) - 1;
+        this.triangleSize = triangleSize;
+        length = 2*(3*triangleSize +1) - 1;
         // domyślnie 17
-        int height = 4*triangleSize +1;
+        height = 4*triangleSize +1;
+        
         this.board = new Board();
-        board.setLength(length);
-        board.setHeight(height);
-        board.setTriangleSize(triangleSize);
-        board.initPoints();
+        initBoard();
     }
+    
+    public void setVariant(int variant) {
+			this.variant = variant;
+		}
+		
+		public void setSeed(int seed) {
+			this.seed = seed;
+		}
+		
+		public void setYinCorners(int corners) {
+			yin_corners = corners;
+		}
+    
+    protected void initBoard() {
+			board.setLength(length);
+			board.setHeight(height);
+			board.setTriangleSize(triangleSize);
+			board.initPoints();
+		}
 
     public Board getBoard() {
         return board;
@@ -49,7 +75,7 @@ public class BoardBuilder {
         this.initFinishPoints();
     }
 
-    private void initPoints() {
+    protected void initPoints() {
         // punkt 0,0 jest w lewym dolnym rogu
         // initialize 1 triangle - 
         int newX, newY;
@@ -105,38 +131,45 @@ public class BoardBuilder {
             // @TODO - handle colours
             startColor +=1;
         }*/
-        switch (playerNumber) {
-            case 2:
-                players[0].setStartCorner(board.cornerPoints.get(0));
-                players[0].setFinishCorner(board.cornerPoints.get(3));
-                players[1].setStartCorner(board.cornerPoints.get(3));
-                players[1].setFinishCorner(board.cornerPoints.get(0));
-                break;
-            case 3:
-                for (int i =0; i<3; i++){
-                    players[i].setStartCorner(board.cornerPoints.get(i*2));
-                    players[i].setFinishCorner(board.cornerPoints.get((i*2+3)%6));
-                }
-                break;
-            case 4:
-                players[0].setStartCorner(board.cornerPoints.get(0));
-                players[0].setFinishCorner(board.cornerPoints.get(3));
-                players[1].setStartCorner(board.cornerPoints.get(1));
-                players[1].setFinishCorner(board.cornerPoints.get(4));
-                players[2].setStartCorner(board.cornerPoints.get(3));
-                players[2].setFinishCorner(board.cornerPoints.get(0));
-                players[3].setStartCorner(board.cornerPoints.get(4));
-                players[3].setFinishCorner(board.cornerPoints.get(1));
-                break;
-            case 6:
-                for (int i =0; i<6; i++){
-                    players[i].setStartCorner(board.cornerPoints.get(i));
-                    players[i].setFinishCorner(board.cornerPoints.get((i+3)%6));
-                }
-                break;
-            default:
-                break;
-        }
+        if(variant == Variant.YINYAN) {
+					int p0c = yin_corners & 0xff, p1c = (yin_corners >> 8) & 0xff;
+					players[0].setStartCorner(board.cornerPoints.get(p0c));
+					players[0].setFinishCorner(board.cornerPoints.get(p1c));
+					players[1].setStartCorner(board.cornerPoints.get(p1c));
+					players[1].setFinishCorner(board.cornerPoints.get(p0c));
+				} else
+					switch (playerNumber) {
+							case 2:
+									players[0].setStartCorner(board.cornerPoints.get(0));
+									players[0].setFinishCorner(board.cornerPoints.get(3));
+									players[1].setStartCorner(board.cornerPoints.get(3));
+									players[1].setFinishCorner(board.cornerPoints.get(0));
+									break;
+							case 3:
+									for (int i =0; i<3; i++){
+											players[i].setStartCorner(board.cornerPoints.get(i*2));
+											players[i].setFinishCorner(board.cornerPoints.get((i*2+3)%6));
+									}
+									break;
+							case 4:
+									players[0].setStartCorner(board.cornerPoints.get(0));
+									players[0].setFinishCorner(board.cornerPoints.get(3));
+									players[1].setStartCorner(board.cornerPoints.get(1));
+									players[1].setFinishCorner(board.cornerPoints.get(4));
+									players[2].setStartCorner(board.cornerPoints.get(3));
+									players[2].setFinishCorner(board.cornerPoints.get(0));
+									players[3].setStartCorner(board.cornerPoints.get(4));
+									players[3].setFinishCorner(board.cornerPoints.get(1));
+									break;
+							case 6:
+									for (int i =0; i<6; i++){
+											players[i].setStartCorner(board.cornerPoints.get(i));
+											players[i].setFinishCorner(board.cornerPoints.get((i+3)%6));
+									}
+									break;
+							default:
+									break;
+					}
         board.setPlayers(players);
     }
 
@@ -155,7 +188,8 @@ public class BoardBuilder {
     }
 
     private void spawnPawns(){
-        StandardPawnsSpawner pawnsSpawner = new StandardPawnsSpawner(pawnsPerPlayer);
+				PawnsSpawnerFactory sf = new PawnsSpawnerFactory(board, pawnsPerPlayer, seed);
+        PawnsSpawner pawnsSpawner = sf.create(variant);
         pawnsSpawner.spawn(players);
     }
 

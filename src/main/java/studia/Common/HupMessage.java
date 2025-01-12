@@ -10,6 +10,6 @@ public class HupMessage extends Message {
 	}
 	
 	public void execute() {
-		System.out.printf("Player %d (%s) disconnected, game terminated\n", who, Color.colorName(who));
+		handler.handleHup(who);
 	}
 }

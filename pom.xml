@@ -11,10 +11,10 @@
   <name>halma-game</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.release>17</maven.compiler.release>
+    <javafx.version>17.0.1</javafx.version>
   </properties>
 
   <dependencyManagement>
@@ -40,6 +40,17 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-params</artifactId>
       <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>${javafx.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-fxml</artifactId>
+        <version>${javafx.version}</version>
     </dependency>
   </dependencies>
 
@@ -121,6 +132,15 @@
 
         </executions>
       </plugin>
+      
+      <plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.8</version>
+            <configuration>
+                <mainClass>studia.Client.ClientFX</mainClass>
+            </configuration>
+        </plugin>
     </plugins>
 
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to

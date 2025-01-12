@@ -10,9 +10,14 @@ import studia.Utils.Player;
 import studia.Common.Game;
 import java.util.Random;
 
+import studia.Utils.Variant;
+
+import studia.Board.BoardBuilder;
+
 public class Server {
 	private int PORT;
 	private int nplayers;
+	private int variant;
 	private Player[] connected;
 	private int nconnected;
 	private ServerSocket serverSocket;
@@ -22,11 +27,13 @@ public class Server {
 	
 	private MessageInterpreter interpreter;
 	
+	private int[] startCorner = {-1, -1};
 	
 	
-	public Server(int port, int players) throws IOException {
+	
+	public Server(int port, int players, int variant) throws IOException {
 		PORT = port;
-		
+		this.variant = variant;
 		if(players != 2 && players != 3 && players != 4 && players != 6)
 			throw new IllegalArgumentException("Invalid players number!");
 		
@@ -61,10 +68,11 @@ public class Server {
 				
 			((ServerPlayer)connected[nconnected++]).setSocket(s);
 			System.out.printf("Player connected (%d/%d)\n", nconnected, nplayers);
-			((ServerPlayer)connected[nconnected - 1]).writeMessage(Message.MSG_YCON, nconnected, nplayers);
+			((ServerPlayer)connected[nconnected - 1]).writeMessage(Message.MSG_YCON, nconnected, nplayers, variant);
 			if(nconnected < nplayers) waitForConnection();
 			else {
-				startGame();
+				if(variant != 2) startGame();
+				else sendToAll(Message.MSG_CORN, -1);
 				waitForMessages();
 			}
 		} catch (IOException ex) {
@@ -77,9 +85,26 @@ public class Server {
 	public Game startGame() {
 		Random rand = new Random();
 		int randomplayer = rand.nextInt(connected.length);
-		game = new Game(connected, randomplayer);
+		
+		BoardBuilder boardBuilder = new BoardBuilder(4, connected, 10);
+		int moredata = 0;
+		boardBuilder.setVariant(variant);
+		
+		if(variant == Variant.CHAOS) {
+			moredata = rand.nextInt();
+			boardBuilder.setSeed(moredata);
+		} else if(variant == Variant.YINYAN) {
+			moredata = (startCorner[0] & 0xff) | ((startCorner[1] & 0xff) << 8);
+			boardBuilder.setYinCorners(moredata);
+		}
+		
+		boardBuilder.build();
+		
+		studia.Utils.Color.YinYan = variant == Variant.YINYAN;
+		
+		game = new Game(connected, randomplayer, boardBuilder.getBoard());
 		interpreter.setGame(game);
-		sendToAll(Message.MSG_BEG, randomplayer);
+		sendToAll(Message.MSG_BEG, randomplayer, variant, moredata);
 		((ServerPlayer)game.getCurrentPlayer()).writeMessage(Message.MSG_YMOV);
 		return game;
 	}
@@ -122,5 +147,27 @@ public class Server {
 	
 	public MessageInterpreter getInterpreter() {
 		return interpreter;
+	}
+	
+	private int playerToInt(Player p) {
+		for(int i=0;i<nconnected;i++)
+			if(p == connected[i]) return i;
+		return -1;
+	}
+	
+	public boolean setStartCorner(Player player, int corner) {
+		int plr = playerToInt(player);
+		int rplr = (plr == 1) ? 0 : 1;
+		if(startCorner[rplr] == corner)
+			return false;
+		startCorner[plr] = corner;
+		if(startCorner[rplr] != -1 && startCorner[plr] != -1) startGame();
+		return true;
+	}
+	
+	public int getReservedCorner(Player player) {
+		int plr = playerToInt(player);
+		int rplr = (plr == 1) ? 0 : 1;
+		return startCorner[rplr];
 	}
 }

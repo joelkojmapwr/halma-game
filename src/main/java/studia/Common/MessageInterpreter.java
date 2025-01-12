@@ -11,6 +11,7 @@ public class MessageInterpreter {
 	private Game game;
 	private Client client;
 	private Server server;
+	private MessageHandler handler = new StdoutMessageHandler();
 	
 	public MessageInterpreter(Client client) {
 		this.client = client;
@@ -18,6 +19,10 @@ public class MessageInterpreter {
 	
 	public MessageInterpreter(Server server) {
 		this.server = server;
+	}
+	
+	public void setHandler(MessageHandler handler) {
+		this.handler = handler;
 	}
 	
 	public Message interpret(DataInputStream is) throws IOException {
@@ -28,17 +33,22 @@ public class MessageInterpreter {
 			for(int i=0;i<args.length;i++)
 				args[i] = is.readInt();
 		}
+		Message msg = null;
 		switch(code) {
-			case Message.MSG_CONN: return new ConnMessage(args);
-			case Message.MSG_YCON: return new YconMessage(args, client);
-			case Message.MSG_BEG:  return new BegMessage(args, client);
-			case Message.MSG_MOVE: return new MoveMessage(args, game, server);
-			case Message.MSG_YMOV: return new YmovMessage(args, client);
-			case Message.MSG_BMOV: return new BmovMessage(args, client);
-			case Message.MSG_END:  return new EndMessage(args);
-			case Message.MSG_HUP:  return new HupMessage(args);
+			case Message.MSG_CONN: msg = new ConnMessage(args); break;
+			case Message.MSG_YCON: msg = new YconMessage(args, client); break;
+			case Message.MSG_BEG:  msg = new BegMessage(args, client); break;
+			case Message.MSG_MOVE: msg = new MoveMessage(args, game, server); break;
+			case Message.MSG_YMOV: msg = new YmovMessage(args, client); break;
+			case Message.MSG_BMOV: msg = new BmovMessage(args, client); break;
+			case Message.MSG_END:  msg = new EndMessage(args); break;
+			case Message.MSG_HUP:  msg = new HupMessage(args); break;
+			case Message.MSG_CORN: msg = new CornMessage(args, server, client); break;
 		}
-		return null;
+		if(msg == null) return null;
+		msg.setHandler(handler);
+		
+		return msg;
 	}
 	
 	public void setGame(Game game) {

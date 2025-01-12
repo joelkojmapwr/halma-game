@@ -21,14 +21,12 @@ public class Game {
 	private WinChecker winChecker;
         
 	
-	public Game(Player[] players, int current) {
+	public Game(Player[] players, int current, Board board) {
 		this.players = players;
 		curplr = current;
 		
-		BoardBuilder boardBuilder = new BoardBuilder(4, players, 10);
-		boardBuilder.build();
+		this.board = board;
 		
-		board = boardBuilder.getBoard();
 		moveHandler = new StandardMoveHandler(board);
 		winChecker = new StandardWinChecker(10);
 		

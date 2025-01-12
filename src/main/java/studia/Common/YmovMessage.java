@@ -12,9 +12,8 @@ public class YmovMessage extends Message {
 	
 	
 	public void execute() {
-		System.out.println("Your turn");
-		Move m = new Move();
-		m.fromKeyboard();
+		handler.handleYmov();
+		Move m = handler.getMove();
 		client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), m.from, m.to);
 	}
 }

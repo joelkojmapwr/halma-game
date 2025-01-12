@@ -20,7 +20,7 @@ public class ClientExec {
 		
 		try {
 			Client c = new Client(args[0], PORT);
-			c.listen();
+			c.start();
 		} catch(EOFException e) {
 			System.out.println("Server disconnected");
 		} catch (IOException ex) {

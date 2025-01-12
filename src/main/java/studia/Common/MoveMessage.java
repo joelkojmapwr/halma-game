@@ -22,6 +22,7 @@ public class MoveMessage extends Message {
 		Move m = new Move(from, to);
 		if(server == null) { //clientside
 			result = game.playerMove(plr, m);
+			handler.handleMove(plr, m);
 		} else {
 			result = game.playerMove(sender, m);
 			if(result) {

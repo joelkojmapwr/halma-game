@@ -12,9 +12,9 @@ public class BmovMessage extends Message {
 	
 	
 	public void execute() {
-		System.out.println("Invalid move, try again");
-		Move m = new Move();
-		m.fromKeyboard();
+		handler.handleBmov();
+		Move m = handler.getMove();
+		
 		client.writeMessage(Message.MSG_MOVE, client.getYourNumber(), m.from, m.to);
 	}
 }
