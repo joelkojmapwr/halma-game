@@ -11,6 +11,7 @@ import studia.MoveHandler.PseudoMoveHandler;
 import studia.Utils.Player;
 import studia.winChecker.StandardWinChecker;
 import studia.winChecker.WinChecker;
+import studia.Common.Utils;
 
 /**
  * Unit test for simple App.
@@ -20,7 +21,7 @@ public class BoardTest {
     @Test
     public void pointsAmountOnBoard() {
             int trianglesize = 4;
-            Player[] players = initPlayers(3);
+            Player[] players = Utils.initPlayers(3);
             BoardBuilder boardBuilder = new BoardBuilder(trianglesize, players, 10);
             boardBuilder.build();
             Board board = boardBuilder.getBoard();
@@ -36,7 +37,7 @@ public class BoardTest {
                 continue;
             }
             int trianglesize = 4;
-            Player[] players = initPlayers(i);
+            Player[] players = Utils.initPlayers(i);
             BoardBuilder boardBuilder = new BoardBuilder(trianglesize, players, 10);
             boardBuilder.build();
             Board board = boardBuilder.getBoard();
@@ -47,7 +48,7 @@ public class BoardTest {
 
     @Test
     public void testMovingPawns(){
-        Board board = defaultBoard(6);
+        Board board = Utils.defaultBoard(6);
         //board.printBoard();
         board.move(board.points[13][3], board.points[14][4]);
         assertTrue(board.points[14][4].pawn != null);
@@ -56,7 +57,7 @@ public class BoardTest {
 
     @Test
     public void testStartAndFinishCorners(){
-        Board board = defaultBoard(6);
+        Board board = Utils.defaultBoard(6);
         //board.printBoard();
         for (Player player : board.players) {
             assertEquals(player.startCorner.pos.x + player.finishCorner.pos.x, board.length-1);
@@ -66,7 +67,7 @@ public class BoardTest {
 
     @Test
     public void winChecker() {
-        Board board = defaultBoard(2);
+        Board board = Utils.defaultBoard(2);
         MoveHandler moveHandler = new PseudoMoveHandler(board);
         WinChecker winChecker = new StandardWinChecker(10);
         assertFalse(winChecker.checkWin(board.players[0]));
@@ -85,27 +86,9 @@ public class BoardTest {
 
     @Test
     public void testFinishPoints() {
-        Board board = defaultBoard(6);
+        Board board = Utils.defaultBoard(6);
         for (Player player : board.players) {
             assertEquals(player.finishPoints.size(), 10);
         }
-    }
-
-
-    public Board defaultBoard(int playerNumber) {
-        Player[] players = initPlayers(playerNumber);
-        int trianglesize = 4;
-        BoardBuilder boardBuilder = new BoardBuilder(trianglesize, players, 10);
-        boardBuilder.build();
-        Board board = boardBuilder.getBoard();
-        return board;
-    }
-
-    public Player[] initPlayers(int playerNumber) {
-        Player[] players = new Player[playerNumber];
-        for (int i = 0; i<playerNumber; i++) {
-            players[i] = new Player(i+1);
-        }
-        return players;
     }
 }
