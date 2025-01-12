@@ -2,6 +2,9 @@ package studia.Client;
 
 import java.io.*;
 
+/**
+ * Main function for terminal client terminal version
+ */
 public class ClientExec {
 	public static void main(String[] args) {
 		int PORT;

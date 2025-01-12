@@ -2,7 +2,9 @@ package studia.Common;
 
 import studia.Client.Client;
 import studia.Board.Board;
-
+/**
+ * @see studia.Common.Message
+ */
 public class BegMessage extends Message {
 	private int cplr, variant, more;
 	private Client cli;

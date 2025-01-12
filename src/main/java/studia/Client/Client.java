@@ -16,6 +16,10 @@ import studia.Board.BoardBuilder;
 import studia.Board.FXBoardBuilder;
 import studia.Board.Board;
 
+
+/**
+ * Klasa klienta
+ */
 public class Client extends Thread {
 	private Socket socket;
 	private DataInputStream inStream;
@@ -30,6 +34,10 @@ public class Client extends Thread {
 	
 	MessageHandler handler = new StdoutMessageHandler();
 	
+	/**
+	* @param host server address
+	* @param port server port
+	*/
 	public Client(String host, int port) throws IOException {
 		socket = new Socket(host, port);
 		inStream = new DataInputStream(socket.getInputStream());
@@ -37,22 +45,38 @@ public class Client extends Thread {
 		interpreter = new MessageInterpreter(this);
 	}
 	
+	/**
+	* Sets client message handler
+	* @see studia.Common.MessageHandler
+	*/
 	public void setHandler(MessageHandler handler) {
 		this.handler = handler;
 	}
 	
+	/**
+	* Sets players number for client game
+	*/
 	public void setPlayersNumber(int n) {
 		nplayers = n;
 	}
 	
+	/**
+	* Sets this client player number
+	*/
 	public void setYourNumber(int n) {
 		yournumber = n;
 	}
 	
+	/**
+	* @return This client player number
+	*/
 	public int getYourNumber() {
 		return yournumber;
 	}
 	
+	/**
+	* Blocking call that begins listening for messages from server
+	*/
 	public void listen() throws IOException {
 		while(true) {
 			Message m = interpreter.interpret(inStream);
@@ -61,6 +85,9 @@ public class Client extends Thread {
 		}
 	}
 	
+	/**
+	* Non-blocking call that begins listening for messages from server
+	*/
 	public void run() {
 		while(true) {
 			try {
@@ -74,6 +101,10 @@ public class Client extends Thread {
 		}
 	}
 	
+	/**
+	* Variadic function that send message to server, first argument is message number, next are message arguments
+	* @see studia.Common.Message
+	*/
 	public void writeMessage(int... args) {
 		try {
 			for(int i: args)
@@ -83,6 +114,13 @@ public class Client extends Thread {
 		catch(IOException e) { e.printStackTrace(); }
 	}
 	
+	/**
+	* Starts game for client
+	* @param curplr number of player who makes move in this turn
+	* @param variant game variant
+	* @param seed additional parameter, used to pass additional data for variants
+	* @see studia.Utils.Variant
+	*/
 	public Board startGame(int curplr, int variant, int seed) {
 		Player[] plrs = new Player[nplayers];
 		for(int i=0;i<nplayers;i++)
@@ -102,6 +140,9 @@ public class Client extends Thread {
 		return boardBuilder.getBoard();
 	}
 	
+	/**
+	* Closes client socket
+	*/
 	public void closeSocket() {
 		try {
 			socket.close();

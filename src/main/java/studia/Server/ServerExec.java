@@ -2,6 +2,9 @@ package studia.Server;
 
 import java.io.*;
 
+/**
+ * Main server class
+ */
 public class ServerExec {
   public static void main(String[] args) {
 		int PORT, nplayers, variant;

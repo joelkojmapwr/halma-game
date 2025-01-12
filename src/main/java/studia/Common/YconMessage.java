@@ -2,7 +2,9 @@ package studia.Common;
 
 import studia.Client.Client;
 import studia.Utils.Color;
-
+/**
+ * @see studia.Common.Message
+ */
 public class YconMessage extends Message {
 	private int pos, total, variant;
 	private Client c;

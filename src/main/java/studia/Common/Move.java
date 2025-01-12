@@ -3,6 +3,7 @@ package studia.Common;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
+
 public class Move {
 	public int from, to;
 	public Move(int from, int to) {

@@ -12,6 +12,7 @@ import studia.Board.Board;
 
 import studia.Utils.Color;
 
+/** This class is interface between client/server and game board and logic */
 public class Game {
 	private Player[] players;
 	private int curplr, winner = -1;
@@ -33,6 +34,7 @@ public class Game {
 		board.printBoard();
 	}
 	
+	/** Returns player number (ansi escape code color) */
 	public int playerToColor(Player plr) {
 		for(int i=0;i<players.length;i++)
 			if(players[i] == plr)
@@ -40,6 +42,7 @@ public class Game {
 		return -1;
 	}
 	
+	/** Moves player with color p*/
 	public boolean playerMove(int p, Move m) {
 		if(p != curplr) return false;
 		if(!moveHandler.newMove(m.from, m.to, players[p])) return false;
@@ -53,16 +56,19 @@ public class Game {
 		return true;
 	}
 	
+	/**Moves Player plr*/
 	public boolean playerMove(Player plr, Move m) {
 		int p = playerToColor(plr);
 		if(p<0) return false;
 		return playerMove(p, m);
 	}
 	
+	/** @return player who makes move in this turn*/
 	public Player getCurrentPlayer() {
 		return players[curplr];
 	}
 	
+	/** @return winner color or -1 if no winner*/
 	public int getWinner() { //zwraca index zwyciezcy lub -1
 		return winner;
 	}

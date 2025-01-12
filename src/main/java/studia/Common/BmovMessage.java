@@ -3,6 +3,9 @@ package studia.Common;
 import studia.Server.ServerPlayer;
 import studia.Client.Client;
 
+/**
+ * @see studia.Common.Message
+ */
 public class BmovMessage extends Message {
 	private Client client;
 	

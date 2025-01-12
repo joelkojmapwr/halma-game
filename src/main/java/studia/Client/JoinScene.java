@@ -10,6 +10,9 @@ import javafx.scene.control.Button;
 import java.io.*;
 import java.net.*;
 
+/**
+ * Scene shown after starting client, server address and port are passed here and client is connected to server
+ */
 public class JoinScene {
 	private Scene scene;
 	private TextField host, port;
@@ -17,6 +20,9 @@ public class JoinScene {
 	private Label errlabel;
 	
 	ClientFX parent;
+	/**
+	 * @param parent Main Class
+	 */
 	JoinScene(ClientFX parent) {
 		this.parent = parent;
 		
@@ -34,12 +40,21 @@ public class JoinScene {
 		scene = new Scene(vb, 300, 200);
 	}
 	
+	/**
+	 * Returns this scene
+	 */
 	public Scene get() { return scene; }
 	
+	/**
+	 * Prints error
+	 */
 	public void printError(String error) {
 		errlabel.setText(error);
 	}
 	
+	/**
+	 * Handles "Connect" button click.
+	 */
 	private void onClick() {
 		String shost = host.getText();
 		String sport = port.getText();

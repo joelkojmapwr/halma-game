@@ -14,6 +14,8 @@ import studia.Utils.Variant;
 
 import studia.Board.BoardBuilder;
 
+/**
+ * Server class, it lets client to connect and play Trylma */
 public class Server {
 	private int PORT;
 	private int nplayers;
@@ -30,7 +32,11 @@ public class Server {
 	private int[] startCorner = {-1, -1};
 	
 	
-	
+	/**
+	 * @param players number of players
+	 * @param variant variant number
+	 * @see studia.Utils.Variant
+	 */
 	public Server(int port, int players, int variant) throws IOException {
 		PORT = port;
 		this.variant = variant;
@@ -51,14 +57,17 @@ public class Server {
 		waitForConnection();
 	}
 	
+	/** Returns number of players */
 	public int getPlayersNum() {
 		return nplayers;
 	}
 	
+	/** Returns number of connected players */
 	public int getConnected() {
 		return nconnected;
 	}
 	
+	/** Waits for player to connect, if last player connects starts the game */
 	public void waitForConnection() {
 		try {
 			System.out.printf("Waiting for players (%d/%d)\n", nconnected + 1, nplayers);
@@ -82,6 +91,7 @@ public class Server {
 		}
 	}
 	
+	/** Starts the game */
 	public Game startGame() {
 		Random rand = new Random();
 		int randomplayer = rand.nextInt(connected.length);
@@ -109,6 +119,7 @@ public class Server {
 		return game;
 	}
 	
+	/** Waits for messages from clients, blocking call */
 	public void waitForMessages() throws InterruptedException {
 		for(int i=0;i<nplayers;i++)
 			((ServerPlayer)connected[i]).startReceiver();
@@ -116,20 +127,32 @@ public class Server {
 			((ServerPlayer)connected[i]).joinReceiver();
 	}
 	
+	/** Send message to all clients
+	 * @param msg @see studia.Client.Client#writeMessage
+	 */
 	public void sendToAll(int... msg) {
 		for(int i=0;i<nconnected;i++)
 			((ServerPlayer)connected[i]).writeMessage(msg);
 	}
 	
+	/**
+	 *  Called on message received
+	 */
 	public void onMessage(Message msg) {
 		msg.execute();
 	}
 	
+	/**
+	 *	Closes connections with clients
+	 */
 	public void closeConnections() {
 		for(int i=0;i<nconnected;i++)
 			((ServerPlayer)connected[i]).closeSocket();
 	}
 	
+	/**
+	 *	Called on client disconnected
+	 */
 	public void onClientDisconnect(ServerPlayer client) {
 		int p = -1;
 		for(int i=0;i<connected.length;i++)
@@ -145,16 +168,25 @@ public class Server {
 		closeConnections();
 	}
 	
+	/**
+	 *	@see studia.Common.MessageInterpreter
+	 */
 	public MessageInterpreter getInterpreter() {
 		return interpreter;
 	}
 	
+	/**
+	 * @return player number
+	 */
 	private int playerToInt(Player p) {
 		for(int i=0;i<nconnected;i++)
 			if(p == connected[i]) return i;
 		return -1;
 	}
 	
+	/**
+	 * sets player start corner
+	 */
 	public boolean setStartCorner(Player player, int corner) {
 		int plr = playerToInt(player);
 		int rplr = (plr == 1) ? 0 : 1;
@@ -165,6 +197,9 @@ public class Server {
 		return true;
 	}
 	
+	/**
+	 * returns corner reserved by player oponent or -1 if oponent didn't reserve any yet
+	 */
 	public int getReservedCorner(Player player) {
 		int plr = playerToInt(player);
 		int rplr = (plr == 1) ? 0 : 1;

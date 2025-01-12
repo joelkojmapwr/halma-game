@@ -13,6 +13,7 @@ import javafx.scene.Group;
 import java.io.*;
 import java.net.*;
 
+/** In YinYan variant users select starting corner in this scene*/
 public class SelectScene {
 	private Scene scene;
 	private TextField host, port;
@@ -23,6 +24,9 @@ public class SelectScene {
 	private int selected = -1;
 	
 	ClientFX parent;
+	/**
+	 * @param parent Main Class
+	 */
 	SelectScene(ClientFX parent) {
 		this.parent = parent;
 		Group g = new Group();
@@ -76,12 +80,21 @@ public class SelectScene {
 		scene = new Scene(g, 400, 400);
 	}
 	
+	/**
+	 * Returns this scene
+	 */
 	public Scene get() { return scene; }
 	
+	/**
+	 * @param pos marks this triangle as reserved
+	 */
 	public void setReserved(int pos) {
 		polygons[pos].setFill(javafx.scene.paint.Color.RED);
 	}
 	
+	/**
+	 * Blocking call that waits for user to select corner and returns that corner number.
+	 */
 	public int getCorner() {
 		selected = -1;
 		try {

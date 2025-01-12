@@ -1,7 +1,9 @@
 package studia.Common;
 
 import studia.Utils.Color;
-
+/**
+ * @see studia.Common.Message
+ */
 public class HupMessage extends Message {
 	private int who;
 	

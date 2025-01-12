@@ -36,6 +36,7 @@ import javafx.application.Platform;
 
 import studia.MoveHandler.StandardMoveHandler;
 
+/** UI Scene that handles communication between user and game */
 public class GameScene {
 	
 	private int sceneWidth = 800;
@@ -59,6 +60,12 @@ public class GameScene {
 	
 	
 	ClientFX parent;
+	
+	/**
+	 * @param parent Main Class
+	 * @param b @see studia.Board.Board
+	 * @param ycol this client player number
+	 */
 	GameScene(ClientFX parent, Board b, int ycol) {
 		messageLabel = new Label("");
 		yourTurnLabel = new Label("");
@@ -86,6 +93,9 @@ public class GameScene {
 		//updateUI();
 	}
 	
+	/**
+	 * clears selected fields on board
+	 */
 	private void clearSelected() {
 		if(selectedPoints.size() >= 1) {
 			selectedPoints.get(0).isClicked = false;
@@ -99,6 +109,9 @@ public class GameScene {
 		selectedPoints.clear();
 	}
 	
+	/**
+	 * Translate Points into ints
+	 */
 	private Move decodeMove(FXPoint oldPoint, FXPoint newPoint) {
         int oldPos = -1;
         int newPos = -1;
@@ -109,11 +122,17 @@ public class GameScene {
         return new Move(oldPos, newPos);
 	}
 	
+	/**
+	 * Marks your destination fields with dark gray color.
+	 */
 	private void markFinish() {
 		for(Point p: board.players[yourcolor].finishPoints)
 			((FXPoint)p).updateCircle(javafx.scene.paint.Color.DARKGRAY);
 	}
 	
+	/**
+	 * Sets click event handlers for fields on board
+	 */
 	private void setPointsClickedEventHandler() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j=0; j<board.height; j++) {
@@ -157,9 +176,14 @@ public class GameScene {
 		}
 	}
 	
+	/**
+	 * Returns this scene
+	 */
 	public Scene get() { return scene; }
 	
-	
+	/**
+	 * @param yourturn if true "Your turn" message is shown and player can make move
+	 */
 	public void setMyTurn(boolean yourturn) {
 		messageLabel.setText("");
 		if (yourturn) {
@@ -173,14 +197,21 @@ public class GameScene {
 		this.yourturn = yourturn;
 	}
 	
+	/**
+	 * shows message to user
+	 */
 	public void showMessage(String msg) {
 		messageLabel.setText(msg);
 	}
+	
 	
 	private void clearMove() {
 		move = null;
 	}
 	
+	/**
+	 * Blocking call that waits for player to make move and returns that move.
+	 */
 	public Move getMove() {
 		clearMove();
 		clearSelected();

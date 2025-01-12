@@ -14,7 +14,9 @@ import studia.Board.Board;
 import studia.Common.Move;
 import studia.Utils.Color;
 
-
+/**
+ * Main class for client UI version
+ */
 public class ClientFX extends Application implements MessageHandler {
 		
 		private JoinScene js = new JoinScene(this);
@@ -46,12 +48,17 @@ public class ClientFX extends Application implements MessageHandler {
         launch(args);
     }
     
+    /** Try connect to server, throw exception on error
+     * @param host server address
+     * @param port server port
+     */
     public void tryConnect(String host, int port) throws EOFException, IOException {
 				client = new Client(host, port);
 				client.setHandler(this);
 				client.start();
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public void handleYcon(int pos, int total, int variant) {
 			Platform.runLater(() -> STAGE.setScene(ls.get()));
 			Platform.runLater(() -> ls.updatePlayers(pos, total));
@@ -60,31 +67,38 @@ public class ClientFX extends Application implements MessageHandler {
 			ycol = pos - 1;
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public void handleConn(int pos, int total) {
 			ls.updatePlayers(pos, total);
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public void handleBeg(int cplr, Board b) {
 			gs = new GameScene(this, b, ycol);
 			Platform.runLater(() -> STAGE.setScene(gs.get()));
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public void handleMove(int plr, Move m) {
 			Platform.runLater(() -> gs.setMyTurn(false));
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public void handleYmov() {
 			Platform.runLater(() -> gs.setMyTurn(true));
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public void handleBmov() {
 			Platform.runLater(() -> gs.setMyTurn(true));
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public void handleHup(int who) {
 			Platform.runLater(() -> gs.showMessage("Player "+String.valueOf(who)+" ("+Color.colorName(who)+") disconnected, game terminated. Close this window"));
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public void handleCorn(int corner) {
 			Platform.runLater(() -> STAGE.setScene(ss.get()));
 			Platform.runLater(() -> STAGE.setTitle("SELECT CORNER"));
@@ -92,10 +106,12 @@ public class ClientFX extends Application implements MessageHandler {
 				ss.setReserved(corner);
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public void handleWin(int winner) {
 			Platform.runLater(() -> gs.showMessage("Player "+String.valueOf(winner)+" ("+Color.colorName(winner)+") won!\n"));
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public int getCorner() {
 			int c = ss.getCorner();
 			Platform.runLater(() -> STAGE.setScene(ls.get()));
@@ -103,6 +119,7 @@ public class ClientFX extends Application implements MessageHandler {
 			return c;
 		}
 		
+		/** @see studia.Common.MessageHandler */
 		public Move getMove() {
 			return gs.getMove();
 		}

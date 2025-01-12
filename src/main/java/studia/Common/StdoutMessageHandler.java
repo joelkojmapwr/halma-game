@@ -6,7 +6,7 @@ import studia.Common.Move;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;
-
+/** Message handler for terminal client */
 public class StdoutMessageHandler implements MessageHandler {
 	public void handleYcon(int pos, int total, int variant) {
 		System.out.printf("Connected (%d/%d). Your color is %s. Variant %d\n", pos, total, Color.colorName(pos-1), variant);

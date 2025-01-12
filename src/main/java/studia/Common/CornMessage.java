@@ -4,7 +4,9 @@ import studia.Utils.Color;
 import studia.Server.Server;
 import studia.Client.Client;
 import studia.Server.ServerPlayer;
-
+/**
+ * @see studia.Common.Message
+ */
 public class CornMessage extends Message {
 	private int corner;
 	private Server server;

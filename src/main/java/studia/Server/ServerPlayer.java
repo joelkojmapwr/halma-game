@@ -5,6 +5,9 @@ import java.io.*;
 import java.net.*;
 import studia.Common.Message;
 
+/**
+ * Player class that sends and receives messages
+ */
 public class ServerPlayer extends Player {
 	private Server server;
 	private Thread Receiver;
@@ -59,6 +62,9 @@ public class ServerPlayer extends Player {
 		}
 	}
 	
+	/**
+	 * @see studia.Client.Client#writeMessage
+	 */
 	public void writeMessage(int... args) {
 		try {
 			for(int i: args)
@@ -68,10 +74,16 @@ public class ServerPlayer extends Player {
 		}
 	}
 	
+	/**
+	 * start receiving messages from player
+	 */
 	public void startReceiver() {
 		Receiver.start();
 	}
 	
+	/**
+	 * join receiver thread
+	 */
 	public void joinReceiver() throws InterruptedException {
 		Receiver.join();
 	}
