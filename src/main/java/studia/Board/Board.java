@@ -10,14 +10,22 @@ import studia.Utils.Point;
 import studia.Utils.TrailingZeros;
 
 
-
+/**
+ * Represents the halma Board
+ */
 public class Board {
+    /**
+     * Point array that represents the board
+     */
     public Point[][] points;
     public Map<Integer, Point> validPointsMap = new HashMap<Integer, Point>();
     public Player[] players;
     public int validPointsNumber = 0;
     public int length;
     public int height;
+    /**
+     * Size of the triangle side of the halma board
+     */
     public int triangleSize;
 
     // cornerPoints starting from top (12 o'clock position) and going clockwise
@@ -34,23 +42,33 @@ public class Board {
     public void setHeight(int height) {
         this.height = height;
     }
-
+    /**
+     * Sets point in x,y position on the board.Points
+     * @param point
+     * @param x
+     * @param y
+     */
     public void setPoint(Point point, int x, int y) {
         if (points[x][y] != null) {
-            //System.out.println("Point already exists");
             return;
         }
         this.points[x][y] = point;
     }
-
+    /**
+     * init Points array according to length and height
+     */
     public void initPoints(){
         points = new Point[length][height];
     }
-
+    /**
+     * Add a corner Point
+     */
     public void addCornerPoint(Point point) {
         cornerPoints.add(point);
     }
-
+    /**
+     * Prints the current Board state in the Terminal
+     */
     public void printBoard() {
         int countPrintedPoints = 0;
         for (int i = 0; i < height; i++) {
@@ -80,7 +98,9 @@ public class Board {
             System.out.println();
         }
     }
-
+    /**
+     * Creates list of points that are Neighbours of the given point only with distance 1
+     */
     public void generateNeighbours1() {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < length; j++) {
@@ -137,7 +157,8 @@ public class Board {
     }
 
     /**
-     * Depends on generateNeighbours1 because generates neighbours2 based on neighbours1
+     * Depends on {@link #generateNeighbours1} because generates neighbours2 based on neighbours1
+     * Generates list of points that are Neighbours of the given point only with distance 2
      */
     public void generateNeighbours2() {
         for (int i=0; i< height; i++) {
@@ -154,10 +175,18 @@ public class Board {
         }
     }
 
+    /**
+     * Sets player array that are in the game
+     * @param players
+     */
     public void setPlayers(Player[] players) {
         this.players = players;
     }
-
+    /**
+     * Moves pawn from oldPoint to newPoint
+     * @param oldPoint
+     * @param newPoint
+     */
     public void move(Point oldPoint, Point newPoint) {
         if(oldPoint == newPoint) return;
         newPoint.pawn = oldPoint.pawn;

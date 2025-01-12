@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 
+/**
+ * Handles and validates moves on the board
+ */
 public class StandardMoveHandler implements MoveHandler {
 
     private Board board;
@@ -20,8 +23,9 @@ public class StandardMoveHandler implements MoveHandler {
     }
 
     /**
-     * @param oldPos
-     * @param newPos
+     * @param oldPos - old position of the pawn
+     * @param newPos - new position of the pawn
+     * @param player - player that is making the move
      */
     public Boolean newMove(int oldPos, int newPos, Player player){
         Point oldPoint;
@@ -45,6 +49,7 @@ public class StandardMoveHandler implements MoveHandler {
         return false;
     }
     /**
+     * Checks if the move is valid
      * @param oldPoint
      * @param newPoint
      * @return
@@ -78,10 +83,21 @@ public class StandardMoveHandler implements MoveHandler {
         return false;
     }
 
+    /**
+     * Checks if the move is to the neighbour1
+     * @param oldPoint
+     * @param newPoint
+     * @return
+     */
     private Boolean isMoveToNeighbour1(Point oldPoint, Point newPoint) {
         return oldPoint.neighbours1.contains(newPoint);
     }
-
+    /**
+     * Checks if the move is a jump
+     * @param oldPoint
+     * @param newPoint
+     * @return
+     */
     private Boolean isMoveJump(Point oldPoint, Point newPoint) {
         visitedPoints.clear();
         for (Point neighbour1 : oldPoint.neighbours1) {
@@ -100,6 +116,12 @@ public class StandardMoveHandler implements MoveHandler {
         return false;
     }
 
+    /**
+     * Searches for possible jumps
+     * @param currentPoint
+     * @param destination
+     * @return
+     */
     private Boolean searchJumps(Point currentPoint, Point destination) {
         visitedPoints.add(currentPoint);
         if (currentPoint.pawn != null) {
@@ -134,7 +156,13 @@ public class StandardMoveHandler implements MoveHandler {
 
         return false;
     }
-
+    /**
+     * Checks if the move is leaving home
+     * @param oldPoint
+     * @param newPoint
+     * @param player
+     * @return
+     */
     private Boolean isMoveLeavingHome(Point oldPoint, Point newPoint, Player player) {
         if (player.finishPoints.contains(oldPoint) == true && player.finishPoints.contains(newPoint) == false) {
             //System.out.println("You can not leave home");
@@ -153,7 +181,12 @@ public class StandardMoveHandler implements MoveHandler {
 			}
 			return ret;
 		}
-		
+		/**
+         * Returns a list of all available moves for the player
+         * @param plr
+         * @param from
+         * @return
+         */
 		public List<Point> getAvailableMoves(Player plr, Point from) {
 			List<Point> l = new ArrayList<Point>();
 			Set<Point> v = new HashSet<Point>();
