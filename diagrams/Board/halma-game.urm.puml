@@ -23,20 +23,49 @@ package studia.Board {
     + setTriangleSize(triangleSize : int)
   }
   class BoardBuilder {
-    - board : Board
+    # board : Board
+    # height : int
+    # length : int
     - pawnsPerPlayer : int
     - playerNumber : int
     - players : Player[]
+    - seed : int
+    # triangleSize : int
+    - variant : int
+    - yin_corners : int
     + BoardBuilder(triangleSize : int, players : Player[], pawnsPerPlayer : int)
     + build()
     + getBoard() : Board
+    # initBoard()
     - initCornerPoints()
     - initFinishPoints()
     - initPlayers(playerNumber : int)
-    - initPoints()
+    # initPoints()
     - initValidPointsMap()
+    + setSeed(seed : int)
+    + setVariant(variant : int)
+    + setYinCorners(corners : int)
     - spawnPawns()
   }
+  class FXBoard {
+    + FXBoard()
+    + printBoard()
+  }
+  class FXBoardBuilder {
+    + FXBoardBuilder(triangleSize : int, players : Player[], pawnsPerPlayer : int)
+    # initPoints()
+  }
+  class GUIBoardBuilder {
+    - board : Board
+    - paneHeight : int
+    - paneWidth : int
+    + GUIBoardBuilder(board : Board, paneWidth : int, paneHeight : int)
+    + buildBoard() : Pane
+    + getPointsGroup() : Group
+  }
 }
+GUIBoardBuilder -->  "-board" Board
 BoardBuilder -->  "-board" Board
+FXBoard --|> Board 
+FXBoardBuilder --|> BoardBuilder 
 @enduml

@@ -12,6 +12,8 @@ package studia.MoveHandler {
     - board : Board
     - visitedPoints : List<Point>
     + StandardMoveHandler(board : Board)
+    - _getAvailableMoves(plr : Player, from : Point, cur : Point, visited : Set<Point>, ret : List<Point>) : List<Point>
+    + getAvailableMoves(plr : Player, from : Point) : List<Point>
     - isMoveJump(oldPoint : Point, newPoint : Point) : Boolean
     - isMoveLeavingHome(oldPoint : Point, newPoint : Point, player : Player) : Boolean
     - isMoveToNeighbour1(oldPoint : Point, newPoint : Point) : Boolean
@@ -29,14 +31,19 @@ package studia.Server {
     - nconnected : int
     - nplayers : int
     - serverSocket : ServerSocket
-    + Server(port : int, players : int)
+    - startCorner : int[]
+    - variant : int
+    + Server(port : int, players : int, variant : int)
     + closeConnections()
     + getConnected() : int
     + getInterpreter() : MessageInterpreter
     + getPlayersNum() : int
+    + getReservedCorner(player : Player) : int
     + onClientDisconnect(client : ServerPlayer)
     + onMessage(msg : Message)
+    - playerToInt(p : Player) : int
     + sendToAll(msg : int[])
+    + setStartCorner(player : Player, corner : int) : boolean
     + startGame() : Game
     + waitForConnection()
     + waitForMessages()
@@ -63,8 +70,27 @@ package studia.Server {
   }
 }
 package studia.PawnsSpawner {
+  class ChaosPawnsSpawner {
+    - allowedPoints : List<Point>
+    - maxPawns : int
+    - pointQueue : Queue<Point>
+    - rnd : Random
+    - visited : Set<Point>
+    + ChaosPawnsSpawner(b : Board, maxPawns : int, seed : int)
+    - randomPoint() : Point
+    - removeHome(startPoint : Point, npoints : int)
+    + spawn(players : Player[])
+    - spawnPawns(player : Player)
+  }
   interface PawnsSpawner {
     + spawn(Player[]) {abstract}
+  }
+  class PawnsSpawnerFactory {
+    - b : Board
+    - pawns : int
+    - seed : int
+    + PawnsSpawnerFactory(board : Board, plrpawns : int, seed : int)
+    + create(variant : int) : PawnsSpawner
   }
   class StandardPawnsSpawner {
     - maxPawns : int
@@ -78,6 +104,8 @@ package studia.Common {
   class BegMessage {
     - cli : Client
     - cplr : int
+    - more : int
+    - variant : int
     + BegMessage(args : int[], client : Client)
     + execute()
   }
@@ -92,6 +120,13 @@ package studia.Common {
     + ConnMessage(args : int[])
     + execute()
   }
+  class CornMessage {
+    - client : Client
+    - corner : int
+    - server : Server
+    + CornMessage(args : int[], server : Server, client : Client)
+    + execute()
+  }
   class EndMessage {
     - winner : int
     + EndMessage(args : int[])
@@ -104,7 +139,7 @@ package studia.Common {
     - players : Player[]
     - winChecker : WinChecker
     - winner : int
-    + Game(players : Player[], current : int)
+    + Game(players : Player[], current : int, board : Board)
     + getCurrentPlayer() : Player
     + getWinner() : int
     + playerMove(p : int, m : Move) : boolean
@@ -120,25 +155,43 @@ package studia.Common {
     + MSG_BEG : int {static}
     + MSG_BMOV : int {static}
     + MSG_CONN : int {static}
+    + MSG_CORN : int {static}
     + MSG_END : int {static}
     + MSG_HUP : int {static}
     + MSG_MOVE : int {static}
     + MSG_YCON : int {static}
     + MSG_YMOV : int {static}
+    # handler : MessageHandler
     + nargs : int[] {static}
     # sender : Player
     + Message()
     + execute() {abstract}
+    + setHandler(handler : MessageHandler)
     + setSender(sender : Player)
+  }
+  interface MessageHandler {
+    + getCorner() : int {abstract}
+    + getMove() : Move {abstract}
+    + handleBeg(int, Board) {abstract}
+    + handleBmov() {abstract}
+    + handleConn(int, int) {abstract}
+    + handleCorn(int) {abstract}
+    + handleHup(int) {abstract}
+    + handleMove(int, Move) {abstract}
+    + handleWin(int) {abstract}
+    + handleYcon(int, int, int) {abstract}
+    + handleYmov() {abstract}
   }
   class MessageInterpreter {
     - client : Client
     - game : Game
+    - handler : MessageHandler
     - server : Server
     + MessageInterpreter(client : Client)
     + MessageInterpreter(server : Server)
     + interpret(is : DataInputStream) : Message
     + setGame(game : Game)
+    + setHandler(handler : MessageHandler)
   }
   class Move {
     + from : int
@@ -157,11 +210,25 @@ package studia.Common {
     + MoveMessage(args : int[], game : Game, server : Server)
     + execute()
   }
+  class StdoutMessageHandler {
+    + StdoutMessageHandler()
+    + getCorner() : int
+    + getMove() : Move
+    + handleBeg(you : int, b : Board)
+    + handleBmov()
+    + handleConn(pos : int, total : int)
+    + handleCorn(corner : int)
+    + handleHup(who : int)
+    + handleMove(plr : int, m : Move)
+    + handleWin(winner : int)
+    + handleYcon(pos : int, total : int, variant : int)
+    + handleYmov()
+  }
   class YconMessage {
     - c : Client
-    - npl : int
     - pos : int
     - total : int
+    - variant : int
     + YconMessage(args : int[], cli : Client)
     + execute()
   }
@@ -195,19 +262,45 @@ package studia.Board {
     + setTriangleSize(triangleSize : int)
   }
   class BoardBuilder {
-    - board : Board
+    # board : Board
+    # height : int
+    # length : int
     - pawnsPerPlayer : int
     - playerNumber : int
     - players : Player[]
+    - seed : int
+    # triangleSize : int
+    - variant : int
+    - yin_corners : int
     + BoardBuilder(triangleSize : int, players : Player[], pawnsPerPlayer : int)
     + build()
     + getBoard() : Board
+    # initBoard()
     - initCornerPoints()
     - initFinishPoints()
     - initPlayers(playerNumber : int)
-    - initPoints()
+    # initPoints()
     - initValidPointsMap()
+    + setSeed(seed : int)
+    + setVariant(variant : int)
+    + setYinCorners(corners : int)
     - spawnPawns()
+  }
+  class FXBoard {
+    + FXBoard()
+    + printBoard()
+  }
+  class FXBoardBuilder {
+    + FXBoardBuilder(triangleSize : int, players : Player[], pawnsPerPlayer : int)
+    # initPoints()
+  }
+  class GUIBoardBuilder {
+    - board : Board
+    - paneHeight : int
+    - paneWidth : int
+    + GUIBoardBuilder(board : Board, paneWidth : int, paneHeight : int)
+    + buildBoard() : Pane
+    + getPointsGroup() : Group
   }
 }
 package studia.winChecker {
@@ -225,32 +318,117 @@ package studia.winChecker {
   }
 }
 package studia.Client {
-  class Client {
-    - game : Game
-    - inStream : DataInputStream
-    ~ interpreter : MessageInterpreter
-    - nplayers : int
-    - outStream : DataOutputStream
-    - socket : Socket
-    - yournumber : int
-    + Client(port : int)
-    + getYourNumber() : int
-    + listen()
-    + setPlayersNumber(n : int)
-    + setYourNumber(n : int)
-    + startGame(curplr : int)
-    + writeMessage(args : int[])
-  }
   class ClientExec {
     + ClientExec()
     + main(args : String[]) {static}
   }
+  class ClientFX {
+    - STAGE : Stage
+    - client : Client
+    - gs : GameScene
+    - js : JoinScene
+    - ls : LobbyScene
+    - ss : SelectScene
+    - ycol : int
+    + ClientFX()
+    + getCorner() : int
+    + getMove() : Move
+    + handleBeg(cplr : int, b : Board)
+    + handleBmov()
+    + handleConn(pos : int, total : int)
+    + handleCorn(corner : int)
+    + handleHup(who : int)
+    + handleMove(plr : int, m : Move)
+    + handleWin(winner : int)
+    + handleYcon(pos : int, total : int, variant : int)
+    + handleYmov()
+    + main(args : String[]) {static}
+    + start(primaryStage : Stage)
+    + stop()
+    + tryConnect(host : String, port : int)
+  }
+  class GameScene {
+    - board : Board
+    - messageLabel : Label
+    - move : Move
+    - movhandler : StandardMoveHandler
+    ~ parent : ClientFX
+    - playerLabel : Label
+    - scene : Scene
+    - sceneHeight : int
+    - sceneWidth : int
+    - selectedPoints : List<FXPoint>
+    ~ thisref : GameScene
+    - yourTurnLabel : Label
+    - yourcolor : int
+    - yourturn : boolean
+    ~ GameScene(parent : ClientFX, b : Board, ycol : int)
+    - clearMove()
+    - clearSelected()
+    - decodeMove(oldPoint : FXPoint, newPoint : FXPoint) : Move
+    + get() : Scene
+    + getMove() : Move
+    - markFinish()
+    + setMyTurn(yourturn : boolean)
+    - setPointsClickedEventHandler()
+    + showMessage(msg : String)
+  }
+  class JoinScene {
+    - btn : Button
+    - errlabel : Label
+    - host : TextField
+    ~ parent : ClientFX
+    - port : TextField
+    - scene : Scene
+    ~ JoinScene(parent : ClientFX)
+    + get() : Scene
+    - onClick()
+    + printError(error : String)
+  }
+  class LobbyScene {
+    - label1 : Label
+    - label2 : Label
+    - label3 : Label
+    ~ parent : ClientFX
+    - plr : int
+    - scene : Scene
+    - total : int
+    ~ LobbyScene(parent : ClientFX)
+    + get() : Scene
+    + updatePlayers(n : int, t : int)
+    + updateVariant(v : int)
+  }
+  class SelectScene {
+    - btn : Button
+    - errlabel : Label
+    - host : TextField
+    ~ parent : ClientFX
+    - polygons : Polygon[]
+    - port : TextField
+    - scene : Scene
+    - selected : int
+    ~ SelectScene(parent : ClientFX)
+    + get() : Scene
+    + getCorner() : int
+    + setReserved(pos : int)
+  }
 }
 package studia.Utils {
   class Color {
+    + YinYan : boolean {static}
     + names : String[] {static}
+    + names2 : String[] {static}
     + Color()
     + colorName(i : int) : String {static}
+  }
+  class FXPoint {
+    - circle : Circle
+    - defcolor : Color {static}
+    + isClicked : Boolean
+    + FXPoint(pos : Pair)
+    + getCircle() : Circle
+    + updateCircle()
+    + updateCircle(c : Color)
   }
   class Pair {
     + x : int
@@ -293,31 +471,38 @@ package studia.Utils {
     + TrailingZeros()
     + addTrailingZeros(number : int, length : int) : String {static}
   }
-}
-package studia {
-  class App {
-    + App()
-    + main(args : String[]) {static}
+  class Variant {
+    + CHAOS : int {static}
+    + STD : int {static}
+    + STR : String[] {static}
+    + YINYAN : int {static}
+    + Variant()
   }
 }
 Player -->  "-startCorner" Point
+GUIBoardBuilder -->  "-board" Board
 Point -->  "-pawn" Pawn
 Game -->  "-moveHandler" MoveHandler
 StandardMoveHandler -->  "-board" Board
-Client -->  "-game" Game
+GameScene -->  "-move" Move
 Game -->  "-winChecker" WinChecker
+ChaosPawnsSpawner -->  "-pointQueue" Point
 Board -->  "-cornerPoints" Point
 StandardWinChecker -->  "-pointQueue" Point
+MessageInterpreter -->  "-handler" MessageHandler
+CornMessage -->  "-server" Server
+GameScene -->  "-movhandler" StandardMoveHandler
 StandardMoveHandler -->  "-visitedPoints" Point
-YconMessage -->  "-c" Client
 Message -->  "-sender" Player
-BmovMessage -->  "-client" Client
+PawnsSpawnerFactory -->  "-b" Board
 MessageInterpreter -->  "-game" Game
 StandardPawnsSpawner -->  "-pointQueue" Point
 PseudoMoveHandler -->  "-board" Board
+GameScene -->  "-thisref" GameScene
 Game -->  "-board" Board
+Message -->  "-handler" MessageHandler
+GameScene -->  "-board" Board
 ServerPlayer -->  "-thisref" ServerPlayer
-YmovMessage -->  "-client" Client
 MoveMessage -->  "-server" Server
 Point -->  "-pos" Pair
 Player -->  "-pawns" Pawn
@@ -325,21 +510,31 @@ Point -->  "-neighbours1" Point
 Server -->  "-game" Game
 BoardBuilder -->  "-board" Board
 ServerPlayer -->  "-server" Server
-BegMessage -->  "-cli" Client
+GameScene -->  "-selectedPoints" FXPoint
 MoveMessage -->  "-game" Game
-Client -->  "-interpreter" MessageInterpreter
+ClientFX -->  "-gs" GameScene
 Server -->  "-interpreter" MessageInterpreter
+SelectScene -->  "-parent" ClientFX
+ClientFX -->  "-js" JoinScene
+ClientFX -->  "-ls" LobbyScene
+FXBoard --|> Board 
+FXBoardBuilder --|> BoardBuilder 
+ClientFX ..|> MessageHandler 
 BegMessage --|> Message 
 BmovMessage --|> Message 
 ConnMessage --|> Message 
+CornMessage --|> Message 
 EndMessage --|> Message 
 HupMessage --|> Message 
 MoveMessage --|> Message 
+StdoutMessageHandler ..|> MessageHandler 
 YconMessage --|> Message 
 YmovMessage --|> Message 
 PseudoMoveHandler ..|> MoveHandler 
 StandardMoveHandler ..|> MoveHandler 
+ChaosPawnsSpawner ..|> PawnsSpawner 
 StandardPawnsSpawner ..|> PawnsSpawner 
 ServerPlayer --|> Player 
+FXPoint --|> Point 
 StandardWinChecker ..|> WinChecker 
 @enduml
