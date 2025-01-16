@@ -98,19 +98,20 @@ public class BotPlayer extends ServerPlayer {
 			boolean enterfinish = p1f && !p0f;
 			if(p1f && d1 > d2) d = 999999;
 			d += p0f ? 1 : 0;
+			d -= p0f && (d1 < d2) ? 1 : 0;
 			d -= enterfinish ? 1 : 0;
-			if(history.contains(p.p0.pawn) && !enterfinish) continue;
+			d -= Math.abs(startCorner.pos.x - p.p0.pos.x) + Math.abs(startCorner.pos.y - p.p0.pos.y) < 4 ? 1 : 0;
 			if(d < dist) {
 				dist = d;
 				min = p;
 			}
 		}
 		if(min == null) {
-			history.poll();
+			//history.poll();
 			return decodeMove(yourpoints.get(0), yourpoints.get(0)); //stand
 		} else {
-			if(history.size() >= 2) history.poll();
-			history.add(min.p0.pawn);
+			//if(history.size() >= 3) history.poll();
+			//history.add(min.p0.pawn);
 			return decodeMove(min.p0, min.p1);
 		}
 	}
