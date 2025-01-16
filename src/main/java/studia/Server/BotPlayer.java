@@ -92,7 +92,6 @@ public class BotPlayer extends ServerPlayer {
 		return false;
 	}
 
-	int movs = 0;
 	private Move bestMove() {
 		List<Point> yourpoints = new ArrayList<Point>();
 		for (Map.Entry<Integer, Point> entry : board.validPointsMap.entrySet())
@@ -120,7 +119,6 @@ public class BotPlayer extends ServerPlayer {
 				min = p;
 			}
 		}
-		System.out.printf("%d\n", movs++);
 		if(min == null) {
 			history.poll();
 			return decodeMove(yourpoints.get(0), yourpoints.get(0)); //stand
