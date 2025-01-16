@@ -20,6 +20,7 @@ public class Server {
 	private int PORT;
 	private int nplayers;
 	private int variant;
+	private int bots;
 	private Player[] connected;
 	private int nconnected;
 	private ServerSocket serverSocket;
@@ -37,9 +38,10 @@ public class Server {
 	 * @param variant variant number
 	 * @see studia.Utils.Variant
 	 */
-	public Server(int port, int players, int variant) throws IOException {
+	public Server(int port, int players, int variant, int bots) throws IOException {
 		PORT = port;
 		this.variant = variant;
+		this.bots = bots;
 		if(players != 2 && players != 3 && players != 4 && players != 6)
 			throw new IllegalArgumentException("Invalid players number!");
 		
@@ -49,7 +51,11 @@ public class Server {
 		
 		interpreter = new MessageInterpreter(this);
 		
-		for(int i=0;i<nplayers;i++)
+		for(int i=0;i<bots;i++)
+			connected[i] = new BotPlayer(this, i);
+		nconnected = bots;
+		
+		for(int i=bots;i<nplayers;i++)
 			connected[i] = new ServerPlayer(this, i);
 		
 		serverSocket = new ServerSocket(PORT);
@@ -70,14 +76,16 @@ public class Server {
 	/** Waits for player to connect, if last player connects starts the game */
 	public void waitForConnection() {
 		try {
-			System.out.printf("Waiting for players (%d/%d)\n", nconnected + 1, nplayers);
-			Socket s = serverSocket.accept();
-			
-			sendToAll(Message.MSG_CONN, nconnected, nplayers);
+			if(nconnected < nplayers) {
+				System.out.printf("Waiting for players (%d/%d)\n", nconnected + 1, nplayers);
+				Socket s = serverSocket.accept();
 				
-			((ServerPlayer)connected[nconnected++]).setSocket(s);
-			System.out.printf("Player connected (%d/%d)\n", nconnected, nplayers);
-			((ServerPlayer)connected[nconnected - 1]).writeMessage(Message.MSG_YCON, nconnected, nplayers, variant);
+				sendToAll(Message.MSG_CONN, nconnected, nplayers);
+					
+				((ServerPlayer)connected[nconnected++]).setSocket(s);
+				System.out.printf("Player connected (%d/%d)\n", nconnected, nplayers);
+				((ServerPlayer)connected[nconnected - 1]).writeMessage(Message.MSG_YCON, nconnected, nplayers, variant);
+			}
 			if(nconnected < nplayers) waitForConnection();
 			else {
 				if(variant != 2) startGame();
@@ -114,6 +122,12 @@ public class Server {
 		
 		game = new Game(connected, randomplayer, boardBuilder.getBoard());
 		interpreter.setGame(game);
+		
+		for(int i=0;i<bots;i++) {
+			((BotPlayer)connected[i]).setBoard(boardBuilder.getBoard());
+			((BotPlayer)connected[i]).setGame(game);
+		}
+		
 		sendToAll(Message.MSG_BEG, randomplayer, variant, moredata);
 		((ServerPlayer)game.getCurrentPlayer()).writeMessage(Message.MSG_YMOV);
 		return game;

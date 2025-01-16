@@ -9,7 +9,7 @@ import studia.Common.Message;
  * Player class that sends and receives messages
  */
 public class ServerPlayer extends Player {
-	private Server server;
+	protected Server server;
 	private Thread Receiver;
 	private boolean receiver_run = true;
 	

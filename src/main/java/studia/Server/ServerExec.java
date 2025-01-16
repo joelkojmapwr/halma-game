@@ -7,10 +7,10 @@ import java.io.*;
  */
 public class ServerExec {
   public static void main(String[] args) {
-		int PORT, nplayers, variant;
+		int PORT, nplayers, variant, bots = 0;
 		
 		if(args.length < 3) {
-			System.out.println("PORT #players variant");
+			System.out.println("PORT #players variant bots");
 			return;
 		}
 		
@@ -18,6 +18,7 @@ public class ServerExec {
 			PORT = Integer.parseInt(args[0]);
 			nplayers = Integer.parseInt(args[1]);
 			variant = Integer.parseInt(args[2]);
+			if(args.length > 3) bots = Integer.parseInt(args[3]);
 		} catch (Exception e) {
 			System.out.println("Invalid arguments");
 			return;
@@ -33,8 +34,13 @@ public class ServerExec {
 			return;
 		}
 		
+		if(nplayers < bots) {
+			System.out.println("More bots than players");
+			return;
+		}
+		
 		try {
-			Server s = new Server(PORT, nplayers, variant);
+			Server s = new Server(PORT, nplayers, variant, bots);
 		} catch(IllegalArgumentException ex) {
 			System.out.println("Invalid players number");
 			return;

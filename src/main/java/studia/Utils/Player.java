@@ -12,8 +12,8 @@ public class Player {
     public int countPawns = 0;
     public List<Point> finishPoints = new ArrayList<Point>();
     
-    private int color;
-    private List<Pawn> pawns = new ArrayList<Pawn>();
+    protected int color;
+    protected List<Pawn> pawns = new ArrayList<Pawn>();
 
     public Player(int color) {
         countPawns = 0;

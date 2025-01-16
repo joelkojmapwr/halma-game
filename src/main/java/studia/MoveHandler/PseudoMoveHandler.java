@@ -3,6 +3,7 @@ package studia.MoveHandler;
 import studia.Board.Board;
 import studia.Utils.Player;
 import studia.Utils.Point;
+import java.util.List;
 
 /**
  * PseudoMoveHandler is a class that is used only to simulate moves on the board without any validation to test the board
@@ -21,4 +22,7 @@ public class PseudoMoveHandler implements MoveHandler {
         return true;
     }
     
+    public List<Point> getAvailableMoves(Player plr, Point from) {
+			return null;
+		}
 }
