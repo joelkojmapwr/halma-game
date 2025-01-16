@@ -91,7 +91,8 @@ public class BotPlayer extends ServerPlayer {
 		}
 		return false;
 	}
-	int mov = 0;
+
+	int movs = 0;
 	private Move bestMove() {
 		List<Point> yourpoints = new ArrayList<Point>();
 		for (Map.Entry<Integer, Point> entry : board.validPointsMap.entrySet())
@@ -112,13 +113,14 @@ public class BotPlayer extends ServerPlayer {
 			int d = (d1 - d2);
 			boolean p0f = finishPoints.contains(p.p0), p1f = finishPoints.contains(p.p1);
 			if(p1f && leavingFinish(p)) d = 999999;
-			d += p1f ? 0.5 : 0.0;
-			d -= p1f && !p0f ? 1.0 : 0.0;
+			d += p0f ? 1 : 0;
+			d -= p1f && !p0f ? 1 : 0;
 			if(d < dist) {
 				dist = d;
 				min = p;
 			}
 		}
+		System.out.printf("%d\n", movs++);
 		if(min == null) {
 			history.poll();
 			return decodeMove(yourpoints.get(0), yourpoints.get(0)); //stand
