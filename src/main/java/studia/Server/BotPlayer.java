@@ -77,21 +77,6 @@ public class BotPlayer extends ServerPlayer {
 		return new Move(oldPos, newPos);
 	}
 
-	private boolean leavingFinish(PointPair p) {
-		int index = board.cornerPoints.indexOf(startCorner);
-		switch(index) {
-			case 0: return p.p0.pos.y > p.p1.pos.y;
-			case 1:
-			case 2:
-				return p.p0.pos.x < p.p1.pos.x;
-			case 3: return p.p0.pos.y < p.p1.pos.y;
-			case 4:
-			case 5:
-				return p.p0.pos.x > p.p1.pos.x;
-		}
-		return false;
-	}
-
 	private Move bestMove() {
 		List<Point> yourpoints = new ArrayList<Point>();
 		for (Map.Entry<Integer, Point> entry : board.validPointsMap.entrySet())
@@ -111,7 +96,7 @@ public class BotPlayer extends ServerPlayer {
 			int d2 = distmap.get(p.p0);
 			int d = (d1 - d2);
 			boolean p0f = finishPoints.contains(p.p0), p1f = finishPoints.contains(p.p1);
-			if(p1f && leavingFinish(p)) d = 999999;
+			if(p1f && d1 > d2) d = 999999;
 			d += p0f ? 1 : 0;
 			d -= p1f && !p0f ? 1 : 0;
 			if(d < dist) {
