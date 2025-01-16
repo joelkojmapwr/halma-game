@@ -91,14 +91,15 @@ public class BotPlayer extends ServerPlayer {
 		int dist = 999999;
 		PointPair min = null;
 		for(PointPair p: allmoves) {
-			if(history.contains(p.p0.pawn)) continue;
 			int d1 = distmap.get(p.p1);
 			int d2 = distmap.get(p.p0);
 			int d = (d1 - d2);
 			boolean p0f = finishPoints.contains(p.p0), p1f = finishPoints.contains(p.p1);
+			boolean enterfinish = p1f && !p0f;
 			if(p1f && d1 > d2) d = 999999;
 			d += p0f ? 1 : 0;
-			d -= p1f && !p0f ? 1 : 0;
+			d -= enterfinish ? 1 : 0;
+			if(history.contains(p.p0.pawn) && !enterfinish) continue;
 			if(d < dist) {
 				dist = d;
 				min = p;
