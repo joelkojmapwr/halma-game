@@ -5,10 +5,14 @@ import java.net.*;
 import java.util.Date;
 
 import studia.Common.MessageInterpreter;
+import studia.DAO.GameJDBCTemplate;
 import studia.Common.Message;
 import studia.Utils.Player;
 import studia.Common.Game;
 import java.util.Random;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import studia.Utils.Variant;
 
@@ -24,6 +28,9 @@ public class Server {
 	private Player[] connected;
 	private int nconnected;
 	private ServerSocket serverSocket;
+	
+	private GameJDBCTemplate gameJDBCTemplate;
+	private ApplicationContext context;
 	
 	private Game game;
 	
@@ -59,6 +66,9 @@ public class Server {
 			connected[i] = new ServerPlayer(this, i);
 		
 		serverSocket = new ServerSocket(PORT);
+		
+		context = new ClassPathXmlApplicationContext("Beans.xml");
+		gameJDBCTemplate = (GameJDBCTemplate) context.getBean("gameJDBCTemplate");
 		
 		waitForConnection();
 	}
@@ -127,7 +137,8 @@ public class Server {
 			((BotPlayer)connected[i]).setBoard(boardBuilder.getBoard());
 			((BotPlayer)connected[i]).setGame(game);
 		}
-		
+		// save new game to database
+		gameJDBCTemplate.create(variant, bots, nplayers, randomplayer);	
 		sendToAll(Message.MSG_BEG, randomplayer, variant, moredata);
 		((ServerPlayer)game.getCurrentPlayer()).writeMessage(Message.MSG_YMOV);
 		return game;
