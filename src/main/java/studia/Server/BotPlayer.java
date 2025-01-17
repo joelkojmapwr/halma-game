@@ -77,21 +77,6 @@ public class BotPlayer extends ServerPlayer {
 		return new Move(oldPos, newPos);
 	}
 
-	private boolean leavingFinish(PointPair p) {
-		int index = board.cornerPoints.indexOf(startCorner);
-		switch(index) {
-			case 0: return p.p0.pos.y > p.p1.pos.y;
-			case 1:
-			case 2:
-				return p.p0.pos.x < p.p1.pos.x;
-			case 3: return p.p0.pos.y < p.p1.pos.y;
-			case 4:
-			case 5:
-				return p.p0.pos.x > p.p1.pos.x;
-		}
-		return false;
-	}
-	int mov = 0;
 	private Move bestMove() {
 		List<Point> yourpoints = new ArrayList<Point>();
 		for (Map.Entry<Integer, Point> entry : board.validPointsMap.entrySet())
@@ -106,25 +91,27 @@ public class BotPlayer extends ServerPlayer {
 		int dist = 999999;
 		PointPair min = null;
 		for(PointPair p: allmoves) {
-			if(history.contains(p.p0.pawn)) continue;
 			int d1 = distmap.get(p.p1);
 			int d2 = distmap.get(p.p0);
 			int d = (d1 - d2);
 			boolean p0f = finishPoints.contains(p.p0), p1f = finishPoints.contains(p.p1);
-			if(p1f && leavingFinish(p)) d = 999999;
-			d += p1f ? 0.5 : 0.0;
-			d -= p1f && !p0f ? 1.0 : 0.0;
+			boolean enterfinish = p1f && !p0f;
+			if(p1f && d1 > d2) d = 999999;
+			d += p0f ? 1 : 0;
+			d -= p0f && (d1 < d2) ? 1 : 0;
+			d -= enterfinish ? 1 : 0;
+			d -= Math.abs(startCorner.pos.x - p.p0.pos.x) + Math.abs(startCorner.pos.y - p.p0.pos.y) < 4 ? 1 : 0;
 			if(d < dist) {
 				dist = d;
 				min = p;
 			}
 		}
 		if(min == null) {
-			history.poll();
+			//history.poll();
 			return decodeMove(yourpoints.get(0), yourpoints.get(0)); //stand
 		} else {
-			if(history.size() >= 2) history.poll();
-			history.add(min.p0.pawn);
+			//if(history.size() >= 3) history.poll();
+			//history.add(min.p0.pawn);
 			return decodeMove(min.p0, min.p1);
 		}
 	}
