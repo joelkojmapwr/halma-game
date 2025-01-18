@@ -17,8 +17,10 @@ public class CommandExecutor extends Thread {
 		while(true) {
 			try {
 				Message m = queue.take();
+
+                System.out.println("Messages in queue" + queue.size());
 				m.execute();
-                Thread.sleep(200);
+                Thread.sleep(600);
 			} catch(Exception e) {
                 e.printStackTrace();
 				break;
