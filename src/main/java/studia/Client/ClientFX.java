@@ -62,6 +62,7 @@ public class ClientFX extends Application implements MessageHandler {
 
 			client.setCommandQueue(queue);
 			CommandExecutor ce = new CommandExecutor(queue);
+			ce.setClient(client);
 			client.setCommandExecutor(ce);
 			ce.start();
 
