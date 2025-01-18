@@ -26,13 +26,11 @@ public class DAOServer extends Server {
         this.gameID = gameID;
         context = new ClassPathXmlApplicationContext("Beans.xml");
 		gameJDBCTemplate = (GameJDBCTemplate) context.getBean("GameJDBCTemplate");
-        System.out.println("Hello from DAOServer constructor");
     }
 
 
     @Override
     public Game startGame() {
-        System.out.println("Hello from DAOServer startGame");
 		Random rand = new Random();
 		int randomplayer = rand.nextInt(connected.length);
 		

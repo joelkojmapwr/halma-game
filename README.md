@@ -19,3 +19,13 @@ Zanim odpalimy serwer musimy zapisać do zmiennych środowiskowych username i ha
 export HALMA_USERNAME=
 export HALMA_PASSWORD=
 ```
+
+Argumenty dla uruchomiania servera to:
+java -jar target/halma-game-server.jar port liczba_graczy id_wariantu 
+opcjonalnie jeszcze:
+- liczba_botów
+- id gry jeśli chcemy kontynuować grę zapisaną w bazie danych
+
+### Wzorce
+Zastosowaliśmy wzorzec observer do obserwoawania ruchów i wrzucania ich do bazy danych
+Wzorzec Command do kolejkowania wiadomości z serwera, bo przy szybkim przesyłaniu ruchów przy odczycie z bazy danych niektóre dane były utracane.

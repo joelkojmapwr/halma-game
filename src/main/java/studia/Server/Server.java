@@ -39,7 +39,6 @@ public class Server {
 	 * @see studia.Utils.Variant
 	 */
 	public Server(int port, int players, int variant, int bots) throws IOException {
-		System.out.println("Hello from Server constructor");
 		PORT = port;
 		this.variant = variant;
 		this.bots = bots;

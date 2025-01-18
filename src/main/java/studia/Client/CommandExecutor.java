@@ -24,7 +24,7 @@ public class CommandExecutor extends Thread {
 			try {
 				Message m = queue.take();
 
-                System.out.println("Messages in queue" + queue.size());
+                //System.out.println("Messages in queue" + queue.size());
                 // needs to check if client thread is not busy and message can be executed
                 synchronized(client) {
 				    m.execute();
