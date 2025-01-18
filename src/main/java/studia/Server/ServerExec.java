@@ -1,5 +1,6 @@
 package studia.Server;
 
+
 import java.io.*;
 
 /**
@@ -7,7 +8,7 @@ import java.io.*;
  */
 public class ServerExec {
   public static void main(String[] args) {
-		int PORT, nplayers, variant, bots = 0;
+		int PORT, nplayers, variant, bots = 0, gameId = -1;
 		
 		if(args.length < 3) {
 			System.out.println("PORT #players variant bots");
@@ -19,6 +20,9 @@ public class ServerExec {
 			nplayers = Integer.parseInt(args[1]);
 			variant = Integer.parseInt(args[2]);
 			if(args.length > 3) bots = Integer.parseInt(args[3]);
+			if(args.length > 4) {
+				gameId = Integer.parseInt(args[4]);
+			}
 		} catch (Exception e) {
 			System.out.println("Invalid arguments");
 			return;
@@ -40,7 +44,8 @@ public class ServerExec {
 		}
 		
 		try {
-			Server s = new Server(PORT, nplayers, variant, bots);
+			DAOServer s = new DAOServer(PORT, nplayers, variant, bots, gameId);
+			s.waitForConnection();
 		} catch(IllegalArgumentException ex) {
 			System.out.println("Invalid players number");
 			return;

@@ -5,14 +5,10 @@ import java.net.*;
 import java.util.Date;
 
 import studia.Common.MessageInterpreter;
-import studia.DAO.GameJDBCTemplate;
 import studia.Common.Message;
 import studia.Utils.Player;
 import studia.Common.Game;
 import java.util.Random;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import studia.Utils.Variant;
 
@@ -21,23 +17,20 @@ import studia.Board.BoardBuilder;
 /**
  * Server class, it lets client to connect and play Trylma */
 public class Server {
-	private int PORT;
-	private int nplayers;
-	private int variant;
-	private int bots;
-	private Player[] connected;
-	private int nconnected;
-	private ServerSocket serverSocket;
+	protected int PORT;
+	protected int nplayers;
+	protected int variant;
+	protected int bots;
+	protected Player[] connected;
+	protected int nconnected;
+	protected ServerSocket serverSocket;
 	
-	private GameJDBCTemplate gameJDBCTemplate;
-	private ApplicationContext context;
-	
-	private Game game;
+	protected Game game;
 	
 	
-	private MessageInterpreter interpreter;
+	protected MessageInterpreter interpreter;
 	
-	private int[] startCorner = {-1, -1};
+	protected int[] startCorner = {-1, -1};
 	
 	
 	/**
@@ -46,6 +39,7 @@ public class Server {
 	 * @see studia.Utils.Variant
 	 */
 	public Server(int port, int players, int variant, int bots) throws IOException {
+		System.out.println("Hello from Server constructor");
 		PORT = port;
 		this.variant = variant;
 		this.bots = bots;
@@ -67,10 +61,6 @@ public class Server {
 		
 		serverSocket = new ServerSocket(PORT);
 		
-		context = new ClassPathXmlApplicationContext("Beans.xml");
-		gameJDBCTemplate = (GameJDBCTemplate) context.getBean("gameJDBCTemplate");
-		
-		waitForConnection();
 	}
 	
 	/** Returns number of players */
@@ -137,8 +127,7 @@ public class Server {
 			((BotPlayer)connected[i]).setBoard(boardBuilder.getBoard());
 			((BotPlayer)connected[i]).setGame(game);
 		}
-		// save new game to database
-		gameJDBCTemplate.create(variant, bots, nplayers, randomplayer);	
+		
 		sendToAll(Message.MSG_BEG, randomplayer, variant, moredata);
 		((ServerPlayer)game.getCurrentPlayer()).writeMessage(Message.MSG_YMOV);
 		return game;

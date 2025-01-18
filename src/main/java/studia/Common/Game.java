@@ -14,12 +14,12 @@ import studia.Utils.Color;
 
 /** This class is interface between client/server and game board and logic */
 public class Game {
-	private Player[] players;
-	private int curplr, winner = -1;
+	protected Player[] players;
+	protected int curplr, winner = -1;
         
-	private Board board;
-	private MoveHandler moveHandler;
-	private WinChecker winChecker;
+	protected Board board;
+	protected MoveHandler moveHandler;
+	protected WinChecker winChecker;
         
 	
 	public Game(Player[] players, int current, Board board) {

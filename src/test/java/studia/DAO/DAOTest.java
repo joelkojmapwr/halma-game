@@ -88,4 +88,5 @@ public class DAOTest {
         assertTrue(move1.equals(moves.get(0)));
         assertTrue(move2.equals(moves.get(1)));
     }
+
 }

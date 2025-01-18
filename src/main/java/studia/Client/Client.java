@@ -2,6 +2,7 @@ package studia.Client;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.BlockingQueue;
 
 import studia.Common.Message;
 import studia.Common.MessageInterpreter;
@@ -34,6 +35,9 @@ public class Client extends Thread {
 	MessageInterpreter interpreter;
 	
 	MessageHandler handler = new StdoutMessageHandler();
+
+	protected BlockingQueue<Message> queue;
+	protected CommandExecutor executor;
 	
 	/**
 	* @param host server address
@@ -44,6 +48,13 @@ public class Client extends Thread {
 		inStream = new DataInputStream(socket.getInputStream());
 		outStream = new DataOutputStream(socket.getOutputStream());
 		interpreter = new MessageInterpreter(this);
+	}
+
+	public void setCommandExecutor(CommandExecutor executor) {
+		this.executor = executor;
+	}
+	public void setCommandQueue(BlockingQueue<Message> queue) {
+		this.queue = queue;
 	}
 	
 	/**
@@ -101,10 +112,12 @@ public class Client extends Thread {
 			try {
 				Message m = interpreter.interpret(inStream);
 				m.setHandler(handler);
-				m.execute();
+				queue.put(m);
 			} catch(IOException e) {
 				broken = true;
 				break;
+			} catch(InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}

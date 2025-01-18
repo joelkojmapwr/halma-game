@@ -10,3 +10,12 @@ Gotowy projekt jest w defaultowym branchu nolocal
 6. W grze w swoim ruchu podajemy dwa argumenty
    1. Numer pola na którym stoi pionek który chcemy przesunąć
    2. Numer pola na który chcemy przesunąć pionek z argumentu pierwszego
+
+
+# Iteracja 3 - bot + zapisywanie i odczytywanie gry z bazy danych
+Zanim odpalimy serwer musimy zapisać do zmiennych środowiskowych username i hasło do logowania do bazy danych komendami
+
+```bash
+export HALMA_USERNAME=
+export HALMA_PASSWORD=
+```

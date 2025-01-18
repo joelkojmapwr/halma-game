@@ -6,9 +6,11 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javafx.application.Platform;
-
+import studia.Common.Message;
 import studia.Common.MessageHandler;
 import studia.Board.Board;
 import studia.Common.Move;
@@ -53,10 +55,18 @@ public class ClientFX extends Application implements MessageHandler {
      * @param port server port
      */
     public void tryConnect(String host, int port) throws EOFException, IOException {
-				client = new Client(host, port);
-				client.setHandler(this);
-				client.setUI();
-				client.start();
+		BlockingQueue<Message> queue = new LinkedBlockingQueue<Message>();
+			client = new Client(host, port);
+			client.setHandler(this);
+			client.setUI();
+
+			client.setCommandQueue(queue);
+			CommandExecutor ce = new CommandExecutor(queue);
+			client.setCommandExecutor(ce);
+			ce.start();
+
+			client.start();
+			System.out.println("Client started");
 		}
 		
 		/** @see studia.Common.MessageHandler */

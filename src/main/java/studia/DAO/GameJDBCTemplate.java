@@ -30,6 +30,8 @@ public class GameJDBCTemplate implements GameDAO {
         }
     }
 
+
+
     public void create(int variant, int botsNumber, int playersNumber, int startingPlayer){
         String SQL = "insert into games (variant, bots_number, players_number, starting_player) values (?, ?, ?, ?)";
         jdbcTemplateObject.update(SQL, variant, botsNumber, playersNumber, startingPlayer);
