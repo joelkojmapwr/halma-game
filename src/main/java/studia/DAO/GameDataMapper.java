@@ -11,6 +11,7 @@ public class GameDataMapper implements RowMapper<GameData> {
         gameData.setBotsNumber(rs.getInt("bots_number"));
         gameData.setPlayersNumber(rs.getInt("players_number"));
         gameData.setStartingPlayer(rs.getInt("starting_player"));
+        gameData.setMoreData(rs.getInt("moreData"));
         return gameData;
     }
 }

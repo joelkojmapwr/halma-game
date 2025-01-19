@@ -5,6 +5,7 @@ public class GameData {
     private int botsNumber;
     private int playersNumber;
     private int startingPlayer;
+    private int moreData;
 
     public int getVariant() {
         return variant;
@@ -35,5 +36,12 @@ public class GameData {
 
     public void setStartingPlayer(int startingPlayer) {
         this.startingPlayer = startingPlayer;
+    }
+    public int getMoreData() {
+        return moreData;
+    }
+
+    public void setMoreData(int moreData) {
+        this.moreData = moreData;
     }
 }

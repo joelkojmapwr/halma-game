@@ -10,6 +10,7 @@ import studia.Board.BoardBuilder;
 import studia.Common.DAOGame;
 import studia.Common.Game;
 import studia.Common.Message;
+import studia.DAO.GameData;
 import studia.DAO.GameJDBCTemplate;
 import studia.DAO.GameReplayer;
 import studia.Observer.GameDAOObserver;
@@ -32,17 +33,34 @@ public class DAOServer extends Server {
     @Override
     public Game startGame() {
 		Random rand = new Random();
-		int randomplayer = rand.nextInt(connected.length);
+		int startingPlayer = rand.nextInt(connected.length);
+        int moredata = 0;
 		
 		BoardBuilder boardBuilder = new BoardBuilder(4, connected, 10);
-		int moredata = 0;
+
+        GameData gameData = new GameData();
+        if (gameID != -1) {
+            gameJDBCTemplate.setGameID(gameID);
+            gameData = gameJDBCTemplate.getGameData();
+            variant = gameData.getVariant();
+            bots = gameData.getBotsNumber();
+            nplayers = gameData.getPlayersNumber();
+            startingPlayer = gameData.getStartingPlayer();
+            moredata = gameData.getMoreData();
+        }
+        else {
+            if(variant == Variant.CHAOS) {
+                moredata = rand.nextInt();
+            } else if (variant == Variant.YINYAN) {
+                moredata = (startCorner[0] & 0xff) | ((startCorner[1] & 0xff) << 8);
+            }
+        }
+		
 		boardBuilder.setVariant(variant);
 		
 		if(variant == Variant.CHAOS) {
-			moredata = rand.nextInt();
 			boardBuilder.setSeed(moredata);
 		} else if(variant == Variant.YINYAN) {
-			moredata = (startCorner[0] & 0xff) | ((startCorner[1] & 0xff) << 8);
 			boardBuilder.setYinCorners(moredata);
 		}
 		
@@ -50,7 +68,7 @@ public class DAOServer extends Server {
 		
 		studia.Utils.Color.YinYan = variant == Variant.YINYAN;
 		
-		game = new DAOGame(connected, randomplayer, boardBuilder.getBoard());
+		game = new DAOGame(connected, startingPlayer, boardBuilder.getBoard());
 		interpreter.setGame(game);
 		
 		for(int i=0;i<bots;i++) {
@@ -58,7 +76,7 @@ public class DAOServer extends Server {
 			((BotPlayer)connected[i]).setGame(game);
 		}
 		
-		sendToAll(Message.MSG_BEG, randomplayer, variant, moredata);
+		sendToAll(Message.MSG_BEG, startingPlayer, variant, moredata);
 
 
         /**
@@ -74,7 +92,12 @@ public class DAOServer extends Server {
          */
         else {
             // this is a new game so create a new record and new gameid in the database
-            gameJDBCTemplate.create(variant, bots, nplayers, randomplayer);
+            if (variant == Variant.CHAOS || variant == Variant.YINYAN) {
+                gameJDBCTemplate.create(variant, bots, nplayers, startingPlayer, moredata);
+            }
+            else {
+                gameJDBCTemplate.create(variant, bots, nplayers, startingPlayer);
+            }
             gameJDBCTemplate.setGameID();
             gameID = gameJDBCTemplate.getGameID();
         }

@@ -5,6 +5,7 @@ CREATE OR REPLACE TABLE games (
     bots_number INT,
     players_number INT,
     starting_player INT,
+    moreData INT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
