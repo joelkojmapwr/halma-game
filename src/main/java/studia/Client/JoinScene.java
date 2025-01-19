@@ -1,14 +1,9 @@
 package studia.Client;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
-
-import java.io.*;
-import java.net.*;
 
 /**
  * Scene shown after starting client, server address and port are passed here and client is connected to server

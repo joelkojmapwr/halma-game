@@ -2,7 +2,6 @@ package studia.Common;
 
 import studia.Board.Board;
 import studia.Utils.Color;
-import studia.Common.Move;
 
 import java.util.Scanner;
 import java.util.InputMismatchException;

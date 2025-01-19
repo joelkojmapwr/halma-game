@@ -1,13 +1,12 @@
 package studia.Common;
 
-import studia.Common.Move;
+
 import studia.Utils.Player;
 
 import studia.MoveHandler.MoveHandler;
 import studia.MoveHandler.StandardMoveHandler;
 import studia.winChecker.WinChecker;
 import studia.winChecker.StandardWinChecker;
-import studia.Board.BoardBuilder;
 import studia.Board.Board;
 
 import studia.Utils.Color;

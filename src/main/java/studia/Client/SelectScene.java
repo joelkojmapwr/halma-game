@@ -1,17 +1,12 @@
 package studia.Client;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 
 import javafx.scene.shape.Polygon;
 import javafx.scene.Group;
 
-import java.io.*;
-import java.net.*;
 
 /** In YinYan variant users select starting corner in this scene*/
 public class SelectScene {

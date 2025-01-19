@@ -1,13 +1,10 @@
 package studia.Board;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import studia.Utils.Pair;
 import studia.Utils.Player;
 import studia.Utils.Point;
 import studia.Utils.Variant;
-import studia.PawnsSpawner.StandardPawnsSpawner;
 import studia.PawnsSpawner.PawnsSpawner;
 import studia.PawnsSpawner.PawnsSpawnerFactory;
 

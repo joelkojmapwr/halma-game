@@ -2,9 +2,7 @@ package studia.Server;
 
 import studia.Utils.Player;
 import studia.Utils.Point;
-import studia.Utils.Pair;
 import studia.Utils.Pawn;
-import java.io.*;
 import java.net.*;
 import studia.Common.Message;
 import studia.Common.MoveMessage;

@@ -1,11 +1,8 @@
 package studia.Client;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.net.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 

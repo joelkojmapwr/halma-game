@@ -1,6 +1,5 @@
 package studia.Common;
 
-import studia.Utils.Color;
 /**
  * @see studia.Common.Message
  */

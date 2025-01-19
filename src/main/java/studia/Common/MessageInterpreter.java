@@ -4,8 +4,6 @@ import java.io.*;
 
 import studia.Client.Client;
 import studia.Server.Server;
-import studia.Common.Game;
-import studia.Utils.Player;
 
 /** This class interprets data from socket and returns message classes
  * @see studia.Common.Message

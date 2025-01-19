@@ -1,9 +1,6 @@
 package studia.Common;
 
-import java.io.*;
 
-import studia.Client.Client;
-import studia.Common.Game;
 import studia.Utils.Player;
 
 public abstract class Message {

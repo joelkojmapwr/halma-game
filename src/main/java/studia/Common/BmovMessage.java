@@ -1,6 +1,5 @@
 package studia.Common;
 
-import studia.Server.ServerPlayer;
 import studia.Client.Client;
 
 /**

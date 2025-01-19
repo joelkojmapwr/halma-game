@@ -15,7 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
-import studia.DAO.MoveData;
+
 public class DAOTest {
 
     private ApplicationContext context;

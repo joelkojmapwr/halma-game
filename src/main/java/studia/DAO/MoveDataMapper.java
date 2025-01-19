@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import studia.Common.Move;
 
 public class MoveDataMapper implements RowMapper<MoveData> {
 

@@ -1,25 +1,11 @@
 package studia.Client;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
 
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-import java.io.*;
-import java.net.*;
 
 import studia.Board.Board;
 import studia.Board.GUIBoardBuilder;
@@ -32,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javafx.scene.shape.Circle;
-import javafx.application.Platform;
 
 import studia.MoveHandler.StandardMoveHandler;
 

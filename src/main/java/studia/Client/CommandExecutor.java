@@ -1,9 +1,7 @@
 package studia.Client;
 
-import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
-import javafx.application.Platform;
 import studia.Common.Message;
 
 public class CommandExecutor extends Thread {

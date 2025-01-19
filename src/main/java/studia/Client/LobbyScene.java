@@ -1,14 +1,7 @@
 package studia.Client;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-
-import java.io.*;
-import java.net.*;
 
 /** Scene that is being displayed when users are waiting for game to begin*/
 public class LobbyScene {

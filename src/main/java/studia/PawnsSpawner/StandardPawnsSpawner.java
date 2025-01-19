@@ -6,7 +6,6 @@ import studia.Utils.Player;
 import studia.Utils.Point;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class StandardPawnsSpawner implements PawnsSpawner {
 

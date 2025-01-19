@@ -3,7 +3,7 @@ package studia.MoveHandler;
 import studia.Board.Board;
 import studia.Utils.Player;
 import studia.Utils.Point;
-import studia.Utils.Pair;
+
 
 import java.util.List;
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package studia.Common;
 
-import studia.Utils.Color;
 import studia.Server.Server;
 import studia.Client.Client;
 import studia.Server.ServerPlayer;
